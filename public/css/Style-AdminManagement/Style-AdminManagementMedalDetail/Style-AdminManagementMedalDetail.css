@@ -1,0 +1,386 @@
+.Main__Content {
+    margin: 1vw 1vw 1vw 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 81vh;
+}
+
+.Main__Content .editContent {
+    position: relative;
+}
+
+.Main__Content .editContent .active {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content .editContent__icon {
+    position: absolute;
+    top: -0.8vw;
+    right: 0;
+    cursor: pointer;
+    font-size: 1.2vw;
+    color: rgb(155, 155, 155);
+}
+
+.Main__Content .editContent__Abstracts,
+.Main__Content .editContent__Criteria {
+    border: none;
+    background-color: transparent;
+    line-height: inherit;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    overflow: hidden;
+    height: auto;
+    outline: none;
+}
+
+.Main__Content .editContent__Abstracts {
+    font-size: 1vw;
+    width: 100%;
+}
+
+.Main__Content .editContent__Criteria {
+    font-size: 0.8vw;
+    color: rgb(94, 94, 94);
+    font-style: italic;
+    width: 30vw;
+    padding: 0.8vw 0 0.8vw 0;
+}
+
+.Main__Content .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content .Title h4 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--Description {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+    width: 54vw;
+}
+
+.Main__Content--Description .Info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 1vw 0 0 0;
+    padding: 1vw;
+}
+
+.Main__Content--Description .Info img {
+    width: 8vw;
+    border-radius: 8vw;
+    margin-right: 2vw;
+}
+
+.Main__Content--Description .Info__Content--Duration,
+.Main__Content--Description .Info__Content--UserObject {
+    font-size: 0.8vw;
+    margin: 0.2vw 0 0.2vw 0;
+}
+
+.Main__Content--Description .Info__Content--Duration i,
+.Main__Content--Description .Info__Content--UserObject i {
+    color: rgb(29, 171, 161);
+    margin-right: 0.2vw;
+}
+
+.Main__Content--Description .Info__Content--Duration span:nth-child(2),
+.Main__Content--Description .Info__Content--UserObject span:nth-child(2) {
+    font-weight: bold;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Description .Info>a {
+    position: absolute;
+    right: 1vw;
+}
+
+.Main__Content--Description .Info>a i {
+    margin-left: 0.6vw;
+}
+
+.Main__Content--Description .Abstracts {
+    padding: 1vw;
+}
+
+.Main__Content--Description .Abstracts p {
+    font-size: 1vw;
+    text-align: justify;
+    font-style: italic;
+    padding: 0.5vw;
+}
+
+.Main__Content--Registration {
+    height: auto;
+}
+
+.Main__Content--Registration .RegistrationForm {
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1vw;
+    padding: 1vw;
+}
+
+.Main__Content--Registration .RegistrationForm h4 {
+    font-style: italic;
+}
+
+.Main__Content--Registration .RegistrationForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 1vw;
+    border-radius: 0.4vw;
+    margin-bottom: 1vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .custom-checkbox+label {
+    font-weight: bold;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title {
+    display: flex;
+    align-items: center;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title span {
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    margin-left: 0.6vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 2.6vw;
+    height: 1.6vw;
+    cursor: pointer;
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard i {
+    margin-left: 0.2vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.6vw;
+    width: 1.6vw;
+    border-radius: 0.4vw;
+    border: 0.1vw solid rgb(155, 155, 155);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard:hover {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard:hover input~.checkmark {
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard input:checked~.checkmark {
+    background-color: rgb(29, 171, 161);
+    border: none;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard input:checked~.checkmark:after {
+    display: block;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items--Title .checkboxStandard .checkmark:after {
+    left: 0.6vw;
+    top: 0.3vw;
+    width: 0.3vw;
+    height: 0.6vw;
+    border: solid white;
+    border-width: 0 0.2vw 0.2vw 0;
+    transform: rotate(45deg);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria {
+    display: none;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Describe {
+    padding: 1vw;
+    font-size: 1vw;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 0.1vw dashed rgb(155, 155, 155);
+    margin: 1vw 0.5vw 1vw 0.5vw;
+    padding: 0.5vw;
+    position: relative;
+    min-height: 5vw;
+    border-radius: 0.6vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ClassifYoblige,
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ClassifOther {
+    position: absolute;
+    top: 0.2vw;
+    left: 0.4vw;
+    font-size: 0.8vw;
+    font-weight: bold;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ClassifYoblige {
+    color: rgb(240, 123, 63);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ClassifOther {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items p {
+    font-size: 0.8vw;
+    color: rgb(94, 94, 94);
+    font-style: italic;
+    width: 30vw;
+    padding: 0.8vw 0 0.8vw 0;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer {
+    position: relative;
+    height: 4vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea {
+    font-size: 0.8vw;
+    border: 0.1vw solid rgb(29, 171, 161);
+    height: 3.2vw;
+    border-radius: 0.4vw;
+    padding: 0.4vw 0.4vw 0.4vw 1.6vw;
+    resize: none;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea::-webkit-scrollbar-track {
+    background-color: rgba(250, 250, 250, 0.5568627451);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(-45deg, rgba(29, 171, 161, 0.6), rgba(29, 171, 161, 0.6));
+    border-radius: 0.5vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer i {
+    position: absolute;
+    font-size: 1vw;
+    color: rgb(29, 171, 161);
+    top: 0.4vw;
+    left: 0.4vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ImgProof {
+    right: 0.5vw;
+    top: 0.8vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ImgProof .ButtonOuter {
+    margin-top: 0.4vw;
+    width: 7vw;
+    height: 3.5vw;
+    border-radius: 0.6vw;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0.1vw dashed rgb(155, 155, 155);
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ImgProof .ButtonOuter input {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    top: -3vw;
+    opacity: 0;
+    transform: scale(2);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ImgProof .ButtonOuter i {
+    position: absolute;
+    color: rgb(155, 155, 155);
+    top: 0.6vw;
+    left: 2.6vw;
+    font-size: 1.5vw;
+}
+
+.Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .ImgProof .ButtonOuter span {
+    position: absolute;
+    font-size: 0.8vw;
+    font-style: italic;
+    left: 0.8vw;
+    top: 2vw;
+    color: rgb(155, 155, 155);
+}
+
+.Main__Content--Registration .RegistrationForm form #btn-RegistrationMedal {
+    margin: 2vw 0 0 0;
+}
+
+
+/*# sourceMappingURL=Style-AdminManagementMedalDetail.css.map */

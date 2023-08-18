@@ -1,0 +1,375 @@
+@charset "UTF-8";
+.Main__Content {
+    margin: 1vw 1vw 0 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    width: 89.5vw;
+}
+
+.Main__Content .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content .Title h4 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateCandidate form {
+    display: flex;
+    position: relative;
+}
+
+.Main__Content--CreateCandidate form .custom-Select {
+    margin-top: 1.55vw;
+}
+
+.Main__Content--CreateCandidate form #courseCandidate input {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input {
+    position: relative;
+    display: inline-block;
+    margin-right: 1vw;
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input p {
+    font-size: 1vw;
+    font-weight: bold;
+    margin-bottom: 0.2vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input span {
+    position: absolute;
+    left: 0;
+    top: 4vw;
+    font-size: 0.6vw;
+    color: rgb(29, 171, 161);
+    font-style: italic;
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input input {
+    padding: 0.3vw 0 0.3vw 2vw;
+    height: 1.4vw;
+    width: 11vw;
+    background: #ffffff;
+    border-radius: 0.3vw;
+    transition: 0.1s;
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input input::-moz-placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input input::placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input>i {
+    color: rgb(155, 155, 155);
+    transform: translate(-12.8vw, 0);
+    font-size: 0.8vw;
+}
+
+.Main__Content--CreateCandidate form .CreateCandidate-Input input[type=number]::-webkit-inner-spin-button,
+.Main__Content--CreateCandidate form .CreateCandidate-Input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Thay đổi màu nền nếu cần */
+    background-color: transparent;
+    /* Thay đổi kích thước nếu cần */
+    height: auto;
+    width: auto;
+    /* Ẩn icon tăng/giảm số */
+    display: none;
+}
+
+.Main__Content--CreateCandidate form #openPopup-ExcelTable {
+    position: absolute;
+    top: 1.5vw;
+    right: 10vw;
+}
+
+.Main__Content--CreateCandidate form #openPopup-ExcelTable i {
+    margin-right: 0.2vw;
+}
+
+.Main__Content--CreateCandidate form input[type=submit] {
+    position: absolute;
+    right: 0;
+    top: 1.5vw;
+}
+
+.Main__Content--CreateCandidate,
+.Main__Content--ListRegkMedal,
+.Main__Content--RegkMedalDetail {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.Main__Content--ListRegkMedal {
+    margin-top: 1vw;
+    position: relative;
+}
+
+.Main__Content--ListRegkMedal .custom-Filter {
+    position: absolute;
+    top: 1.6vw;
+    left: 16vw;
+}
+
+.Main__Content--ListRegkMedal .custom-Search {
+    position: absolute;
+    top: 1.6vw;
+    right: 2vw;
+}
+
+.Main__Content--ListRegkMedal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Main__Content--ListRegkMedal table #CandidateName {
+    width: 18vw;
+}
+
+.Main__Content--ListRegkMedal table #btn-BrowserMedal {
+    width: 6vw;
+}
+
+.Main__Content--ListRegkMedal table #MedalName {
+    width: 24vw;
+    /* Chiều rộng tối đa của phần tử */
+}
+
+.Main__Content--ListRegkMedal table #MedalName span {
+    width: 16vw;
+    /* Chiều rộng tối đa của phần tử */
+    display: block;
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow-x: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+}
+
+.Main__Content--ListRegkMedal table tr {
+    height: 3vw;
+    border-bottom: 0.1vw solid rgb(248, 249, 253);
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--ListRegkMedal table tr td {
+    text-align: center;
+    /* Canh giữa theo chiều ngang */
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile {
+    display: flex;
+    align-items: center;
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile img {
+    width: 2vw;
+    border-radius: 2vw;
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile span {
+    margin-left: 1vw;
+}
+
+.Main__Content--ListRegkMedal table tr td .Status {
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+    font-size: 0.6vw;
+    font-weight: bold;
+    height: 1.4vw;
+    border-radius: 1.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.4vw 0 0.4vw;
+    width: 6vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Main__Content--ListRegkMedal table tr td .Status span {
+    margin-left: 0.4vw;
+}
+
+.Main__Content--RegkMedalDetail {
+    margin-right: 1vw;
+}
+
+.Popup-ExcelTable {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    z-index: 1;
+}
+
+.Popup-ExcelTable>div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Popup-ExcelTable>div form {
+    height: 34vw;
+    width: 52vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1vw;
+    padding: 2vw 2vw 0 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.Popup-ExcelTable>div form h4 {
+    position: absolute;
+    top: 2vw;
+}
+
+.Popup-ExcelTable>div form>i {
+    position: absolute;
+    right: 2vw;
+    top: 1vw;
+    font-size: 2vw;
+    cursor: pointer;
+}
+
+.Popup-ExcelTable>div form button {
+    position: absolute;
+    bottom: 2vw;
+}
+
+.Popup-ExcelTable>div form .btn-excelFile {
+    width: 10vw;
+    background-color: rgb(29, 171, 161);
+    border-radius: 0.2vw;
+    height: 1.8vw;
+    color: rgb(255, 255, 255);
+    font-size: 0.8vw;
+    overflow: hidden;
+    position: absolute;
+    margin-top: 2vw;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    top: 1.5vw;
+}
+
+.Popup-ExcelTable>div form .btn-excelFile i {
+    margin-right: 0.4vw;
+}
+
+.Popup-ExcelTable>div form .btn-excelFile i,
+.Popup-ExcelTable>div form .btn-excelFile span {
+    pointer-events: none;
+}
+
+.Popup-ExcelTable>div form .btn-excelFile input {
+    position: absolute;
+    left: 0;
+    transform: scaleX(2);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container {
+    margin-bottom: 1vw;
+    height: 20vw;
+    overflow-y: auto;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container table {
+    border-collapse: collapse;
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container table tr:nth-child(1) {
+    border-radius: 0.4vw 0.4vw 0 0;
+    position: absolute;
+    background-color: rgb(18, 27, 42);
+    top: 6vw;
+    color: rgb(255, 255, 255);
+    padding: 0.4vw 0 0.4vw 0;
+    font-size: 1vw;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container table tr:nth-child(even) {
+    background-color: #e1dfef;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container table th,
+.Popup-ExcelTable>div form #ExcelTable-container table td {
+    width: 10vw;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container table td {
+    text-align: center;
+    /* Canh giữa theo chiều ngang */
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container::-webkit-scrollbar-track {
+    background-color: rgba(250, 250, 250, 0.5568627451);
+}
+
+.Popup-ExcelTable>div form #ExcelTable-container::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(-45deg, rgba(18, 27, 42, 0.418), rgba(18, 27, 42, 0.418));
+    border-radius: 0.5vw;
+}
+
+
+/*# sourceMappingURL=Style-AdminDepartmentCandidate.css.map */

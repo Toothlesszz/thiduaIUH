@@ -1,0 +1,969 @@
+@charset "UTF-8";
+.Main__Content {
+    margin: 1vw 1vw 0 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    width: 89.5vw;
+}
+
+.Main__Content .MedalDate {
+    position: relative;
+    margin-top: 0.4vw;
+    margin-right: 3vw;
+    width: 10vw;
+}
+
+.Main__Content .MedalDate input {
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(29, 171, 161);
+    width: 100%;
+    height: 2vw;
+    padding-left: 2vw;
+    border: 0.1vw solid rgb(29, 171, 161);
+    border-radius: 0.4vw;
+}
+
+.Main__Content .MedalDate input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.Main__Content .MedalDate input[type=date]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    transform: scale(1.2);
+    cursor: pointer;
+    right: -0.8vw;
+    z-index: 1;
+}
+
+.Main__Content .MedalDate #SelectCalendar {
+    position: absolute;
+    right: -0.8vw;
+    top: 1.5vw;
+    color: rgb(29, 171, 161);
+    font-size: 1.2vw;
+}
+
+.Main__Content .MedalDate__Title {
+    display: flex;
+}
+
+.Main__Content .MedalDate__Title span {
+    font-size: 0.8vw;
+    color: rgb(29, 171, 161);
+    font-style: italic;
+}
+
+.Main__Content .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content .Title h4 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateYear form {
+    display: flex;
+    position: relative;
+}
+
+.Main__Content--CreateYear form .custom-Select {
+    margin-top: 1.5vw;
+}
+
+.Main__Content--CreateYear form #schoolYear input {
+    pointer-events: none;
+}
+
+.Main__Content--CreateYear form input[type=submit] {
+    position: absolute;
+    right: 0;
+    top: 1.5vw;
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input {
+    position: relative;
+    display: inline-block;
+    margin-right: 0vw;
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input p {
+    font-size: 1vw;
+    font-weight: bold;
+    margin-bottom: 0.2vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input span {
+    position: absolute;
+    left: 0;
+    top: 4vw;
+    font-size: 0.6vw;
+    color: rgb(29, 171, 161);
+    font-style: italic;
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input input {
+    padding: 0.3vw 0 0.3vw 2vw;
+    height: 1.4vw;
+    width: 11vw;
+    background: #ffffff;
+    border-radius: 0.3vw;
+    transition: 0.1s;
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input input::-moz-placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input input::placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input>i {
+    color: rgb(155, 155, 155);
+    transform: translate(-12.8vw, 0);
+    font-size: 0.8vw;
+}
+
+.Main__Content--CreateYear .CreateCandidate-Input input[type=number]::-webkit-inner-spin-button,
+.Main__Content--CreateYear .CreateCandidate-Input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Thay đổi màu nền nếu cần */
+    background-color: transparent;
+    /* Thay đổi kích thước nếu cần */
+    height: auto;
+    width: auto;
+    /* Ẩn icon tăng/giảm số */
+    display: none;
+}
+
+.Main__Content--CreateEmulation form {
+    position: relative;
+}
+
+.Main__Content--CreateEmulation form>div {
+    display: flex;
+}
+
+.Main__Content--CreateEmulation form .custom-Select {
+    margin-top: 1.5vw;
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input {
+    position: relative;
+    display: inline-block;
+    margin-right: 0vw;
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input p {
+    font-size: 1vw;
+    font-weight: bold;
+    margin-bottom: 0.2vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input span {
+    position: absolute;
+    left: 0;
+    top: 4vw;
+    font-size: 0.6vw;
+    color: rgb(29, 171, 161);
+    font-style: italic;
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input input {
+    padding: 0.3vw 0 0.3vw 2vw;
+    height: 1.4vw;
+    width: 11vw;
+    background: #ffffff;
+    border-radius: 0.3vw;
+    transition: 0.1s;
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input input::-moz-placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input input::placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input>i {
+    color: rgb(155, 155, 155);
+    transform: translate(-12.8vw, 0);
+    font-size: 0.8vw;
+}
+
+.Main__Content--CreateEmulation form .CreateCandidate-Input input[type=number]::-webkit-inner-spin-button,
+.Main__Content--CreateEmulation form .CreateCandidate-Input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Thay đổi màu nền nếu cần */
+    background-color: transparent;
+    /* Thay đổi kích thước nếu cần */
+    height: auto;
+    width: auto;
+    /* Ẩn icon tăng/giảm số */
+    display: none;
+}
+
+.Main__Content--CreateEmulation form input[type=submit] {
+    position: absolute;
+    right: 0;
+    top: 1.5vw;
+}
+
+.Main__Content--CreateEmulation form .UploadTemplateMedal {
+    top: 1.5vw;
+    width: 18vw;
+    height: 2vw;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: 0.1vw dashed rgb(155, 155, 155);
+    border-radius: 0.4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Main__Content--CreateEmulation form .UploadTemplateMedal span {
+    z-index: 1;
+    color: rgb(155, 155, 155);
+    font-weight: bold;
+    font-size: 1vw;
+    pointer-events: none;
+}
+
+.Main__Content--CreateEmulation form .UploadTemplateMedal input {
+    position: absolute;
+    left: 0;
+    transform: scale(2);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.Main__Content--CreateYear,
+.Main__Content--CreateEmulation,
+.Main__Content--ListEmulation,
+.Main__Content--ListMedal,
+.Main__Content--CreateMedal {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .custom-button-s {
+    width: 6vw;
+    height: 1.8vw;
+    padding: 0;
+}
+
+.Main__Content--ListEmulation,
+.Main__Content--ListMedal {
+    position: relative;
+}
+
+.Main__Content--ListEmulation .custom-Filter,
+.Main__Content--ListMedal .custom-Filter {
+    position: absolute;
+    top: 1.6vw;
+    right: 2vw;
+}
+
+.Main__Content--ListEmulation table,
+.Main__Content--ListMedal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Main__Content--ListEmulation table #CandidateName,
+.Main__Content--ListMedal table #CandidateName {
+    width: 22vw;
+}
+
+.Main__Content--ListEmulation table #btn-BrowserMedal,
+.Main__Content--ListMedal table #btn-BrowserMedal {
+    width: 6vw;
+}
+
+.Main__Content--ListEmulation table #MedalName,
+.Main__Content--ListMedal table #MedalName {
+    width: 24vw;
+    /* Chiều rộng tối đa của phần tử */
+}
+
+.Main__Content--ListEmulation table #MedalName span,
+.Main__Content--ListMedal table #MedalName span {
+    width: 16vw;
+    /* Chiều rộng tối đa của phần tử */
+    display: block;
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow-x: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+}
+
+.Main__Content--ListEmulation table #MedalDeadline,
+.Main__Content--ListMedal table #MedalDeadline {
+    width: 20vw;
+    display: flex;
+    padding: 0vw 0 0.8vw 0;
+    margin-left: 0.6vw;
+    margin-right: 0.6vw;
+}
+
+.Main__Content--ListEmulation table tr,
+.Main__Content--ListMedal table tr {
+    border-bottom: 0.1vw solid rgb(248, 249, 253);
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--ListEmulation table tr th,
+.Main__Content--ListMedal table tr th {
+    padding-bottom: 0.6vw;
+}
+
+.Main__Content--ListEmulation table tr td,
+.Main__Content--ListMedal table tr td {
+    padding: 0.8vw 0 0.8vw 0;
+    text-align: center;
+    /* Canh giữa theo chiều ngang */
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.Main__Content--ListEmulation table tr td .open-medalStatus,
+.Main__Content--ListEmulation table tr td .close-medalStatus,
+.Main__Content--ListMedal table tr td .open-medalStatus,
+.Main__Content--ListMedal table tr td .close-medalStatus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.6vw;
+    font-weight: bold;
+    height: 2vw;
+    border-radius: 2vw;
+    width: 5vw;
+    margin: 0 auto 0 auto;
+}
+
+.Main__Content--ListEmulation table tr td .open-medalStatus i,
+.Main__Content--ListEmulation table tr td .close-medalStatus i,
+.Main__Content--ListMedal table tr td .open-medalStatus i,
+.Main__Content--ListMedal table tr td .close-medalStatus i {
+    font-size: 0.8vw;
+    padding: 0.4vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 2vw;
+}
+
+.Main__Content--ListEmulation table tr td .open-medalStatus,
+.Main__Content--ListMedal table tr td .open-medalStatus {
+    padding: 0 0.1vw 0 0.4vw;
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--ListEmulation table tr td .open-medalStatus i,
+.Main__Content--ListMedal table tr td .open-medalStatus i {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--ListEmulation table tr td .close-medalStatus,
+.Main__Content--ListMedal table tr td .close-medalStatus {
+    padding: 0 0.4vw 0 0.1vw;
+    background-color: rgb(240, 123, 63);
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--ListEmulation table tr td .close-medalStatus i,
+.Main__Content--ListMedal table tr td .close-medalStatus i {
+    color: rgb(240, 123, 63);
+}
+
+.Main__Content--ListEmulation table tr td .Profile,
+.Main__Content--ListMedal table tr td .Profile {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.Main__Content--ListEmulation table tr td .Profile img,
+.Main__Content--ListMedal table tr td .Profile img {
+    width: 4vw;
+    border-radius: 0.8vw;
+}
+
+.Main__Content--ListEmulation table tr td .Profile span,
+.Main__Content--ListMedal table tr td .Profile span {
+    margin-left: 1vw;
+}
+
+.Main__Content--ListEmulation table tr td .Status,
+.Main__Content--ListMedal table tr td .Status {
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+    font-size: 0.6vw;
+    font-weight: bold;
+    height: 1.4vw;
+    border-radius: 1.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.4vw 0 0.4vw;
+    width: 6vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Main__Content--ListEmulation table tr td .Status span,
+.Main__Content--ListMedal table tr td .Status span {
+    margin-left: 0.4vw;
+}
+
+.Main__Content--ListEmulation table tr td .custom-button-s,
+.Main__Content--ListMedal table tr td .custom-button-s {
+    margin: 0.2vw auto 0.2vw auto;
+}
+
+.Main__Content--RegkMedalDetail {
+    margin-right: 1vw;
+}
+
+.Main__Content--CreateMedal button {
+    margin: 0 auto 0 auto;
+}
+
+.Main__Content--CreateMedal .Title {
+    position: relative;
+}
+
+.Main__Content--CreateMedal .Title .showCreateMedal {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    width: 2vw;
+    height: 2vw;
+    border-radius: 2vw;
+}
+
+.Main__Content--CreateMedal .Title .showCreateMedal i {
+    position: absolute;
+    font-size: 2vw;
+    pointer-events: none;
+}
+
+.Main__Content--CreateMedal .Title .showCreateMedal i:nth-child(1) {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .Title .showCreateMedal i:nth-child(2) {
+    display: none;
+    color: rgb(240, 123, 63);
+}
+
+.Main__Content--CreateMedal form {
+    display: none;
+}
+
+.Main__Content--CreateMedal .MedalDescription {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar {
+    transform: scale(0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgAvatar {
+    width: 16vw;
+    height: 16vw;
+    border-radius: 16vw;
+    background-color: rgb(248, 249, 253);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgAvatar img {
+    top: 0.5vw;
+    left: 0.5vw;
+    border-radius: 15vw;
+    width: 15vw;
+    height: 15vw;
+    position: absolute;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgUpload {
+    position: absolute;
+    right: -1vw;
+    top: 10vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgUpload .ButtonOuter {
+    background-color: rgb(18, 27, 42);
+    width: 4vw;
+    height: 4vw;
+    border-radius: 5vw;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0.4vw solid rgb(255, 255, 255);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgUpload .ButtonOuter input {
+    position: absolute;
+    width: 5vw;
+    height: 5vw;
+    top: -3vw;
+    opacity: 0;
+    transform: scale(2);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar .ImgUpload .ButtonOuter i {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    top: 1vw;
+    left: 1vw;
+    font-size: 2vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Avatar i {
+    font-size: 0.8vw;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Name {
+    position: relative;
+    margin: 1vw 0 1vw 0;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Name input {
+    border: none;
+    height: 2vw;
+    width: 12vw;
+    min-width: 12vw;
+    padding-left: 2vw;
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Name input:focus {
+    outline: none;
+    border-bottom: 0.2vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Name i {
+    position: absolute;
+    left: 0;
+    top: 0.4vw;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Requirements {
+    width: 60vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Requirements h4 {
+    color: rgb(29, 171, 161);
+    margin-bottom: 0.2vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput h4 {
+    margin-right: 2vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput {
+    color: rgb(94, 94, 94);
+    background: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .product-qty,
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count {
+    background: transparent;
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    border: none;
+    display: inline-block;
+    min-width: 0;
+    height: 2vw;
+    /* Thay đổi kích thước thành vw */
+    line-height: 1;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .product-qty:focus,
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:focus {
+    outline: none;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .product-qty {
+    width: 3vw;
+    /* Thay đổi kích thước thành vw */
+    min-width: 0;
+    display: inline-block;
+    text-align: center;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    font-size: 1vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .product-qty::-webkit-outer-spin-button,
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .product-qty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count {
+    padding: 0;
+    cursor: pointer;
+    width: 2.5vw;
+    /* Thay đổi kích thước thành vw */
+    font-size: 1vw;
+    /* Thay đổi kích thước thành vw */
+    text-indent: -100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:before,
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:after {
+    content: "";
+    height: 0.2vw;
+    /* Thay đổi kích thước thành vw */
+    width: 1vw;
+    /* Thay đổi kích thước thành vw */
+    position: absolute;
+    display: block;
+    background: rgb(29, 171, 161);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count--minus {
+    border-right: 0.1vw solid #e2e2e2;
+    /* Thay đổi kích thước thành vw */
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count--add {
+    border-left: 0.1vw solid #e2e2e2;
+    /* Thay đổi kích thước thành vw */
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count--add:after {
+    transform: rotate(90deg);
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:disabled {
+    color: #ccc;
+    background: #f2f2f2;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:disabled:before,
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput .qty-count:disabled:after {
+    background: #ccc;
+}
+
+.Main__Content--CreateMedal .MedalDescription__quantityInput .quantityInput {
+    border-radius: 4px;
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vw 0 1vw 0;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox h4 {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified {
+    margin: 0 1vw 0 1vw;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 2.4vw;
+    padding-top: 0.1vw;
+    height: 1.6vw;
+    cursor: pointer;
+    font-size: 0.8vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified i {
+    margin-left: 0.2vw;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.6vw;
+    width: 1.6vw;
+    border-radius: 0.6vw;
+    border: 0.2vw solid rgb(155, 155, 155);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified:hover {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified:hover input~.checkmark {
+    border: 0.2vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified input:checked~.checkmark {
+    background-color: rgb(29, 171, 161);
+    border: 0.2vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified input:checked~.checkmark:after {
+    display: block;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Checkbox .checkboxQualified .checkmark:after {
+    left: 0.6vw;
+    top: 0.3vw;
+    width: 0.3vw;
+    height: 0.6vw;
+    border: 0.2vw solid white;
+    border-width: 0 0.2vw 0.2vw 0;
+    transform: rotate(45deg);
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Upload {
+    width: 16vw;
+    height: 2vw;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    background-color: rgb(155, 155, 155);
+    border-radius: 0.4vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Upload span {
+    z-index: 1;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1vw;
+    pointer-events: none;
+}
+
+.Main__Content--CreateMedal .MedalDescription__Object--Upload input {
+    position: absolute;
+    left: 0;
+    transform: scale(2);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg {
+    width: 60vw;
+    margin: 1vw auto 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg .AddStandard {
+    order: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+    font-size: 0.8vw;
+    font-weight: bold;
+    border-radius: 0.4vw;
+    width: 12vw;
+    height: 2vw;
+    cursor: pointer;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg .AddStandard i {
+    margin-left: 0.4vw;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg .AddStandard span {
+    pointer-events: none;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer {
+    box-shadow: 0px 0px 0.4vw rgba(0, 0, 0, 0.25);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vw;
+    position: relative;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard #DelStandard,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer #DelStandard {
+    position: absolute;
+    font-size: 1.6vw;
+    color: rgb(240, 123, 63);
+    right: 1vw;
+    top: 0.8vw;
+    cursor: pointer;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard .StandardName span,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer .StandardName span {
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard .StandardName input,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer .StandardName input {
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    height: 1.4vw;
+    border: none;
+    border-bottom: 0.1vw dashed rgb(29, 171, 161);
+    width: 48vw;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard .StandardName input:focus,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer .StandardName input:focus {
+    outline: none;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard--Criteria,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer--Criteria {
+    border: 0.1vw dashed rgb(155, 155, 155);
+    padding: 1vw;
+    margin: 1vw;
+    border-radius: 1vw;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard--Criteria .CriteriaClassify,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer--Criteria .CriteriaClassify {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard--Criteria .CriteriaClassify>span,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer--Criteria .CriteriaClassify>span {
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard .AddCriteria,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer .AddCriteria {
+    order: 1;
+    height: 2vw;
+    width: 10vw;
+    border: 0.1vw dashed rgb(29, 171, 161);
+    border-radius: 2vw;
+    font-size: 1vw;
+    color: rgb(29, 171, 161);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto 0 auto;
+    cursor: pointer;
+}
+
+.Main__Content--CreateMedal .CreateMedalReg__Standard .AddCriteria span,
+.Main__Content--CreateMedal .CreateMedalReg #criteriaContainer .AddCriteria span {
+    pointer-events: none;
+}
+
+
+/*# sourceMappingURL=Style-AdminManagementMedal.css.map */

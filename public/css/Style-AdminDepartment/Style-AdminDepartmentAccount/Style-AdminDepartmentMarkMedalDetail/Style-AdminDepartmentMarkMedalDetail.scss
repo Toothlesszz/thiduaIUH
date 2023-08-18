@@ -1,0 +1,530 @@
+$color-main: rgba(18, 27, 42, 1);
+$color-red: rgba(240, 63, 63, 1);
+$color-green: rgba(29, 171, 161, 1);
+$color-white: rgb(255, 255, 255);
+$color-grey: rgba(248, 249, 253, 1);
+$color-grey-dark: rgba(155, 155, 155, 1);
+$color-text: rgba(94, 94, 94, 1);
+$color-orange: rgba(240, 123, 63, 1);
+
+.Main {
+  &__Content {
+    margin: 1vw 1vw 1vw 0;
+    background-color: $color-grey;
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 81vh;
+    .Title {
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin-bottom: 1vw;
+      i {
+        font-size: 1.5vw;
+        color: $color-green;
+        margin-right: 0.5vw;
+      }
+      h4 {
+        color: $color-text;
+      }
+    }
+    &--Profile {
+      background-color: $color-white;
+      height: auto;
+      border-radius: 1vw;
+      padding: 2vw;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto auto;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      text-align: left;
+      align-items: center;
+      font-size: 1vw;
+      color: $color-text;
+      width: 54vw;
+      margin-bottom: 1vw;
+      .Title {
+        grid-row: 1;
+        grid-column: 1 / span3;
+      }
+      .InfoAvatar {
+        display: flex;
+        justify-content: center;
+        img {
+          width: 8vw;
+          border-radius: 8vw;
+          border: 0.4vw solid $color-grey;
+        }
+      }
+      .InfoTitle {
+        //   margin: 1vw 0 1vw 2vw;
+        font-weight: bold;
+        // position: absolute;
+      }
+      .InfoContent {
+        // position: absolute;
+        // top: 15.2vw;
+        // left: 30vw;
+        text-transform: uppercase;
+      }
+    }
+    &--Description {
+      background-color: $color-white;
+      height: auto;
+      border-radius: 1vw;
+      padding: 2vw;
+      width: 54vw;
+      .Info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // position: relative;
+        margin: 1vw 4vw 0 4vw;
+        padding: 1vw;
+        // border-bottom: 0.2vw dashed $color-grey;
+        // background-color: $color-main;
+        // border-radius: 1vw;
+        img {
+          width: 8vw;
+          border-radius: 8vw;
+          margin-right: 2vw;
+        }
+        &__Content {
+          &--Duration,
+          &--UserObject {
+            font-size: 0.8vw;
+            margin: 0.2vw 0 0.2vw 0;
+            i {
+              color: $color-green;
+              margin-right: 0.2vw;
+            }
+            span:nth-child(2) {
+              font-weight: bold;
+              color: $color-green;
+            }
+          }
+        }
+        & > a {
+          // position: absolute;
+          right: 1vw;
+          // // font-size: 1.6vw;
+          // color: $color-green;
+          // cursor: pointer;
+          i {
+            margin-left: 0.6vw;
+          }
+        }
+      }
+      .Abstracts {
+        padding: 1vw;
+        p {
+          font-size: 1vw;
+          text-align: justify;
+          font-style: italic;
+          padding: 0.5vw;
+        }
+      }
+    }
+    &--Registration {
+      // background-color: $color-white;
+      height: auto;
+      // border-radius: 1vw;
+      // padding: 0 6vw 0 6vw;
+
+      .RegistrationForm {
+        // background-color: $color-white;
+        width: 60vw;
+        margin-left: auto;
+        margin-right: auto;
+        // border: 0.1vw dashed $color-grey-dark;
+        border-radius: 1vw;
+        h4 {
+          font-style: italic;
+        }
+        padding: 1vw;
+        form {
+          // width: 56vw;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 2vw;
+          .Standard__Items {
+            width: 100%;
+            background-color: $color-white;
+            padding: 1vw;
+            border-radius: 0.4vw;
+            margin-bottom: 1vw;
+            .custom-checkbox {
+              & + label {
+                font-weight: bold;
+              }
+            }
+            &--Title {
+              display: flex;
+              align-items: center;
+              span {
+                margin-left: 0.6vw;
+              }
+              span,
+              label {
+                font-size: 1vw;
+                font-weight: bold;
+                color: $color-text;
+              }
+            }
+            .Criteria {
+              //   display: none;
+              .Describe {
+                padding: 1vw;
+                font-size: 1vw;
+                color: $color-green;
+              }
+              .Criteria__Items {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                border: 0.1vw dashed $color-grey-dark;
+                margin: 1vw 0.5vw 1vw 0.5vw;
+                padding: 0.5vw;
+                position: relative;
+                min-height: 5vw;
+                border-radius: 0.6vw;
+                .ClassifYoblige,
+                .ClassifOther {
+                  position: absolute;
+                  top: 0.2vw;
+                  left: 0.4vw;
+                  font-size: 0.8vw;
+                  font-weight: bold;
+                }
+                .ClassifYoblige {
+                  color: $color-orange;
+                }
+                .ClassifOther {
+                  color: $color-green;
+                }
+                p {
+                  font-size: 0.8vw;
+                  color: $color-text;
+                  font-style: italic;
+                  width: 30vw;
+                  // margin-bottom: 0.2vw;
+                  padding: 0.8vw 0 0.8vw 0;
+                }
+                .Answer {
+                  // position: absolute;
+                  position: relative;
+                  // top: 3vw;
+                  // height: 2vw;
+                  height: 4vw;
+                  textarea {
+                    font-size: 0.8vw;
+                    border: 0.1vw solid $color-green;
+                    // width: 40vw;
+                    height: 3.2vw;
+                    border-radius: 0.4vw;
+                    padding: 0.4vw 0.4vw 0.4vw 1.6vw;
+                    resize: none;
+                  }
+                  textarea::-webkit-scrollbar {
+                    width: 0.5vw;
+                  }
+                  textarea::-webkit-scrollbar-track {
+                    background-color: #fafafa8e;
+                  }
+                  textarea::-webkit-scrollbar-thumb {
+                    background-image: linear-gradient(
+                      -45deg,
+                      rgba(29, 171, 161, 0.6),
+                      rgba(29, 171, 161, 0.6)
+                    );
+                    border-radius: 0.5vw;
+                  }
+                  textarea:focus {
+                    outline-color: $color-green;
+                  }
+                  i {
+                    position: absolute;
+                    font-size: 1vw;
+                    color: $color-green;
+                    top: 0.4vw;
+                    left: 0.4vw;
+                  }
+                }
+                .Control {
+                  //   display: grid;
+                  //   grid-column: auto auto;
+                  //   grid-row-gap: 0.4vw;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  .checkboxQualified {
+                    i {
+                      margin-left: 0.2vw;
+                    }
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    padding-left: 2vw;
+                    // margin-bottom: 0.2vw;
+                    height: 1.6vw;
+                    cursor: pointer;
+                    font-size: 0.8vw;
+                    font-weight: bold;
+                    color: $color-text;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+
+                    input {
+                      position: absolute;
+                      opacity: 0;
+                      cursor: pointer;
+                      height: 0;
+                      width: 0;
+                    }
+
+                    .checkmark {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      height: 1.6vw;
+                      width: 1.6vw;
+                      border-radius: 1.6vw;
+                      // background-color: #eee;
+                      border: 0.1vw solid $color-grey-dark;
+                      &:after {
+                        content: "";
+                        position: absolute;
+                        display: none;
+                      }
+                    }
+                    &:hover {
+                      color: $color-main;
+                    }
+                    &:hover input ~ .checkmark {
+                      border: 0.1vw solid $color-main;
+                    }
+
+                    input:checked ~ .checkmark {
+                      background-color: $color-main;
+                      border: none;
+                    }
+
+                    input:checked ~ .checkmark:after {
+                      display: block;
+                    }
+
+                    .checkmark:after {
+                      left: 0.6vw;
+                      top: 0.3vw;
+                      width: 0.3vw;
+                      height: 0.6vw;
+                      border: solid white;
+                      border-width: 0 0.2vw 0.2vw 0;
+                      transform: rotate(45deg);
+                    }
+                  }
+                  .custom-button-s {
+                    grid-row: 1;
+                    grid-column: 1 / span 2;
+                    background-color: $color-green;
+                    margin-bottom: 0.4vw;
+                    i {
+                      margin-right: 0.2vw;
+                    }
+                  }
+                  // .ControlRadio {
+                  //   display: block;
+                  //   position: relative;
+                  //   padding-left: 1.8vw;
+                  //   padding-top: 0.4vw;
+                  //   margin-right: 0.6vw;
+                  //   // align-items: center;
+                  //   cursor: pointer;
+                  //   font-size: 0.6vw;
+                  //   font-weight: bold;
+                  //   color: $color-text;
+                  //   -webkit-user-select: none;
+                  //   -moz-user-select: none;
+                  //   -ms-user-select: none;
+                  //   user-select: none;
+
+                  //   input {
+                  //     position: absolute;
+                  //     opacity: 0;
+                  //     cursor: pointer;
+                  //   }
+
+                  //   .checkmark {
+                  //     position: absolute;
+                  //     top: 0;
+                  //     left: 0;
+                  //     height: 1.4vw;
+                  //     width: 1.4vw;
+                  //     //   background-color: #eee;
+                  //     border: 0.1vw solid $color-grey-dark;
+                  //     border-radius: 50%;
+
+                  //     &:hover {
+                  //       border: 0.1vw solid $color-orange;
+                  //     }
+                  //   }
+
+                  //   input:checked ~ .checkmark {
+                  //     border: 0.1vw solid $color-orange;
+                  //   }
+
+                  //   .checkmark:after {
+                  //     content: "";
+                  //     position: absolute;
+                  //     display: none;
+                  //   }
+
+                  //   input:checked ~ .checkmark:after {
+                  //     display: block;
+                  //   }
+
+                  //   .checkmark:after {
+                  //     top: 0.2vw;
+                  //     left: 0.2vw;
+                  //     width: 1vw;
+                  //     height: 1vw;
+                  //     border-radius: 50%;
+                  //     background: $color-orange;
+                  //   }
+                  // }
+                }
+                .ImgProof {
+                  // position: absolute;
+                  right: 0.5vw;
+                  top: 0.8vw;
+                  .ButtonOuter {
+                    margin-top: 0.4vw;
+                    width: 7vw;
+                    height: 3.5vw;
+                    border-radius: 0.6vw;
+                    position: relative;
+                    display: inline-block;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    border: 0.1vw dashed $color-grey-dark;
+                    input {
+                      position: absolute;
+                      width: 5vw;
+                      height: 5vw;
+                      top: -3vw;
+                      opacity: 0;
+                      transform: scale(2);
+                      cursor: pointer;
+                      z-index: 1;
+                    }
+                    i {
+                      position: absolute;
+                      color: $color-grey-dark;
+                      top: 0.6vw;
+                      left: 2.6vw;
+                      font-size: 1.5vw;
+                    }
+                    span {
+                      position: absolute;
+                      font-size: 0.8vw;
+                      font-style: italic;
+                      left: 0.8vw;
+                      top: 2vw;
+                      color: $color-grey-dark;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .Operation {
+            background-color: $color-white;
+            width: 100%;
+            padding: 1vw;
+            border-radius: 0.6vw;
+            // display: flex;
+            // justify-content: space-around;
+            // align-items: center;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-template-rows: auto auto;
+            text-align: center;
+            .Note {
+              grid-column: 1;
+              grid-row: 1 / span2;
+              position: relative;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+
+              textarea {
+                font-size: 0.8vw;
+                border: 0.1vw solid $color-green;
+                width: 30vw;
+                height: 3.2vw;
+                border-radius: 0.4vw;
+                padding: 0.4vw 0.4vw 0.4vw 1.6vw;
+                resize: none;
+              }
+              textarea::-webkit-scrollbar {
+                width: 0.5vw;
+              }
+              textarea::-webkit-scrollbar-track {
+                background-color: #fafafa8e;
+              }
+              textarea::-webkit-scrollbar-thumb {
+                background-image: linear-gradient(
+                  -45deg,
+                  rgba(29, 171, 161, 0.6),
+                  rgba(29, 171, 161, 0.6)
+                );
+                border-radius: 0.5vw;
+              }
+              textarea:focus {
+                outline-color: $color-green;
+              }
+              i {
+                position: absolute;
+                font-size: 1vw;
+                color: $color-green;
+                top: 0.4vw;
+                left: 0.6vw;
+              }
+            }
+            h5 {
+              grid-row: 1;
+              grid-column: 2 / span 4;
+              margin: 0 auto 1vw auto;
+            }
+            button {
+              width: 7vw;
+              margin: 0 auto 0 auto;
+              i {
+                margin-right: 0.2vw;
+              }
+            }
+            #btn-RegReject {
+              background-color: $color-orange;
+            }
+            #btn-RegPropose {
+              background-color: $color-green;
+            }
+            #btn-RegAccept {
+              background-color: $color-main;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,275 @@
+.Main__Content {
+    margin: 1vw 1vw 0 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: grid;
+    grid-template-columns: 50vw auto;
+    grid-template-rows: 19vw auto;
+    grid-column-gap: 1vw;
+    grid-row-gap: 1vw;
+}
+
+.Main__Content--SlideShow .Slider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.Main__Content--SlideShow .Slider .next,
+.Main__Content--SlideShow .Slider .prev {
+    font-size: 2vw;
+    color: rgb(18, 27, 42);
+    cursor: pointer;
+    animation: 0.4s;
+    position: absolute;
+    top: 8vw;
+    z-index: 1;
+}
+
+.Main__Content--SlideShow .Slider .prev {
+    left: 1vw;
+}
+
+.Main__Content--SlideShow .Slider .next {
+    left: 47vw;
+}
+
+.Main__Content--SlideShow .Slider__direction {
+    position: absolute;
+    top: 16vw;
+    z-index: 1;
+}
+
+.Main__Content--SlideShow .Slider__direction button {
+    width: 2vw;
+    height: 0.3vw;
+    margin: 0.2vw;
+    border: none;
+    border-radius: 0.2vw;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.Main__Content--SlideShow .Slider__direction .active {
+    background-color: rgb(18, 27, 42);
+}
+
+.Main__Content--SlideShow .Slider__main {
+    overflow-x: hidden;
+    width: 50vw;
+    border-radius: 1vw;
+}
+
+.Main__Content--SlideShow .Slider__main--img {
+    display: flex;
+    transition: 0.6s;
+    width: 50vw;
+}
+
+.Main__Content--SlideShow .Slider__main--img img {
+    width: 50vw;
+}
+
+.Main__Content--CandidatesInfor {
+    background-color: rgb(255, 255, 255);
+    border-radius: 1vw;
+    padding: 2vw;
+    grid-column: 2;
+    grid-row: 1/span 2;
+}
+
+.Main__Content--CandidatesInfor .Avatar {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content--CandidatesInfor .Avatar img {
+    width: 8vw;
+    border-radius: 8vw;
+    border: 0.5vw solid rgb(248, 249, 253);
+}
+
+.Main__Content--CandidatesInfor .Avatar a {
+    text-decoration: none;
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 2.8vw;
+    background-color: rgb(18, 27, 42);
+    border: 0.2vw solid rgb(255, 255, 255);
+    position: absolute;
+    top: 5vw;
+    left: 19vw;
+}
+
+.Main__Content--CandidatesInfor .Avatar a i {
+    position: absolute;
+    font-size: 1.5vw;
+    left: 0.5vw;
+    top: 0.5vw;
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--CandidatesInfor .Profile {
+    display: flex;
+    position: relative;
+    padding-left: 4vw;
+}
+
+.Main__Content--CandidatesInfor .Profile__Title,
+.Main__Content--CandidatesInfor .Profile__Content {
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+    font-weight: bold;
+}
+
+.Main__Content--CandidatesInfor .Profile__Title p,
+.Main__Content--CandidatesInfor .Profile__Content p {
+    margin: 0.5vw 1vw 0.5vw 2vw;
+}
+
+.Main__Content--CandidatesInfor .Profile__Content p {
+    text-transform: uppercase;
+    font-weight: normal;
+}
+
+.Main__Content--CandidatesInfor .Profile__Detail {
+    position: absolute;
+    right: 0;
+    top: 7vw;
+}
+
+.Main__Content--CandidatesInfor .Profile__Detail a {
+    text-decoration: none;
+    color: rgb(29, 171, 161);
+    font-size: 1vw;
+    font-weight: bold;
+}
+
+.Main__Content--CandidatesInfor .Achievements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 4vw 0 4vw 0;
+}
+
+.Main__Content--CandidatesInfor .Achievements img {
+    width: 16vw;
+}
+
+.Main__Content--CandidatesInfor .Achievements h1,
+.Main__Content--CandidatesInfor .Achievements h2,
+.Main__Content--CandidatesInfor .Achievements h3 {
+    margin: 0.2vw 0 0.2vw 0;
+}
+
+.Main__Content--CandidatesInfor .Achievements h1 {
+    font-size: 3vw;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--CandidatesInfor .Achievements h2 {
+    font-size: 1.5vw;
+}
+
+.Main__Content--CandidatesInfor .Achievements h3 {
+    font-size: 1vw;
+}
+
+.Main__Content--CandidatesInfor .Achievements h2,
+.Main__Content--CandidatesInfor .Achievements h3 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--RecentMedal {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.Main__Content--RecentMedal .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content--RecentMedal .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content--RecentMedal .Title span {
+    color: rgb(94, 94, 94);
+    font-size: 1vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background-color: rgb(18, 27, 42);
+    height: 4vw;
+    border-radius: 0.5vw;
+    margin: 1vw 0 1vw 0;
+}
+
+.Main__Content--RecentMedal .Medal__Items img {
+    width: 3vw;
+    height: 3vw;
+    margin: 0 1vw 0 0.5vw;
+    border-radius: 0.6vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content {
+    margin-left: 1vw;
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Name {
+    text-transform: uppercase;
+    font-size: 0.8vw;
+    font-weight: bold;
+    display: inline-block;
+    width: 30vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration {
+    margin-top: 0.2vw;
+    font-size: 0.8vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration i {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration span:nth-child(2) {
+    font-weight: bold;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(3) {
+    position: absolute;
+    right: 1.5vw;
+    font-size: 1.4vw;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease;
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(3):hover {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(4) {
+    position: absolute;
+    right: 4vw;
+}
+
+
+/*# sourceMappingURL=Style-UserIndex.css.map */

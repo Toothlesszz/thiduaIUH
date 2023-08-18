@@ -1,0 +1,242 @@
+@charset "UTF-8";
+body {
+    background-color: rgb(18, 27, 42);
+    max-width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Quy tắc CSS cho máy tính ở đây */
+
+.login {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1.2vw auto;
+    grid-row-gap: 50px;
+    width: 70vw;
+    padding: 5vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px;
+}
+
+.login__header {
+    grid-column: 1/span 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__header img {
+    width: 12vw;
+    height: auto;
+    margin-bottom: 0.6vw;
+}
+
+.login__header h6 {
+    font-size: 0.6vw;
+}
+
+.login__header h4 {
+    font-size: 1.2vw;
+}
+
+.login__form {
+    margin-top: 2vw;
+    margin-left: 7vw;
+}
+
+.login__form h1 {
+    font-size: 1.5vw;
+}
+
+.login__form p {
+    margin-bottom: 2vw;
+}
+
+.login__form--items {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.login__form--items label {
+    color: rgb(18, 27, 42);
+    font-size: 1vw;
+    font-weight: bold;
+}
+
+.login__form--items input {
+    width: 25vw;
+    height: 1.2vw;
+    padding: 0.6vw 0 0.6vw 3vw;
+    margin: 0.3vw 0 0.3vw 0;
+    font-size: 1vw;
+    background: #ffffff;
+    border-radius: 0.5vw;
+    transition: 0.1s;
+    border: 0.1vw solid rgb(218, 218, 218);
+}
+
+.login__form--items input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+.login__form--items input::-moz-placeholder {
+    font-size: 1vw;
+    color: rgb(218, 218, 218);
+}
+
+.login__form--items input::placeholder {
+    font-size: 1vw;
+    color: rgb(218, 218, 218);
+}
+
+.login__form--items>i {
+    color: rgb(218, 218, 218);
+    position: absolute;
+    top: 2.35vw;
+    left: 1.2vw;
+    font-size: 1vw;
+}
+
+.login__form--items div {
+    position: absolute;
+}
+
+.login__form--items div .hidden {
+    display: none;
+}
+
+.login__form--items div i {
+    position: absolute;
+    cursor: pointer;
+    font-size: 1vw;
+    left: 25vw;
+    top: 2.35vw;
+    color: rgb(218, 218, 218);
+}
+
+.login__form--items div i:hover {
+    color: rgb(29, 171, 161);
+}
+
+.login__form--items .input-danger {
+    border: 2px solid rgb(240, 63, 63);
+}
+
+.login__form--items span {
+    color: rgb(240, 63, 63);
+    font-size: 0.8vw;
+    height: 2vw;
+    margin-left: 0.5vw;
+}
+
+.login__form--btn {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-row-gap: 20px;
+    align-self: center;
+}
+
+.login__form--btn #btn-login {
+    width: 8vw;
+    height: 2.5vw;
+    color: rgb(255, 255, 255);
+    background: rgb(18, 27, 42);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 0.5vw;
+    border: none;
+    cursor: pointer;
+}
+
+.login__form--btn #btn-login b {
+    font-size: 1vw;
+}
+
+.login__form--btn a {
+    margin-left: 5vw;
+    margin-top: 0.1vw;
+    border: none;
+    background: none;
+    width: 8vw;
+    cursor: pointer;
+}
+
+.login__image {
+    display: flex;
+    justify-content: center;
+}
+
+.login__image img {
+    width: 80%;
+    height: auto;
+}
+
+.popupHelp {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(1px);
+    backdrop-filter: blur(1px);
+    z-index: 1;
+}
+
+.popupHelp__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 20vw;
+    background-color: #fff;
+    padding: 2vw;
+    border-radius: 1vw;
+    text-align: center;
+}
+
+.popupHelp__content i {
+    font-size: 6vw;
+    color: rgb(18, 27, 42);
+}
+
+.popupHelp__content p {
+    margin-top: 2vw;
+    font-weight: bold;
+}
+
+.popupHelp__content p,
+.popupHelp__content p+i {
+    font-size: 1vw;
+    color: rgb(29, 171, 161);
+}
+
+.popupHelp__content button {
+    background-color: rgb(18, 27, 42);
+    height: 3vw;
+    width: 12vw;
+    margin-top: 2vw;
+    border-radius: 0.6vw;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1.2vw;
+    border: none;
+    cursor: pointer;
+}
+
+
+/*# sourceMappingURL=Style-Login.css.map */

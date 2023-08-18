@@ -1,0 +1,377 @@
+@charset "UTF-8";
+.Main__Content {
+    margin: 1vw 1vw 0 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    gap: 1vw;
+    width: 89.5vw;
+}
+
+.Main__Content .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content .Title h4 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--Statistical {
+    grid-row: 1;
+    grid-column: 1/span 2;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto auto;
+    grid-column-gap: 1vw;
+    grid-row-gap: 1vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.Main__Content--Statistical form {
+    grid-row: 1;
+    grid-column: 2/span 3;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Main__Content--Statistical form .Filter {
+    margin-right: 1vw;
+    position: relative;
+}
+
+.Main__Content--Statistical form .Filter .Title {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0.5vw;
+    left: 1vw;
+    z-index: 1;
+    color: rgb(155, 155, 155);
+    pointer-events: none;
+}
+
+.Main__Content--Statistical form .Filter .Title i,
+.Main__Content--Statistical form .Filter .Title span {
+    color: rgb(155, 155, 155);
+    font-size: 0.8vw;
+}
+
+.Main__Content--Statistical form .Filter .Title span {
+    font-weight: bold;
+}
+
+.Main__Content--Statistical form .Filter .select-hidden {
+    display: none;
+    visibility: hidden;
+    padding-right: 0.5vw;
+}
+
+.Main__Content--Statistical form .Filter .select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 1vw;
+    font-weight: bold;
+    color: rgb(29, 171, 161);
+    width: 20vw;
+    height: 2.2vw;
+}
+
+.Main__Content--Statistical form .Filter .select-styled {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255);
+    border: 0.1vw solid rgb(29, 171, 161);
+    border-radius: 0.3vw;
+    padding: 0.3vw 2vw 0.3vw 7vw;
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow-x: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+    font-weight: bold;
+}
+
+.Main__Content--Statistical form .Filter .select-styled:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border: 0.6vw solid transparent;
+    border-color: rgb(29, 171, 161) transparent transparent transparent;
+    position: absolute;
+    top: 0.9vw;
+    right: 0.6vw;
+}
+
+.Main__Content--Statistical form .Filter .select-styled:active:after,
+.Main__Content--Statistical form .Filter .select-styled.active:after {
+    top: 0.2vw;
+    border-color: transparent transparent rgb(29, 171, 161) transparent;
+}
+
+.Main__Content--Statistical form .Filter .select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 9;
+    margin-top: 0.2vw;
+    padding: 0;
+    list-style: none;
+    background-color: rgb(248, 249, 253);
+    border-radius: 0.3vw;
+    height: 6vw;
+    overflow: auto;
+    color: rgb(29, 171, 161);
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow-x: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+    font-weight: bold;
+}
+
+.Main__Content--Statistical form .Filter .select-options li {
+    margin: 0;
+    padding: 0.4vw 0 0.4vw 1vw;
+    text-indent: 15px;
+}
+
+.Main__Content--Statistical form .Filter .select-options li:hover,
+.Main__Content--Statistical form .Filter .select-options li.is-selected {
+    color: rgb(255, 255, 255);
+    background: rgb(29, 171, 161);
+}
+
+.Main__Content--Statistical form .Filter .select-options li[rel=hide] {
+    display: none;
+}
+
+.Main__Content--Statistical form .Filter .select-options::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+.Main__Content--Statistical form .Filter .select-options::-webkit-scrollbar-track {
+    background-color: rgba(250, 250, 250, 0.5568627451);
+}
+
+.Main__Content--Statistical form .Filter .select-options::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(-45deg, rgba(29, 171, 161, 0.6), rgba(29, 171, 161, 0.6));
+    border-radius: 0.5vw;
+}
+
+.Main__Content--Statistical .Data {
+    grid-row: 2;
+    grid-column: 1/span 3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1vw 0 1vw 0;
+}
+
+.Main__Content--Statistical .Data__Items {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 18vw;
+    height: 12vw;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1vw;
+    transition: 0.4s;
+}
+
+.Main__Content--Statistical .Data__Items i {
+    font-size: 2vw;
+    color: rgb(18, 27, 42);
+}
+
+.Main__Content--Statistical .Data__Items h1 {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Statistical .Data__Items h4 {
+    color: rgb(18, 27, 42);
+}
+
+.Main__Content--Statistical .Data__Items:hover {
+    transform: translateY(-5px);
+}
+
+.Main__Content--RecentMedal {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background-color: rgb(18, 27, 42);
+    height: 4vw;
+    border-radius: 0.5vw;
+    margin: 1vw 0 1vw 0;
+}
+
+.Main__Content--RecentMedal .Medal__Items img {
+    width: 3vw;
+    height: 3vw;
+    margin: 0 1vw 0 0.5vw;
+    border-radius: 0.6vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content {
+    margin-left: 1vw;
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Name {
+    text-transform: uppercase;
+    font-size: 0.8vw;
+    font-weight: bold;
+    display: inline-block;
+    width: 30vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration {
+    margin-top: 0.2vw;
+    font-size: 0.8vw;
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration i {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items--Content .Duration span:nth-child(2) {
+    font-weight: bold;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(3) {
+    position: absolute;
+    right: 1.5vw;
+    font-size: 1.4vw;
+    color: rgb(255, 255, 255);
+    transition: color 0.3s ease;
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(3):hover {
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMedal .Medal__Items a:nth-child(4) {
+    position: absolute;
+    right: 4vw;
+}
+
+.Main__Content--RecentMarkMedal {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+    position: relative;
+}
+
+.Main__Content--RecentMarkMedal .SeeAll {
+    position: absolute;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8vw;
+    right: 2vw;
+    top: 2.5vw;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--RecentMarkMedal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Main__Content--RecentMarkMedal table tr {
+    height: 3vw;
+    border-bottom: 0.1vw solid rgb(248, 249, 253);
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--RecentMarkMedal table tr td {
+    text-align: center;
+    /* Canh giữa theo chiều ngang */
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.Main__Content--RecentMarkMedal table tr td #MedalName {
+    display: block;
+    width: 12vw;
+    /* Chiều rộng tối đa của phần tử */
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+}
+
+.Main__Content--RecentMarkMedal table tr td .Profile {
+    width: 14vw;
+    display: flex;
+    align-items: center;
+}
+
+.Main__Content--RecentMarkMedal table tr td .Profile img {
+    width: 2vw;
+    border-radius: 2vw;
+}
+
+.Main__Content--RecentMarkMedal table tr td .Profile span {
+    margin-left: 1vw;
+}
+
+.Main__Content--RecentMarkMedal table tr td .Status {
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+    font-size: 0.8vw;
+    font-weight: bold;
+    height: 1.4vw;
+    border-radius: 1.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.4vw 0 0.4vw;
+    width: 6vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Main__Content--RecentMarkMedal table tr td .Status span {
+    margin-left: 0.4vw;
+}
+
+
+/*# sourceMappingURL=Style-AdminDepartmentIndex.css.map */

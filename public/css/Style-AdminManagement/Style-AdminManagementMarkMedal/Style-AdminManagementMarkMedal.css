@@ -1,0 +1,139 @@
+@charset "UTF-8";
+.Main__Content {
+    margin: 1vw 1vw 0 0;
+    background-color: rgb(248, 249, 253);
+    border-radius: 1vw;
+    padding: 1vw;
+    display: flex;
+    flex-direction: column;
+    width: 89.5vw;
+}
+
+.Main__Content .Title {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vw;
+}
+
+.Main__Content .Title i {
+    font-size: 1.5vw;
+    color: rgb(29, 171, 161);
+    margin-right: 0.5vw;
+}
+
+.Main__Content .Title h4 {
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--Filter {
+    margin-bottom: 1vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Main__Content--Filter,
+.Main__Content--ListRegkMedal,
+.Main__Content--RegkMedalDetail {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+}
+
+.Main__Content--ListRegkMedal {
+    grid-row: 2;
+    grid-column: 1/span 2;
+    position: relative;
+}
+
+.Main__Content--ListRegkMedal .custom-Search {
+    position: absolute;
+    top: 1.6vw;
+    right: 2vw;
+}
+
+.Main__Content--ListRegkMedal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Main__Content--ListRegkMedal table #CandidateName {
+    width: 18vw;
+}
+
+.Main__Content--ListRegkMedal table #btn-BrowserMedal {
+    width: 8vw;
+}
+
+.Main__Content--ListRegkMedal table #MedalName {
+    width: 24vw;
+    /* Chiều rộng tối đa của phần tử */
+}
+
+.Main__Content--ListRegkMedal table #MedalName span {
+    width: 16vw;
+    /* Chiều rộng tối đa của phần tử */
+    display: block;
+    white-space: nowrap;
+    /* Không cho phép xuống dòng */
+    overflow-x: hidden;
+    /* Ẩn văn bản vượt quá chiều rộng của phần tử */
+    text-overflow: ellipsis;
+    /* Thêm dấu ba chấm vào cuối chuỗi */
+}
+
+.Main__Content--ListRegkMedal table tr {
+    height: 3vw;
+    border-bottom: 0.1vw solid rgb(248, 249, 253);
+    font-size: 1vw;
+    color: rgb(94, 94, 94);
+}
+
+.Main__Content--ListRegkMedal table tr td {
+    text-align: center;
+    /* Canh giữa theo chiều ngang */
+    vertical-align: middle;
+    /* Canh giữa theo chiều dọc */
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile {
+    display: flex;
+    align-items: center;
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile img {
+    width: 2vw;
+    border-radius: 2vw;
+}
+
+.Main__Content--ListRegkMedal table tr td .Profile span {
+    margin-left: 1vw;
+}
+
+.Main__Content--ListRegkMedal table tr td .Status {
+    background-color: rgb(29, 171, 161);
+    color: rgb(255, 255, 255);
+    font-size: 0.6vw;
+    font-weight: bold;
+    height: 1.4vw;
+    border-radius: 1.4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.4vw 0 0.4vw;
+    width: 6vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Main__Content--ListRegkMedal table tr td .Status span {
+    margin-left: 0.4vw;
+}
+
+.Main__Content--RegkMedalDetail {
+    margin-right: 1vw;
+}
+
+
+/*# sourceMappingURL=Style-AdminManagementMarkMedal.css.map */
