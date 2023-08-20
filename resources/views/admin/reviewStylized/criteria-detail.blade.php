@@ -358,12 +358,7 @@
               </div>
 @endforeach
               <input type="hidden" name="status_input" value="" id="btnOperation" />
-              <div class="Operation"@if( $regis->admin_status == '4' || $regis->admin_status == '5')
-              style="opacity: 0.7; pointer-events: none;"
-              @endif
-                @if($regis->competitionperiod->depart_end_second_time > now() )
-                style="opacity: 0.7; pointer-events: none;"
-                @endif> 
+              <div class="Operation"> 
               
               <div class="Note">
               <span>Nhận xét Quản trị viên Khoa</span>

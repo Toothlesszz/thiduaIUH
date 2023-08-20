@@ -26,6 +26,14 @@ class UserController extends Controller
         $type = $request['type'];
         $id_depart = $request['id_depart'];
         
+        $nameDepart = Department::where('_id', '=', $id_depart)->first();
+        if($nameDepart !='')
+        {
+          $department = Department::where('_id','!=', $id_depart)->get();
+        }
+        else{
+          $department = Department::get();
+        }
         $query = User::with('department')->
           where('level' , '=' , '1');
 
@@ -41,8 +49,8 @@ class UserController extends Controller
         }
 
         $user = $query->paginate(5)->withQueryString();
-        $department = Department::get();
-        return view('admin.users.index')->with(compact('keyword', 'query', 'user','department','custom','id_depart'));
+        
+        return view('admin.users.index')->with(compact('keyword', 'query', 'user','nameDepart','department','custom','type','id_depart'));
       
     }
 

@@ -81,62 +81,137 @@ var checkboxElements = document.querySelectorAll("#checkboxStandard");
 //     popupConfirmSubmit.style.display = "block";
 //   }
 // });
+
 var btnOperation = document.querySelector("#btnOperation");
-var buttonClicked = 0;
+var btnEvaluate = document.querySelector("#btn-Evaluate");
 
-openPopupConfirmSubmit.forEach(function(btn) {
-    btn.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (btn.id === "btn-RegReject") {
-            //Từ chối
-            var isAnyChecked = false;
-            for (var i = 0; i < checkboxElements.length; i++) {
-                if (!checkboxElements[i].checked) {
-                    isAnyChecked = true;
-                    break;
-                }
-            }
+// const labels = document.querySelectorAll(".checkboxQualified__status");
+const classifYoblige = document.querySelectorAll("#Classif");
+const regCriteriaNumber = parseInt(
+    document.querySelector("#regCriteriaNumber").textContent
+);
+console.log(classifYoblige);
+// let allContainDaDat = true;
+let buttonClicked = 0;
 
-            if (!isAnyChecked) {
-                // Chặn việc submit form
-                MessageError(
-                    "KHÔNG THỂ DUYỆT",
-                    "Không thể nhấn 'Từ chối' khi tất cả tiêu chí đều 'Đạt'."
-                );
-            } else {
-                buttonClicked = 3;
-                // Tiếp tục submit form
-                popupConfirmSubmit.style.display = "block";
-            }
+btnEvaluate.addEventListener("click", function(e) {
+    e.preventDefault();
+    // let Status = 0;
+    let criteriaCount = 0;
+    const selectedValue = [];
+    const selectedValueRequired = [];
+    let shouldBreak = false; // Cờ để kiểm tra xem có nên dừng vòng lặp không
+
+    classifYoblige.forEach((classif) => {
+        if (shouldBreak) {
+            return; // Nếu cờ shouldBreak là true, thoát vòng lặp
         }
-        if (btn.id === "btn-RegPropose") {
-            //Xem xét
-            buttonClicked = 2;
-            popupConfirmSubmit.style.display = "block";
-        }
-        if (btn.id === "btn-RegAccept") {
-            var isAnyUnchecked = false;
-            for (var i = 0; i < checkboxElements.length; i++) {
-                if (!checkboxElements[i].checked) {
-                    isAnyUnchecked = true;
-                    break;
-                }
-            }
 
-            if (isAnyUnchecked) {
-                // Chặn việc submit form
-                MessageError(
-                    "KHÔNG THỂ DUYỆT",
-                    "Chỉ được nhấn 'Duyệt' khi tất cả tiêu chí đều 'Đạt'."
-                );
-            } else {
-                buttonClicked = 1;
-                // Tiếp tục submit form
-                popupConfirmSubmit.style.display = "block";
-            }
+        const classifText = classif.textContent;
+        const radioButtons =
+            classif.parentElement.parentElement.querySelectorAll("input[type=radio]");
+        // const labelText = classif.parentElement.parentElement.querySelector(
+        //   ".checkboxQualified__status"
+        // ).textContent;
+        // console.log(checkbox);
+
+        if (classifText !== "Khác") {
+            radioButtons.forEach((radio) => {
+                if (radio.checked) {
+                    const value = radio.parentElement.textContent.trim();
+                    selectedValueRequired.push(value);
+                }
+            });
+        } else {
+            radioButtons.forEach((radio) => {
+                if (radio.checked) {
+                    const value = radio.parentElement.textContent.trim();
+                    selectedValue.push(value);
+                }
+            });
         }
     });
+    const allDaDatRequired = selectedValueRequired.every(
+        (value) => value === "ĐẠT"
+    );
+    const atLeastTwoDaDat =
+        selectedValue.filter((value) => value === "ĐẠT").length >=
+        regCriteriaNumber;
+    const hasPhanVanRequired = !selectedValueRequired.includes("CHƯA ĐẠT");
+    const atLeastTwoDaDatPhanVan =
+        selectedValue.filter((value) => value === "ĐẠT" || value === "PHÂN VÂN")
+        .length >= regCriteriaNumber;
+
+    if (allDaDatRequired && atLeastTwoDaDat) {
+        buttonClicked = 1;
+    } else if (hasPhanVanRequired && atLeastTwoDaDatPhanVan) {
+        buttonClicked = 2;
+    } else {
+        buttonClicked = 3;
+    }
+
+    console.log("Selected values:", selectedValueRequired);
+    console.log("Selected values:", selectedValue);
+
+    popupConfirmSubmit.style.display = "block";
 });
+
+closePopupConfirmSubmit.addEventListener("click", function() {
+    popupConfirmSubmit.style.display = "none";
+});
+// openPopupConfirmSubmit.forEach(function (btn) {
+//   btn.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     if (btn.id === "btn-RegReject") {
+//       //Từ chối
+//       var isAnyChecked = false;
+//       for (var i = 0; i < checkboxElements.length; i++) {
+//         if (!checkboxElements[i].checked) {
+//           isAnyChecked = true;
+//           break;
+//         }
+//       }
+
+//       if (!isAnyChecked) {
+//         // Chặn việc submit form
+//         MessageError(
+//           "KHÔNG THỂ DUYỆT",
+//           "Không thể nhấn 'Từ chối' khi tất cả tiêu chí đều 'Đạt'."
+//         );
+//       } else {
+//         buttonClicked = 3;
+//         // Tiếp tục submit form
+//         popupConfirmSubmit.style.display = "block";
+//       }
+//     }
+//     if (btn.id === "btn-RegPropose") {
+//       //Xem xét
+//       buttonClicked = 2;
+//       popupConfirmSubmit.style.display = "block";
+//     }
+//     if (btn.id === "btn-RegAccept") {
+//       var isAnyUnchecked = false;
+//       for (var i = 0; i < checkboxElements.length; i++) {
+//         if (!checkboxElements[i].checked) {
+//           isAnyUnchecked = true;
+//           break;
+//         }
+//       }
+
+//       if (isAnyUnchecked) {
+//         // Chặn việc submit form
+//         MessageError(
+//           "KHÔNG THỂ DUYỆT",
+//           "Chỉ được nhấn 'Duyệt' khi tất cả tiêu chí đều 'Đạt'."
+//         );
+//       } else {
+//         buttonClicked = 1;
+//         // Tiếp tục submit form
+//         popupConfirmSubmit.style.display = "block";
+//       }
+//     }
+//   });
+// });
 
 closePopupConfirmSubmit.addEventListener("click", function() {
     popupConfirmSubmit.style.display = "none";
@@ -161,33 +236,33 @@ function toggleCheckboxValue(checkbox) {
 }
 
 //Comment
-// var commentDepart = document.querySelector("#commentDepart");
-// var commentManage = document.querySelector("#commentManage");
-// var commentDepartValue = commentDepart.value;
-// var commentManageValue = commentManage.value;
+var commentDepart = document.querySelector("#commentDepart");
+var commentManage = document.querySelector("#commentManage");
+var commentDepartValue = commentDepart.value;
+var commentManageValue = commentManage.value;
 
-// function commentvalue() {
-//     commentDepart.parentElement.querySelector("textarea").value =
-//         commentDepartValue +
-//         commentDepart.parentElement.querySelector("textarea").value;
-//     commentManage.parentElement.querySelector("textarea").value =
-//         commentManageValue +
-//         commentManage.parentElement.querySelector("textarea").value;
-//     console.log(commentDepartValue);
-// }
+function commentvalue() {
+    commentDepart.parentElement.querySelector("textarea").value =
+        commentDepartValue +
+        commentDepart.parentElement.querySelector("textarea").value;
+    commentManage.parentElement.querySelector("textarea").value =
+        commentManageValue +
+        commentManage.parentElement.querySelector("textarea").value;
+    console.log(commentDepartValue);
+}
 
-// commentvalue();
-// commentDepart.parentElement
-//     .querySelector("textarea")
-//     .addEventListener("keydown", function(e) {
-//         if (!e.target.value.includes(commentDepartValue)) {
-//             e.target.value = commentDepartValue;
-//         }
-//     });
-// commentManage.parentElement
-//     .querySelector("textarea")
-//     .addEventListener("keydown", function(e) {
-//         if (!e.target.value.includes(commentManageValue)) {
-//             e.target.value = commentManageValue;
-//         }
-// });
+commentvalue();
+commentDepart.parentElement
+    .querySelector("textarea")
+    .addEventListener("keydown", function(e) {
+        if (!e.target.value.includes(commentDepartValue)) {
+            e.target.value = commentDepartValue;
+        }
+    });
+commentManage.parentElement
+    .querySelector("textarea")
+    .addEventListener("keydown", function(e) {
+        if (!e.target.value.includes(commentManageValue)) {
+            e.target.value = commentManageValue;
+        }
+    });

@@ -390,8 +390,15 @@
               </div>
 @endforeach
               <input type="hidden" name="status_input" value="" id="btnOperation" />
-              <div class="Operation"
-              >
+              <div class="Operation"@if( $regis->admin_status == '4' || $regis->admin_status == '5')
+              style="opacity: 0.7; pointer-events: none;"
+              @endif
+                @if($regis->competitionperiod->candidate_add_detail < now() && $regis->competitionperiod->depart_second_time > now())
+                style="opacity: 0.7; pointer-events: none;"
+                @endif
+                @if($regis->competitionperiod->depart_end_second_time < now() )
+                style="opacity: 0.7; pointer-events: none;"
+                @endif>
               <div class="Note">
               <span>Nhận xét Quản trị viên Khoa</span>
                   
@@ -408,31 +415,11 @@
                
                 <h5>THAO TÁC XÉT DUYỆT</h5>
                 <button
-                  id="btn-RegReject"
-                  name="reject"
+                  id="btn-Evaluate"
                   class="custom-button-m btn-ConfirmSubmit"
                   type="submit"
-                  value="3"
                 >
-                  <i class="fa-solid fa-reply-all"></i> TỪ CHỐI
-                </button>
-                <button
-                  id="btn-RegPropose"
-                  name="consider"
-                  class="custom-button-m btn-ConfirmSubmit"
-                  type="submit"
-                  value="2"
-                >
-                  <i class="fa-solid fa-clipboard"></i> XEM XÉT
-                </button>
-                <button
-                  id="btn-RegAccept"
-                  name="accept"
-                  class="custom-button-m btn-ConfirmSubmit"
-                  type="submit"
-                  value="1"
-                >
-                  <i class="fa-solid fa-check-to-slot"> </i> DUYỆT
+                  <i class="fa-solid fa-paste"></i> LƯU HỒ SƠ
                 </button>
                
               </div>

@@ -460,7 +460,6 @@
 }
 
 .Main__Content--Registration .RegistrationForm form .Operation button {
-    width: 7vw;
     margin: 0 auto 0 auto;
 }
 
@@ -478,6 +477,13 @@
 
 .Main__Content--Registration .RegistrationForm form .Operation #btn-RegAccept {
     background-color: rgb(18, 27, 42);
+}
+
+.Main__Content--Registration .RegistrationForm form .Operation #btn-Evaluate {
+    background-color: rgb(29, 171, 161);
+    grid-row: 2;
+    grid-column: 2/span 4;
+    margin: 0 auto 0 auto;
 }
 
 

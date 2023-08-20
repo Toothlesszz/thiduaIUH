@@ -276,7 +276,12 @@
               </div>
 
               <select name="id_depart" id="">
+                @if($nameDepart != '' )
+              <option value="{{$nameDepart->_id}}">{{$nameDepart->name_depart}}</option>
               <option value="">Tất cả các khoa</option>
+              @elseif($nameDepart =='')
+              <option value="">Tất cả các khoa</option>
+              @endif
               @foreach($department as $key)
                 <option value="{{$key->_id}}">{{$key->name_depart}}</option>
                 @endforeach
@@ -288,6 +293,9 @@
                 <span id="">Đối tượng</span>
               </div>
               <select name="type" id="">
+                @if($type != '' )
+                <option value="{{$type}}">{{$type}}</option>
+                @endif
                 <option value="Sinh viên">Sinh viên</option>
                 <option value="Giảng viên">Giảng viên</option>
                 <option value="Viên chức">Viên chức</option>
