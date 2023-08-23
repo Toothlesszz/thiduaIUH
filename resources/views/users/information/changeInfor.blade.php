@@ -146,7 +146,6 @@
       <div class="Main__Content">
         <div class="Main__Content--Avatar">
           <form action="{{ route('changeImage', Auth::user()->_id)}}" method="post" enctype="multipart/form-data">
-          
           @csrf
             <div class="ImgAvatar">
               <img src="{{ asset('uploads/user/'. Auth::user()->image) }}" alt="" id="DefaultImg" />

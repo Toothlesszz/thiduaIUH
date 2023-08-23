@@ -192,23 +192,19 @@ class DepartmentController extends Controller
     }
     public function changePassAdmindepart(Request $request, $id)
     {
+     
         $data = $request;
-  
-        //Check password
-        if($request->get('pass_new') != $request->get('confirm_pass_new')) {
-          return redirect()->back()->with("error", "Mật khẩu nhập lại không trùng khớp!");
-        }
   
         //Change pass
         $user = User::find($id);
-        $user->password = Hash::make($data['pass_new']);
+        $user->password = Hash::make('Quantri@111');
         $user->save();
         // dd($id);
         return redirect()->back()->with("success","Đổi mật khẩu thành công!");
     }
     public function changeStatusDepart(Request $request, $id)
     {
-      
+      dd($request->all());
       $user = User::find($id);
       if($request->level == '3')
       {

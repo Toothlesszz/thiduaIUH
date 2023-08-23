@@ -32,7 +32,7 @@
     height: auto;
     border-radius: 1vw;
     padding: 2vw;
-    width: 54vw;
+    width: 64vw;
 }
 
 .Main__Content--Description .Info {
@@ -97,7 +97,7 @@
 }
 
 .Main__Content--Registration .RegistrationForm {
-    width: 60vw;
+    width: 70vw;
     margin-left: auto;
     margin-right: auto;
     border-radius: 1vw;
@@ -258,13 +258,13 @@
 
 .Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer {
     position: relative;
-    height: 4vw;
 }
 
 .Main__Content--Registration .RegistrationForm form .Standard__Items .Criteria .Criteria__Items .Answer textarea {
     font-size: 0.8vw;
     border: 0.1vw solid rgb(29, 171, 161);
-    height: 3.2vw;
+    width: 18vw;
+    height: 5vw;
     border-radius: 0.4vw;
     padding: 0.4vw 0.4vw 0.4vw 1.6vw;
     resize: none;

@@ -127,7 +127,7 @@ class AdminDepartmentController extends Controller
       ->paginate(5)->withQueryString();
 
         $CompetitionPeriod = CompetitionPeriod::with('stylized')->paginate(5)->withQueryString();
-      return view('AdminDepartment.dasboard')
+      return view('adminDepartment.dasboard')
       ->with(compact('user','regis','nameStyli','academicYear', 'regisCount', 'regisPassCount', 'notReviewed','year', 'CompetitionPeriod','stylized'));
     }
 

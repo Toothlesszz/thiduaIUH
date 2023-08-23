@@ -23,11 +23,13 @@ class AdminMiddleware
             if(isset($user->level) && $user->level == '4') {
                 return $next($request);
             }
+            elseif(isset($user->level) && $user->level == '5'){
+              return $next($request);
+            }
             else {
               Auth::guard('admin')->logout();
               return redirect()->route('login-admin')->with('error', 'Thông tin tài khoản hoặc mật khẩu không chính xác!');
             }
-            
           }
         else {
           return redirect('/login-admin');

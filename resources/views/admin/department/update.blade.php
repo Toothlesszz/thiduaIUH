@@ -109,7 +109,7 @@
           <div class="Account">
             <img src="{{ asset('uploads/user/'.Auth::guard('admin')->user()->image) }}" alt="" />
             <div class="info">
-            @if(Auth::guard('admin')->user()->level == 4)
+            @if(Auth::guard('admin')->user()->level == 4 || Auth::guard('admin')->user()->level == 5)
               <span> Quản trị viên Trường</span>
               <span> {{ Auth::guard('admin')->user()->name }}</span>
               @endif
@@ -140,6 +140,7 @@
             <i class="fa-solid fa-bell" id="openNotification"></i>
             <div class="Notification__content">
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
+              
               <div class="Notification__content--items">
                 <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
@@ -162,12 +163,14 @@
           </div>
         </div>
       </div>
+      
       <div class="Main__Content">
         <div class="Main__Content--CandidateProfile">
           <div class="Title">
             <i class="fa-solid fa-address-card"></i>
             <span>THÔNG TIN QUẢN TRỊ VIÊN</span>
           </div>
+          
           @foreach($userDepart as $value)
           <div class="AccountInfor">
             <h4>Thông tin tài khoản</h4>
@@ -188,23 +191,10 @@
               <p>{{$value->type}}</p>
             </div>
             @endforeach
-            <form action="{{ route('changePassAdmindepart', [$value->_id]) }}" method="post" class="ChangePass">
-              @csrf
-              <input
-                  name="pass_new"
-                  type="hidden"
-                  value="Quantri@111"
-                  placeholder="Mật khẩu mới"
-                />  
-              <input
-                class="custom-button-m"
-                type="submit"
-                value="LƯU THAY ĐỔI"
-                id="btn-changePass"
-              />
-            </form>
-            
-            @if($value->status == 2)
+            <a href="{{route('changePassAdmindepart', [$value->_id])}}"><input id="btn-changePass" class="custom-button-m" type="hidden"
+      value="ĐẶT LẠI MẬT KHẨU"/>
+    </a>
+            @if(Auth::guard('admin')->user()->level == 5 && $value->status == 2)
   <form id="lockAccountForm" action="{{ route('changeStatusDepart', [$value->_id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id_creator" value="{{ $value->id_creator }}" required />
@@ -213,7 +203,23 @@
       KHÓA TÀI KHOẢN
     </button>
   </form>
-          @elseif($value->status == 3)
+  <form action="{{route('changePassAdmindepart', [$value->_id]) }}" method="post" class="ChangePass">
+              @csrf
+              
+                <input
+                  name="pass_new"
+                  type="hidden"
+                  value="Không có gì ở đây đâu mà nhìn !"
+                  placeholder="Mật khẩu mới"
+                />    
+              <input
+                class="custom-button-m"
+                type="submit"
+                value="ĐẶT LẠI MẬT KHẨU"
+                id="btn-changePass"
+              />
+              </form>
+          @elseif(Auth::guard('admin')->user()->level == 5 && $value->status == 3)
   <form id="unlockAccountForm" action="{{ route('changeStatusDepart', [$value->_id]) }}" method="POST" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="id_creator" value="{{ $value->id_creator }}" required />
@@ -222,6 +228,23 @@
       MỞ KHÓA TÀI KHOẢN
     </button>
   </form>
+  <form action="{{route('changePassAdmindepart', [$value->_id]) }}" method="post" class="ChangePass">
+              @csrf
+              
+                <input
+                  name="pass_new"
+                  type="hidden"
+                  value="Không có gì ở đây đâu mà nhìn !"
+                  placeholder="Mật khẩu mới"
+                />    
+              <input
+                class="custom-button-m"
+                type="submit"
+                value="ĐẶT LẠI MẬT KHẨU"
+                id="btn-changePass"
+              />
+              </form>     
+              
 @endif
         
           </div>
@@ -313,9 +336,11 @@
                 id=""
               />
             </form>
+            
           </div>
         </div>
       </div>
+      
     </section>
 
     <script src="/js/Js-AdminManagementAdministratorsDetail.js"></script>

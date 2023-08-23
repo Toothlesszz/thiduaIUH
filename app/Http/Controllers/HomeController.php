@@ -100,8 +100,8 @@ class HomeController extends Controller
         $get_image = $request->image;
         if($get_image) {
             $path = 'uploads/user/'.$user->image;
-            if($path != 'uploads/user/' ) {
-                unlink($path);
+            if($user->image != '' ) {
+            unlink($path);
             $path = 'uploads/user/';
             $get_name_image = $get_image->getClientOriginalName();
             $name_image = current(explode('.', $get_name_image));
