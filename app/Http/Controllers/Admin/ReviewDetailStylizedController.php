@@ -11,12 +11,15 @@ use App\Models\RegistrationDetails;
 use App\Models\Ceriterias;
 use App\Models\Stylized;
 use App\Models\CeriteriasDetail;
+use App\Models\UserTracing;
+use Carbon\Carbon;
 use Crypt;
 
 class ReviewDetailStylizedController extends Controller
 {
     public function showDetailCeriteriaAdmin($id)
     {
+        $userTracing = UserTracing::with('users')->where('id_profile', '=', $id)->get();
         $regis = Registration::with('competitionperiod', 'users')
         ->where('_id', $id)->first();
 
@@ -37,18 +40,31 @@ class ReviewDetailStylizedController extends Controller
             ->get();
         // Gán tiêu chí vào tiêu chuẩn
     }
-    return view('admin.reviewStylized.criteria-detail')->with(compact('regis_detail', 'regis', 'filtered_criterias','id_criteria_detail'));
+    return view('admin.reviewStylized.criteria-detail')->with(compact('userTracing','regis_detail', 'regis', 'filtered_criterias','id_criteria_detail'));
     }
 
     public function updateRegistrationDetailAdmin(Request $request, $id)
     {
-        
+        // Thiết lập múi giờ là 'Asia/Ho_Chi_Minh' (Việt Nam)
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+    // Lấy ngày hiện tại của Việt Nam
+    $currentDate = Carbon::now()->toDateString();
         if($request->status_input == '4')
         {
             $Registration = Registration::find($id);
             $Registration->admin_status = $request->status_input;
             $Registration->admin_note = $request->admin_note;
             $Registration->save();
+            // Lưu vết của người dùng
+            $userTracing = new UserTracing();
+            $userTracing->id_user = Auth::guard('admin')->user()->_id;
+            $userTracing->name_user = Auth::guard('admin')->user()->name;
+            $userTracing->content = $request->admin_note;
+            $userTracing->update_date = $currentDate;
+            $userTracing->id_profile = $id;
+            $userTracing->save();
+
             $checked_values = $request->input('id_registration_detail');
             if($checked_values == '')
             {

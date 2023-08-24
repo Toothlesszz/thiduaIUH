@@ -173,7 +173,6 @@
           </div>
         </div>
       </div>
-     
       <div class="Main__Content">
         <div class="Main__Content--Profile">
           <div class="Title">

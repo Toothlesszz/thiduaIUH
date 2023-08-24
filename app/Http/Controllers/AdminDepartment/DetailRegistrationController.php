@@ -10,6 +10,7 @@ use App\Models\RegistrationDetails;
 use App\Models\Ceriterias;
 use App\Models\Stylized;
 use App\Models\CeriteriasDetail;
+use Carbon\Carbon;
 use Crypt;
 
 class DetailRegistrationController extends Controller
@@ -21,6 +22,7 @@ class DetailRegistrationController extends Controller
      */
     public function showDetailCeriteria($id)
     {
+        
         $regis = Registration::with('competitionperiod', 'users')
         ->where('_id', $id)
         ->where('id_depart', Auth::guard('department')->user()->id_depart)

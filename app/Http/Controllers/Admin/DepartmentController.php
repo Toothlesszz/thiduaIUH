@@ -37,9 +37,14 @@ class DepartmentController extends Controller
             
         }
         
-        $user = $query->paginate(5);
-        
+        $user = $query->where('_id', '!=' , Auth::guard('admin')->user()->_id)->paginate(5);
+        if(Auth::guard('admin')->user()->level == '5')
+	{
         $department = Department::get();
+	}
+	else{
+	$department = Department::where('_id', '!=' , Auth::guard('admin')->user()->id_depart)->get();
+	}
         return view('admin.department.index')->with(compact('keyword', 'query', 'user','department'));
 
     }
@@ -85,7 +90,7 @@ class DepartmentController extends Controller
             $user->id_depart = $data['id_depart'];
             $user->course = $data['course'];   
             $user->id_creator = $data['id_creator'];   
-            $user->password = Hash::make($data['password']);
+            $user->password = Hash::make('Quantri@111');
       
             if($data['id_depart'] == '6468eda68ab7c76743862c5b')
             {
@@ -192,9 +197,8 @@ class DepartmentController extends Controller
     }
     public function changePassAdmindepart(Request $request, $id)
     {
-     
         $data = $request;
-  
+    
         //Change pass
         $user = User::find($id);
         $user->password = Hash::make('Quantri@111');
@@ -204,7 +208,7 @@ class DepartmentController extends Controller
     }
     public function changeStatusDepart(Request $request, $id)
     {
-      dd($request->all());
+      
       $user = User::find($id);
       if($request->level == '3')
       {
