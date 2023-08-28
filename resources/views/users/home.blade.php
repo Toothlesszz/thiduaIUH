@@ -188,7 +188,7 @@
             <div class="Profile__Content">
               <p> {{ Auth::user()->name }}</p>
               <p> {{ Auth::user()->code }}</p>
-              <p>{{ $departmentName[0]->name_depart}}</p> 
+              <p>{{ $departmentName->name_depart}}</p> 
             </div>
             <div class="Profile__Detail">
             

@@ -78,6 +78,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::resource('/send-stylized', SendStylizedController::class);
     Route::get('/send-stylized/show/{id}', [SendStylizedController::class, 'showDetail'])->name('showDetail');
     Route::post('/send-stylized/update/{id}', [SendStylizedController::class, 'updateDetail'])->name('updateDetail');
+    Route::get('/send-stylized/delete/{id}', [SendStylizedController::class, 'deleteDetail'])->name('deleteDetail');
 });
 
 //=============================ADMIN-DEPARTMENT===========================

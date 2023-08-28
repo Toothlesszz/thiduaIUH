@@ -50,20 +50,21 @@ class ReviewDetailStylizedController extends Controller
 
     // Lấy ngày hiện tại của Việt Nam
     $currentDate = Carbon::now()->toDateString();
+    // Lưu vết của người dùng
+    $userTracing = new UserTracing();
+    $userTracing->id_user = Auth::guard('admin')->user()->_id;
+    $userTracing->name_user = Auth::guard('admin')->user()->name;
+    $userTracing->content = $request->admin_note;
+    $userTracing->update_date = $currentDate;
+    $userTracing->id_profile = $id;
+    $userTracing->save();
         if($request->status_input == '4')
         {
             $Registration = Registration::find($id);
             $Registration->admin_status = $request->status_input;
             $Registration->admin_note = $request->admin_note;
             $Registration->save();
-            // Lưu vết của người dùng
-            $userTracing = new UserTracing();
-            $userTracing->id_user = Auth::guard('admin')->user()->_id;
-            $userTracing->name_user = Auth::guard('admin')->user()->name;
-            $userTracing->content = $request->admin_note;
-            $userTracing->update_date = $currentDate;
-            $userTracing->id_profile = $id;
-            $userTracing->save();
+            
 
             $checked_values = $request->input('id_registration_detail');
             if($checked_values == '')

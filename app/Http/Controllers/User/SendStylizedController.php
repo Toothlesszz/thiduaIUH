@@ -58,7 +58,6 @@ class SendStylizedController extends Controller
                 ->where('id_criter', $criteria->_id)
                 ->exists();
         });
-
         foreach ($filtered_criterias as $criteria) {
         $criteria->criteria_detail = CeriteriasDetail::whereIn('_id', $id_criteria_detail)
             ->where('id_criter', $criteria->_id)
@@ -78,6 +77,8 @@ class SendStylizedController extends Controller
     public function updateDetail(Request $request, $id)
     {
         
+    // Chỉnh sửa hồ sơ
+    
      $Registration = Registration::find($id);
      $Registration->update = 'False';
      $Registration->admin_status = '0';
@@ -99,8 +100,7 @@ class SendStylizedController extends Controller
 
         $regis_detail->save();
     }
-
-      return redirect()->back()->with('success', 'Cập nhật danh hiệu đăng ký thành công!');
+        return redirect()->back()->with('success', 'Cập nhật danh hiệu đăng ký thành công!');
     }
 
     /**
@@ -116,6 +116,22 @@ class SendStylizedController extends Controller
 
        return  response()->download($path);
     }
-
+    public function deleteDetail(Request $request , $id){
+       //Xóa hồ sơ để đăng kí lại 
+        $detail = RegistrationDetails::where('id_regis', '=', $id)->get();
+        foreach($detail as $detailData){
+            $regis_detail = RegistrationDetails::find($detailData->_id);
+            $path = 'uploads/proof_file/'.$regis_detail->proof_file;
+            if(file_exists($path)) {
+            unlink($path);
+            } 
+            else{
+                return redirect()->back()->with('error1', 'Xóa hồ sơ không thành công (Lỗi: Không tìm thấy file !)');
+            }
+        $deleted_detail = RegistrationDetails::where('_id','=', $detailData->_id)->delete();  
+        }
+        $Registration = Registration::where('_id','=', $id)->delete();
+        return redirect('/user');
+    }
 
 }

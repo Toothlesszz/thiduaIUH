@@ -25,7 +25,7 @@ class HomeController extends Controller
       $userInfor = User::where('_id', '=', Auth::user()->_id)->limit(1)->get();
 
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::user()->_id)->first();             
-      $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
+      $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->first();
       
       $regisCount = Registration::where('id_user', '=', Auth::user()->_id)->count();
       $regisPassCount = Registration::where('id_user', '=', Auth::user()->_id)->where('admin_status','=','4')->count();

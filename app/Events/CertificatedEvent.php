@@ -23,6 +23,7 @@ class CertificatedEvent implements ShouldBroadcast
     public function __construct($message)
     {
         $this->event = $message;
+        
     }
 
     /**

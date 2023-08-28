@@ -63,6 +63,26 @@
           });
               </script>
       @endif
+      @if(session('error1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Cập nhật minh chứng thành công.");
+              MessageError(
+                "xÓA HỒ SƠ KHÔNG THÀNH CÔNG!",
+                "Xóa hồ sơ không thành công (Lỗi: Không tìm thấy file minh chứng !)."
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section class="Main">
     <div class="Main__Navigation">
         <ul>
@@ -158,15 +178,40 @@
             <i class="fa-solid fa-medal"></i>
             <h4>PHIẾU ĐĂNG KÝ DANH HIỆU</h4>
           </div>
+          @if( $regis->admin_status == '1')
+	 @if($regis->competitionperiod->depart_first_time < now())
+          <div class="RegReset">
+            <button id="btn-RegReset" class="custom-button-m" href="">
+              <i class="fa-solid fa-repeat"></i>Nhấn để "HỦY HỒ SƠ ĐĂNG KÝ"
+            </button>
+            <div class="popupRegReset">
+              <div class="popupRegReset__content">
+                <i class="fa-solid fa-circle-exclamation fa-shake"></i>
+                <p>Bạn có chắc chắn, thông tin đăng ký hiện tại sẽ bị xóa?</p>
+                <div>
+                  <button id="close-popupRegReset">Hủy</button>
+                  <a href="{{route('deleteDetail', $regis->_id)}}" id="submit-RegReset">Đăng ký lại</a>
+                </div>
+              </div>
+            </div>
+          </div>
+	@endif
+@endif
           <div class="Info">
             <!-- <img src="/Front-End/Image/lamtheoloiBac.jpg" alt="" /> -->
             <div class="Info__Content">
               <h4>{{$regis->competitionperiod->stylized->name_stylized}}</h4>
               <div class="Info__Content--Duration">
                 <i class="fa-solid fa-business-time"></i>
-                <span>Thời gian :</span>
-                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->startdate)->format('d-m-Y') }} - 
-                  {{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->depart_first_time)->format('d-m-Y') }}</span>
+                <span>Thời gian đăng kí :</span>
+                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->startdate)->format('d/m/Y') }} - 
+                  {{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->depart_first_time)->format('d/m/Y') }}</span>
+              </div>
+		<div class="Info__Content--Duration">
+                <i class="fa-solid fa-business-time"></i>
+                <span>Bổ sung hồ sơ :</span>
+                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->candidate_add_detail)->format('d/m/Y') }} - 
+                  {{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->depart_second_time)->format('d/m/Y') }}</span>
               </div>
               <div class="Info__Content--UserObject">
                 <i class="fa-solid fa-user-graduate"></i>
@@ -175,6 +220,7 @@
                 <span>{{$item['objects']}}</span>
                 @endforeach
               </div>
+
               <div class="Info__Content--UserObject">
               <i class="fa-solid fa-clipboard"></i>
               <span>Trạng thái :</span>
@@ -184,6 +230,8 @@
                   Đã duyệt
                   @elseif($regis->admin_status == '2')
                   Xem xét
+                  @elseif($regis->admin_status == '3')
+                  Từ chối
                   @elseif($regis->admin_status == '4')
                   Đã đạt
                   @elseif($regis->admin_status == '5')
@@ -298,8 +346,7 @@
               @endforeach
             </div>
             
-            <input type="hidden" name="status_input" value="" id="btnOperation" /> 
-              <div class="Operation" @if( $regis->admin_status == '4' || $regis->admin_status == '5')
+              <div class="Operation"@if( $regis->admin_status == '4' || $regis->admin_status == '5')
               style="opacity: 0.7; pointer-events: none;"
               
               @elseif($regis->competitionperiod->depart_first_time < now() && $regis->competitionperiod->candidate_add_detail > now())
@@ -336,9 +383,11 @@
                   id="btn-RegUpdate"
                   class="custom-button-m btn-ConfirmSubmit"
                   type="submit"
+                  
                 >
                   <i class="fa-solid fa-file-import"></i> CẬP NHẬT
                 </button>
+                
               </div>
             </form>
           </div>
