@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Pusher\Pusher;
+use Illuminate\Support\Facades\Notification\Certificated;
 use App\Events\CertificatedEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -12,6 +14,7 @@ use App\Models\Ceriterias;
 use App\Models\Stylized;
 use App\Models\CeriteriasDetail;
 use App\Models\UserTracing;
+use App\Models\Notifications;
 use Carbon\Carbon;
 use Crypt;
 
@@ -19,7 +22,7 @@ class ReviewDetailStylizedController extends Controller
 {
     public function showDetailCeriteriaAdmin($id)
     {
-        $userTracing = UserTracing::with('users')->where('id_profile', '=', $id)->get();
+        $userTracing = UserTracing::with('users')->where('id_profile', '=', $id)->orderBy('update_date','desc')->get();
         $regis = Registration::with('competitionperiod', 'users')
         ->where('_id', $id)->first();
 
@@ -45,11 +48,22 @@ class ReviewDetailStylizedController extends Controller
 
     public function updateRegistrationDetailAdmin(Request $request, $id)
     {
-        // Thiết lập múi giờ là 'Asia/Ho_Chi_Minh' (Việt Nam)
+
+    // Thiết lập múi giờ là 'Asia/Ho_Chi_Minh' (Việt Nam)
     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
     // Lấy ngày hiện tại của Việt Nam
-    $currentDate = Carbon::now()->toDateString();
+    $currentDate = Carbon::now()->toDateTimeString();
+
+    $Registration = Registration::find($id);
+    //Lưu lại nội dung thông báo
+    $notification = new Notifications();
+    $notification->id_user = $Registration->id_user;
+    $notification->status = $request->status_input; 
+    $notification->date = $currentDate;
+    $notification->id_stylized = $Registration->competitionperiod->id_styli;
+    $notification->save();
+
     // Lưu vết của người dùng
     $userTracing = new UserTracing();
     $userTracing->id_user = Auth::guard('admin')->user()->_id;
@@ -58,9 +72,9 @@ class ReviewDetailStylizedController extends Controller
     $userTracing->update_date = $currentDate;
     $userTracing->id_profile = $id;
     $userTracing->save();
+    //Xét duyệt
         if($request->status_input == '4')
         {
-            $Registration = Registration::find($id);
             $Registration->admin_status = $request->status_input;
             $Registration->admin_note = $request->admin_note;
             $Registration->save();
@@ -70,7 +84,28 @@ class ReviewDetailStylizedController extends Controller
             if($checked_values == '')
             {
                 $message = 'Trạng thái hồ sơ đã được cập nhật !';
-                event(new CertificatedEvent($message));
+                $userID = $Registration->id_user;
+
+                $option = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher(
+                    
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $option
+                );
+                $data = ['userID' => $userID,
+                        'message' => $message
+                        ];
+                $pusher->trigger('noti-channel', 'profile-reviewed', $data );
+                
+                
+                
+                
+                // event(new CertificatedEvent($message));
                 return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
             }
             else{
@@ -93,7 +128,7 @@ class ReviewDetailStylizedController extends Controller
         }
         elseif($request->status_input == '5')
         {
-            $Registration = Registration::find($id);
+            
             
             $Registration->admin_status = $request->status_input;
             $Registration->admin_note = $request->admin_note;
@@ -101,8 +136,25 @@ class ReviewDetailStylizedController extends Controller
             $Registration->save();
             $checked_values = $request->input('id_registration_detail');
             if($checked_values == ''){
+               
                 $message = 'Trạng thái hồ sơ đã được cập nhật !';
-                event(new CertificatedEvent($message));
+                $userID = $Registration->id_user;
+
+                $option = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher(
+                    
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $option
+                );
+                $data = ['userID' => $userID,
+                        'message' => $message
+                        ];
+                $pusher->trigger('noti-channel', 'profile-reviewed', $data );
                 return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
             }
             else{
@@ -122,8 +174,26 @@ class ReviewDetailStylizedController extends Controller
             }
         
         }
-            $message = 'Trạng thái hồ sơ đã được cập nhật !';
-            event(new CertificatedEvent($message));
+           
+        $message = 'Trạng thái hồ sơ đã được cập nhật !';
+                $userID = $Registration->id_user;
+
+                $option = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+                );
+                $pusher = new Pusher(
+                    
+                    env('PUSHER_APP_KEY'),
+                    env('PUSHER_APP_SECRET'),
+                    env('PUSHER_APP_ID'),
+                    $option
+                );
+                $data = ['userID' => $userID,
+                        'message' => $message
+                        ];
+                $pusher->trigger('noti-channel', 'profile-reviewed', $data );
+        
         return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
     }
 }

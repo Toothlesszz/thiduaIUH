@@ -14,28 +14,20 @@ class CertificatedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message = 'Trạng thái hồ sơ đã được cập nhật !';
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
-    public function __construct($message)
+    public $message;
+    public $userId;
+
+    public function __construct($userId, $message)
     {
-        $this->event = $message;
-        
+        $this->userId = $userId;
+        $this->message = $message;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
     public function broadcastOn()
     {
-
-        return new Channel('noti-channel');
+        return new PrivateChannel("private-user-{$this->userId}");
     }
+
     public function broadcastAs()
     {
         return 'profile-reviewed';

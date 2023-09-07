@@ -119,37 +119,37 @@ submitConfirmSubmit.addEventListener("click", function() {
 });
 
 //Comment
-var commentDepart = document.querySelector("#commentDepart");
-var commentManage = document.querySelector("#commentManage");
-var commentDepartValue = commentDepart.value;
-var commentManageValue = commentManage.value;
+// var commentDepart = document.querySelector("#commentDepart");
+// var commentManage = document.querySelector("#commentManage");
+// var commentDepartValue = commentDepart.value;
+// var commentManageValue = commentManage.value;
 
-function commentvalue() {
-    commentDepart.parentElement.querySelector("textarea").value =
-        commentDepartValue +
-        commentDepart.parentElement.querySelector("textarea").value;
-    commentManage.parentElement.querySelector("textarea").value =
-        commentManageValue +
-        commentManage.parentElement.querySelector("textarea").value;
-    console.log(commentDepartValue);
-}
+// function commentvalue() {
+//   commentDepart.parentElement.querySelector("textarea").value =
+//     commentDepartValue +
+//     commentDepart.parentElement.querySelector("textarea").value;
+//   commentManage.parentElement.querySelector("textarea").value =
+//     commentManageValue +
+//     commentManage.parentElement.querySelector("textarea").value;
+//   console.log(commentDepartValue);
+// }
 
-commentvalue();
+// commentvalue();
 
-commentDepart.parentElement
-    .querySelector("textarea")
-    .addEventListener("keydown", function(e) {
-        if (!e.target.value.includes(commentDepartValue)) {
-            e.target.value = commentDepartValue;
-        }
-    });
-commentManage.parentElement
-    .querySelector("textarea")
-    .addEventListener("keydown", function(e) {
-        if (!e.target.value.includes(commentManageValue)) {
-            e.target.value = commentManageValue;
-        }
-    });
+// commentDepart.parentElement
+//   .querySelector("textarea")
+//   .addEventListener("keydown", function (e) {
+//     if (!e.target.value.includes(commentDepartValue)) {
+//       e.target.value = commentDepartValue;
+//     }
+//   });
+// commentManage.parentElement
+//   .querySelector("textarea")
+//   .addEventListener("keydown", function (e) {
+//     if (!e.target.value.includes(commentManageValue)) {
+//       e.target.value = commentManageValue;
+//     }
+//   });
 //popupRegReset
 const openpopupRegReset = document.querySelector("#btn-RegReset");
 const closepopupRegReset = document.querySelector("#close-popupRegReset");

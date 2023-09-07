@@ -168,11 +168,12 @@
             <img src="{{ asset('certificate/img_certificate/'.$stylized->image) }}" alt="" />
             <div class="Info__Content">
               <h4>{{$stylized->name_stylized}}</h4>
-              <!-- <div class="Info__Content--Duration">
+              <div class="Info__Content--Duration">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Thời gian </span>
-                <span>20/2/2023 - 30/4/2023</span>
-              </div> -->
+                <span>{{ date("d/m/Y",strtotime($competitionperiod->startdate)) }}
+                   - {{ date("d/m/Y",strtotime($competitionperiod->depart_first_time)) }}</span>
+              </div>
               <div class="Info__Content--UserObject">
                 <i class="fa-solid fa-user-graduate"></i>
                 <span>Đối tượng </span>

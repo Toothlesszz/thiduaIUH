@@ -10,6 +10,7 @@ use App\Models\Stylized;
 use App\Models\RegistrationDetails;
 use App\Models\User;
 use App\Models\Ceriterias;
+use App\Models\Notifications;
 use App\Models\CeriteriasDetail;
 use App\Models\Competitionperiod;
 use Crypt;
@@ -133,5 +134,11 @@ class SendStylizedController extends Controller
         $Registration = Registration::where('_id','=', $id)->delete();
         return redirect('/user');
     }
+    // Load notification
+    public function loadPart(Request $request){
 
+            $notifications = Notifications::where('id_user','=', Auth::user()->_id )->orderBy('date','desc')->get();
+            $count = count($notifications);
+            return view('notifications', compact('notifications', 'count'));
+    }
 }

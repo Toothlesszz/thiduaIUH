@@ -79,6 +79,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/send-stylized/show/{id}', [SendStylizedController::class, 'showDetail'])->name('showDetail');
     Route::post('/send-stylized/update/{id}', [SendStylizedController::class, 'updateDetail'])->name('updateDetail');
     Route::get('/send-stylized/delete/{id}', [SendStylizedController::class, 'deleteDetail'])->name('deleteDetail');
+    Route::get('/refresh-notification', [SendStylizedController::class, 'loadPart'])->name('loadPart');
 });
 
 //=============================ADMIN-DEPARTMENT===========================
@@ -143,6 +144,9 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     Route::post('/change-information/{id}', [AdminController::class, 'changeInforAdminPost'])->name('changeInforAdminPost');
     Route::post('/change-information/change-pass/{id}', [AdminController::class, 'changePassAdmin'])->name('changePassAdmin');
     Route::post('/change-information/change-image/{id}', [AdminController::class, 'changeImageAdmin'])->name('changeImageAdmin');
+    Route::get('/change-slide', [AdminController::class, 'slideShow'])->name('slideShow');
+    Route::post('/add-images', [AdminController::class, 'uploadImages'])->name('uploadImages');
+    Route::get('/delete-images/{name}', [AdminController::class, 'deleteImages'])->name('deleteImages');
 
     // Manage Admin-department information 
     Route::resource('/department', DepartmentController::class);

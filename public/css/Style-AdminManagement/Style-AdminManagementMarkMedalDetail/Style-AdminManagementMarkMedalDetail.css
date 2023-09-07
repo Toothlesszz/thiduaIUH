@@ -115,6 +115,93 @@
     margin-left: 0.6vw;
 }
 
+.Main__Content--Description .Timeline {
+    /* Progress Div CSS */
+    /* Active CSS */
+}
+
+.Main__Content--Description .Timeline ul {
+    display: flex;
+}
+
+.Main__Content--Description .Timeline ul li {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10.6vw;
+}
+
+.Main__Content--Description .Timeline ul li .icon {
+    font-size: 0.8vw;
+    color: rgb(29, 171, 161);
+    margin: 0 6vw;
+}
+
+.Main__Content--Description .Timeline ul li .text {
+    font-size: 0.8vw;
+    font-weight: 600;
+    color: rgb(29, 171, 161);
+}
+
+.Main__Content--Description .Timeline ul li .progress {
+    width: 2vw;
+    height: 2vw;
+    border-radius: 50%;
+    background-color: rgb(18, 27, 42);
+    margin: 1.4vw 0;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    position: relative;
+    cursor: pointer;
+}
+
+.Main__Content--Description .Timeline ul li .progress::after {
+    content: " ";
+    position: absolute;
+    width: 7vw;
+    height: 0.2vw;
+    background-color: rgb(18, 27, 42);
+    right: 2.8vw;
+}
+
+.Main__Content--Description .Timeline ul li .progress ul li .check {
+    background-color: rgb(240, 123, 63);
+}
+
+.Main__Content--Description .Timeline ul li .progress.one::after {
+    width: 0;
+    height: 0;
+}
+
+.Main__Content--Description .Timeline ul li .progress .uil {
+    display: none;
+}
+
+.Main__Content--Description .Timeline ul li .progress p {
+    font-size: 1.3vw;
+}
+
+.Main__Content--Description .Timeline ul li .active {
+    background-color: #ff4732;
+    display: grid;
+    place-items: center;
+}
+
+.Main__Content--Description .Timeline ul li .active::after {
+    background-color: #ff4732;
+}
+
+.Main__Content--Description .Timeline ul li .active p {
+    display: none;
+}
+
+.Main__Content--Description .Timeline ul li .active .uil {
+    font-size: 2vw;
+    display: flex;
+}
+
 .Main__Content--Description .Abstracts {
     padding: 1vw;
 }
@@ -501,6 +588,45 @@
 
 .Main__Content--Registration .RegistrationForm form .Operation #btn-RegAccept {
     background-color: rgb(240, 63, 63);
+}
+
+.Main__Content--Audit {
+    background-color: rgb(255, 255, 255);
+    height: auto;
+    border-radius: 1vw;
+    padding: 2vw;
+    width: 64vw;
+}
+
+.Main__Content--Audit table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.Main__Content--Audit table tr th {
+    background-color: rgb(18, 27, 42);
+    color: rgb(255, 255, 255);
+}
+
+.Main__Content--Audit table tr td,
+.Main__Content--Audit table tr th {
+    padding: 0.4vw;
+}
+
+.Main__Content--Audit table tr th:nth-child(1) {
+    width: 5%;
+}
+
+.Main__Content--Audit table tr th:nth-child(2) {
+    width: 25%;
+}
+
+.Main__Content--Audit table tr th:nth-child(3) {
+    width: 15%;
+}
+
+.Main__Content--Audit table tr th:nth-child(4) {
+    width: 55%;
 }
 
 

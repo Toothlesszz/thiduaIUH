@@ -49,96 +49,131 @@ var btnEvaluate = document.querySelector("#btn-Evaluate");
 var buttonClicked = 0;
 
 // const labels = document.querySelectorAll(".checkboxQualified__status");
-const classifYoblige = document.querySelectorAll("#Classif");
-const regCriteriaNumber = parseInt(
-    document.querySelector("#regCriteriaNumber").textContent
-);
+var StandardItems = document.querySelectorAll(".Standard__Items");
+
+// const classifYoblige = document.querySelectorAll("#Classif");
+// const regCriteriaNumber = parseInt(
+//   document.querySelector("#regCriteriaNumber").textContent
+// );
 console.log(regCriteriaNumber);
 // let allContainDaDat = true;
 
 btnEvaluate.addEventListener("click", function(e) {
     e.preventDefault();
+    const resultStandard = [];
 
-    let allContainDaDat = false;
-    let criteriaCount = 0;
+    StandardItems.forEach((StandardItems) => {
+        const classifYoblige = StandardItems.querySelectorAll("#Classif");
+        const regCriteriaNumber = parseInt(
+            StandardItems.querySelector("#regCriteriaNumber").textContent
+        );
+        // let allContainDaDat = false;
+        // let criteriaCount = 0;
+        const selectedValue = [];
+        const selectedValueRequired = [];
+        // labels.forEach((label) => {
+        //   const labelText = label.textContent;
+        //   const checkbox = label.parentElement.querySelector("#checkboxStandard");
+        //   const classifYoblige =
+        //     label.parentElement.parentElement.querySelector("#Classif").textContent;
 
-    // labels.forEach((label) => {
-    //   const labelText = label.textContent;
-    //   const checkbox = label.parentElement.querySelector("#checkboxStandard");
-    //   const classifYoblige =
-    //     label.parentElement.parentElement.querySelector("#Classif").textContent;
+        //   if (criteriaCount === regCriteriaNumber) {
+        //     allContainDaDat = true;
+        //     return;
+        //   }
 
-    //   if (criteriaCount === regCriteriaNumber) {
-    //     allContainDaDat = true;
-    //     return;
-    //   }
+        //   if (classifYoblige === "Khác") {
+        //     if (
+        //       (labelText.includes("ĐÃ ĐẠT") && !checkbox.checked) ||
+        //       (!labelText.includes("ĐÃ ĐẠT") && checkbox.checked)
+        //     ) {
+        //       criteriaCount++;
+        //     }
+        //   }
 
-    //   if (classifYoblige === "Khác") {
-    //     if (
-    //       (labelText.includes("ĐÃ ĐẠT") && !checkbox.checked) ||
-    //       (!labelText.includes("ĐÃ ĐẠT") && checkbox.checked)
-    //     ) {
-    //       criteriaCount++;
-    //     }
-    //   }
+        //   if (
+        //     (labelText.includes("ĐÃ ĐẠT") && checkbox.checked) ||
+        //     (!labelText.includes("ĐÃ ĐẠT") && !checkbox.checked)
+        //   ) {
+        //     allContainDaDat = false;
+        //   }
+        // });
 
-    //   if (
-    //     (labelText.includes("ĐÃ ĐẠT") && checkbox.checked) ||
-    //     (!labelText.includes("ĐÃ ĐẠT") && !checkbox.checked)
-    //   ) {
-    //     allContainDaDat = false;
-    //   }
-    // });
+        let shouldBreak = false; // Cờ để kiểm tra xem có nên dừng vòng lặp không
 
-    let shouldBreak = false; // Cờ để kiểm tra xem có nên dừng vòng lặp không
+        classifYoblige.forEach((classif) => {
+            // if (shouldBreak) {
+            //   return; // Nếu cờ shouldBreak là true, thoát vòng lặp
+            // }
 
-    classifYoblige.forEach((classif) => {
-        if (shouldBreak) {
-            return; // Nếu cờ shouldBreak là true, thoát vòng lặp
-        }
+            const classifText = classif.textContent;
+            const checkbox =
+                classif.parentElement.parentElement.querySelector("#checkboxStandard");
+            const labelText = classif.parentElement.parentElement.querySelector(
+                ".checkboxQualified__status"
+            ).textContent;
 
-        const classifText = classif.textContent;
-        const checkbox =
-            classif.parentElement.parentElement.querySelector("#checkboxStandard");
-        const labelText = classif.parentElement.parentElement.querySelector(
-            ".checkboxQualified__status"
-        ).textContent;
-
-        if (classifText !== "Khác") {
-            if (
-                (labelText.includes("ĐÃ ĐẠT") && checkbox.checked) ||
-                (!labelText.includes("ĐÃ ĐẠT") && !checkbox.checked)
-            ) {
-                allContainDaDat = false;
-                console.log(1);
-                shouldBreak = true; // Đánh dấu để dừng vòng lặp
+            if (classifText !== "Khác") {
+                if (
+                    (labelText.includes("ĐÃ ĐẠT") && checkbox.checked) ||
+                    (!labelText.includes("ĐÃ ĐẠT") && !checkbox.checked)
+                ) {
+                    selectedValue.push("CHƯA ĐẠT");
+                    // allContainDaDat = false;
+                    // console.log(1);
+                    // shouldBreak = true; // Đánh dấu để dừng vòng lặp
+                } else {
+                    selectedValue.push("ĐẠT");
+                    // allContainDaDat = true;
+                }
             } else {
-                allContainDaDat = true;
+                if (
+                    (labelText.includes("ĐÃ ĐẠT") && !checkbox.checked) ||
+                    (!labelText.includes("ĐÃ ĐẠT") && checkbox.checked)
+                ) {
+                    // criteriaCount++;
+                    selectedValueRequired.push("ĐẠT");
+                } else {
+                    selectedValueRequired.push("CHƯA ĐẠT");
+                }
+                // if (criteriaCount >= regCriteriaNumber) {
+                //   allContainDaDat = true;
+                //   shouldBreak = true; // Đánh dấu để dừng vòng lặp
+                // } else {
+                //   allContainDaDat = false;
+                // }
             }
+        });
+        // console.log(selectedValue);
+        // console.log(selectedValueRequired);
+        const allSelectedValueAreDat = selectedValue.every(
+            (value) => value === "ĐẠT"
+        );
+        const datCount = selectedValueRequired.filter(
+            (value) => value === "ĐẠT"
+        ).length;
+
+        if (allSelectedValueAreDat && datCount >= regCriteriaNumber) {
+            resultStandard.push("ĐẠT");
         } else {
-            if (
-                (labelText.includes("ĐÃ ĐẠT") && !checkbox.checked) ||
-                (!labelText.includes("ĐÃ ĐẠT") && checkbox.checked)
-            ) {
-                criteriaCount++;
-            }
-            if (criteriaCount >= regCriteriaNumber) {
-                allContainDaDat = true;
-                shouldBreak = true; // Đánh dấu để dừng vòng lặp
-            } else {
-                allContainDaDat = false;
-            }
+            resultStandard.push("CHƯA ĐẠT");
         }
+        // if (allContainDaDat) {
+        //   // console.log("ĐẠT");
+        //   // buttonClicked = 4;
+        //   resultStandard.push("ĐẠT");
+        // } else {
+        //   // console.log("CHƯA ĐẠT");
+        //   // buttonClicked = 5;
+        //   resultStandard.push("CHƯA ĐẠT");
+        // }
     });
-
-    if (allContainDaDat) {
-        console.log("Đúng");
+    console.log(resultStandard);
+    if (resultStandard.every((value) => value === "ĐẠT")) {
         buttonClicked = 4;
     } else {
-        console.log("Sai");
         buttonClicked = 5;
     }
-
     popupConfirmSubmit.style.display = "block";
 });
 
@@ -180,35 +215,35 @@ function toggleCheckboxValue(checkbox) {
     checkbox.value = checkbox.checked ? "1" : "0";
 }
 
-//Comment
-var commentDepart = document.querySelector("#commentDepart");
-var commentManage = document.querySelector("#commentManage");
-var commentDepartValue = commentDepart.value;
-var commentManageValue = commentManage.value;
+// //Comment
+// var commentDepart = document.querySelector("#commentDepart");
+// var commentManage = document.querySelector("#commentManage");
+// var commentDepartValue = commentDepart.value;
+// var commentManageValue = commentManage.value;
 
-function commentvalue() {
-    commentDepart.parentElement.querySelector("textarea").value =
-        commentDepartValue +
-        commentDepart.parentElement.querySelector("textarea").value;
-    commentManage.parentElement.querySelector("textarea").value =
-        commentManageValue +
-        commentManage.parentElement.querySelector("textarea").value;
-    console.log(commentDepartValue);
-}
+// function commentvalue() {
+//   commentDepart.parentElement.querySelector("textarea").value =
+//     commentDepartValue +
+//     commentDepart.parentElement.querySelector("textarea").value;
+//   commentManage.parentElement.querySelector("textarea").value =
+//     commentManageValue +
+//     commentManage.parentElement.querySelector("textarea").value;
+//   console.log(commentDepartValue);
+// }
 
-commentvalue();
+// commentvalue();
 
-commentDepart.parentElement
-    .querySelector("textarea")
-    .addEventListener("keydown", function(e) {
-        if (!e.target.value.includes(commentDepartValue)) {
-            e.target.value = commentDepartValue;
-        }
-    });
-commentManage.parentElement
-    .querySelector("textarea")
-    .addEventListener("keydown", function(e) {
-        if (!e.target.value.includes(commentManageValue)) {
-            e.target.value = commentManageValue;
-        }
-    });
+// commentDepart.parentElement
+//   .querySelector("textarea")
+//   .addEventListener("keydown", function (e) {
+//     if (!e.target.value.includes(commentDepartValue)) {
+//       e.target.value = commentDepartValue;
+//     }
+//   });
+// commentManage.parentElement
+//   .querySelector("textarea")
+//   .addEventListener("keydown", function (e) {
+//     if (!e.target.value.includes(commentManageValue)) {
+//       e.target.value = commentManageValue;
+//     }
+//   });

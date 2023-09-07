@@ -333,10 +333,6 @@
               <th>Trạng thái</th>
               <th id="btn-BrowserMedal"></th>
             </tr>
-            @if($user == '')
-            <tr>Không có ứng viên nào</tr>
-            </table>
-            @endif
             @foreach($user as $value)
             <tr>
               <td>

@@ -307,7 +307,7 @@
           <div class="Account">
             <img src="{{ asset('uploads/user/'.Auth::guard('admin')->user()->image) }}" alt="" />
             <div class="info">
-            @if(Auth::guard('admin')->user()->level == 4)
+            @if(Auth::guard('admin')->user()->level == 4 || Auth::guard('admin')->user()->level == 5)
               <span> Quản trị viên Trường</span>
               <span> {{ Auth::guard('admin')->user()->name }}</span>
               @endif

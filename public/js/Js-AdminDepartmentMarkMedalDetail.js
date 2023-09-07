@@ -86,73 +86,97 @@ var btnOperation = document.querySelector("#btnOperation");
 var btnEvaluate = document.querySelector("#btn-Evaluate");
 
 // const labels = document.querySelectorAll(".checkboxQualified__status");
-const classifYoblige = document.querySelectorAll("#Classif");
-const regCriteriaNumber = parseInt(
-    document.querySelector("#regCriteriaNumber").textContent
-);
-console.log(classifYoblige);
+// const classifYoblige = document.querySelectorAll("#Classif");
+// const regCriteriaNumber = parseInt(
+//   document.querySelector("#regCriteriaNumber").textContent
+// );
+var StandardItems = document.querySelectorAll(".Standard__Items");
+// console.log(classifYoblige);
 // let allContainDaDat = true;
 let buttonClicked = 0;
 
 btnEvaluate.addEventListener("click", function(e) {
     e.preventDefault();
     // let Status = 0;
-    let criteriaCount = 0;
-    const selectedValue = [];
-    const selectedValueRequired = [];
-    let shouldBreak = false; // Cờ để kiểm tra xem có nên dừng vòng lặp không
+    // let criteriaCount = 0;
+    // let shouldBreak = false; // Cờ để kiểm tra xem có nên dừng vòng lặp không
+    const resultStandard = [];
 
-    classifYoblige.forEach((classif) => {
-        if (shouldBreak) {
-            return; // Nếu cờ shouldBreak là true, thoát vòng lặp
-        }
+    StandardItems.forEach((StandardItems) => {
+        const classifYoblige = StandardItems.querySelectorAll("#Classif");
+        const regCriteriaNumber = parseInt(
+            StandardItems.querySelector("#regCriteriaNumber").textContent
+        );
+        const selectedValue = [];
+        const selectedValueRequired = [];
 
-        const classifText = classif.textContent;
-        const radioButtons =
-            classif.parentElement.parentElement.querySelectorAll("input[type=radio]");
-        // const labelText = classif.parentElement.parentElement.querySelector(
-        //   ".checkboxQualified__status"
-        // ).textContent;
-        // console.log(checkbox);
+        classifYoblige.forEach((classif) => {
+            // if (shouldBreak) {
+            //   return; // Nếu cờ shouldBreak là true, thoát vòng lặp
+            // }
 
-        if (classifText !== "Khác") {
-            radioButtons.forEach((radio) => {
-                if (radio.checked) {
-                    const value = radio.parentElement.textContent.trim();
-                    selectedValueRequired.push(value);
-                }
-            });
+            const classifText = classif.textContent;
+            const radioButtons =
+                classif.parentElement.parentElement.querySelectorAll(
+                    "input[type=radio]"
+                );
+            // const labelText = classif.parentElement.parentElement.querySelector(
+            //   ".checkboxQualified__status"
+            // ).textContent;
+            // console.log(checkbox);
+
+            if (classifText !== "Khác") {
+                radioButtons.forEach((radio) => {
+                    if (radio.checked) {
+                        const value = radio.parentElement.textContent.trim();
+                        selectedValueRequired.push(value);
+                    }
+                });
+            } else {
+                radioButtons.forEach((radio) => {
+                    if (radio.checked) {
+                        const value = radio.parentElement.textContent.trim();
+                        selectedValue.push(value);
+                    }
+                });
+            }
+        });
+        const allDaDatRequired = selectedValueRequired.every(
+            (value) => value === "ĐẠT"
+        );
+        const atLeastTwoDaDat =
+            selectedValue.filter((value) => value === "ĐẠT").length >=
+            regCriteriaNumber;
+        const hasPhanVanRequired = !selectedValueRequired.includes("CHƯA ĐẠT");
+        const atLeastTwoDaDatPhanVan =
+            selectedValue.filter((value) => value === "ĐẠT" || value === "PHÂN VÂN")
+            .length >= regCriteriaNumber;
+
+        if (allDaDatRequired && atLeastTwoDaDat) {
+            resultStandard.push("ĐẠT");
+            // buttonClicked = 1;
+        } else if (hasPhanVanRequired && atLeastTwoDaDatPhanVan) {
+            resultStandard.push("PHÂN VÂN");
+            // buttonClicked = 2;
         } else {
-            radioButtons.forEach((radio) => {
-                if (radio.checked) {
-                    const value = radio.parentElement.textContent.trim();
-                    selectedValue.push(value);
-                }
-            });
+            resultStandard.push("CHƯA ĐẠT");
+            // buttonClicked = 3;
         }
-    });
-    const allDaDatRequired = selectedValueRequired.every(
-        (value) => value === "ĐẠT"
-    );
-    const atLeastTwoDaDat =
-        selectedValue.filter((value) => value === "ĐẠT").length >=
-        regCriteriaNumber;
-    const hasPhanVanRequired = !selectedValueRequired.includes("CHƯA ĐẠT");
-    const atLeastTwoDaDatPhanVan =
-        selectedValue.filter((value) => value === "ĐẠT" || value === "PHÂN VÂN")
-        .length >= regCriteriaNumber;
 
-    if (allDaDatRequired && atLeastTwoDaDat) {
+        // console.log("Selected values:", selectedValueRequired);
+        // console.log("Selected values:", selectedValue);
+    });
+    console.log(resultStandard);
+    if (resultStandard.every((value) => value === "ĐẠT")) {
         buttonClicked = 1;
-    } else if (hasPhanVanRequired && atLeastTwoDaDatPhanVan) {
+    } else if (
+        resultStandard.includes("PHÂN VÂN") &&
+        !resultStandard.includes("CHƯA ĐẠT")
+    ) {
         buttonClicked = 2;
     } else {
         buttonClicked = 3;
     }
-
-    console.log("Selected values:", selectedValueRequired);
-    console.log("Selected values:", selectedValue);
-
     popupConfirmSubmit.style.display = "block";
 });
 

@@ -40,6 +40,12 @@ return [
                 'useTLS' => true,
             ],
         ],
+        'private' => [
+            'user' => [
+                'driver' => 'pusher',
+                'name' => 'private-user',
+            ],
+        ],
 
         'ably' => [
             'driver' => 'ably',

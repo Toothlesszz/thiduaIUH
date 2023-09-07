@@ -40,7 +40,7 @@
   </head>
   <body>
     <section id="instruction">
-      <img src="/Front-End/Image/instruction.png" alt="" />
+      <img src="/images/instruction.png" alt="" />
     </section>
     <section class="MainMessage"></section>
     @if(session('success'))
@@ -151,7 +151,7 @@
             <div class="Notification__content">
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
               <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
+                <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">Hôm nay</span>
                 <p>
@@ -160,7 +160,7 @@
                 </p>
               </div>
               <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
+                <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">26/04/2023</span>
                 <p>
@@ -178,8 +178,9 @@
             <i class="fa-solid fa-medal"></i>
             <h4>PHIẾU ĐĂNG KÝ DANH HIỆU</h4>
           </div>
-          @if( $regis->admin_status == '1')
-	 @if($regis->competitionperiod->depart_first_time < now())
+        
+          @if( $regis->admin_status == 0)
+	 @if($regis->competitionperiod->depart_first_time > now())
           <div class="RegReset">
             <button id="btn-RegReset" class="custom-button-m" href="">
               <i class="fa-solid fa-repeat"></i>Nhấn để "HỦY HỒ SƠ ĐĂNG KÝ"
@@ -220,7 +221,6 @@
                 <span>{{$item['objects']}}</span>
                 @endforeach
               </div>
-
               <div class="Info__Content--UserObject">
               <i class="fa-solid fa-clipboard"></i>
               <span>Trạng thái :</span>
@@ -245,6 +245,112 @@
             ></a>
           </div>
           <input type="hidden" name="code_user" value="{{$regis->users->code}}"/>
+          <div class="Timeline">
+            <ul>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->startdate)) }}</i>
+                @if($regis->competitionperiod->startdate < now())
+                <div
+                  class="progress one"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress one">
+                  <p>1</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Mở đăng kí danh hiệu</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_first_time)) }}</i>
+          @if($regis->competitionperiod->depart_first_time < now())
+          <div
+                  class="progress two"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress two">
+                  <p>2</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Đóng ĐK, Khoa duyệt lần 1</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->candidate_add_detail)) }}</i>
+                @if($regis->competitionperiod->candidate_add_detail < now())
+                <div
+                  class="progress three"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress three">
+                  <p>3</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Ứng viên nộp bổ sung</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_second_time)) }}</i>
+                @if($regis->competitionperiod->depart_second_time < now())
+                <div
+                  class="progress four"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress four">
+                  <p>4</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Khoa duyệt lần 2</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_end_second_time)) }}</i>
+                @if($regis->competitionperiod->depart_end_second_time < now())
+                <div
+                  class="progress five"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress five">
+                  <p>5</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Khoa kết thúc duyệt lần 2</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->enddate)) }}</i>
+                @if($regis->competitionperiod->enddate < now())
+                <div
+                  class="progress six"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress six">
+                  <p>6</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Kết thúc đợt thi đua</p>
+              </li>
+            </ul>
+          </div>
           <div class="Abstracts">
             <h4>Yêu cầu chung</h4>
             <p>
@@ -358,22 +464,14 @@
               @endif>
               <div class="Note">
                   <span>Nhận xét Quản trị viên Khoa</span>
-                  <input
-                    type="hidden"
-                    value="Phạm Tấn Lợi: "
-                    id="commentDepart"
-                  />
+                 
                   <i class="fa-solid fa-message"></i>
                   <textarea readonly placeholder="" tabindex="">{{$regis->note}}</textarea
                   >
                 </div>
                 <div class="Note">
                   <span>Nhận xét Quản trị viên Trường</span>
-                  <input
-                    type="hidden"
-                    value="Phạm Tấn Lợi: "
-                    id="commentManage"
-                  />
+                  
                   <i class="fa-solid fa-message"></i>
                   <textarea readonly placeholder="" tabindex="">{{$regis->admin_note}}</textarea
                   >

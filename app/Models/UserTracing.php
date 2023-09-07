@@ -12,7 +12,7 @@ class UserTracing extends Model
     protected $connection = 'mongodb';
     protected $collection = 'user_tracing';
     protected $fillable = [
-        'user_id', 'time', 'content'
+        'id_user', 'time', 'content'
     ];
 
     protected $primaryKey = '_id';

@@ -29,6 +29,67 @@
       <div class="loading-spinner"></div>
       <h5>ĐANG TẢI...</h5>
     </section>
+    <section class="MainMessage"></section>
+    @if(session('success'))
+            <script>
+            sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Thêm ảnh mới thành công !");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Chỉnh sửa Slideshow thành công !");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success2'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Xóa ảnh thành công !");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -85,7 +146,7 @@
           <div class="Account">
             <img src="{{ asset('uploads/user/'.Auth::guard('admin')->user()->image) }}" alt="" />
             <div class="info">
-              @if(Auth::guard('admin')->user()->level == 4)
+              @if(Auth::guard('admin')->user()->level == 4 || Auth::guard('admin')->user()->level == 5)
               <span> Quản trị viên Trường</span>
               <span> {{ Auth::guard('admin')->user()->name }}</span>
               @endif
@@ -118,10 +179,12 @@
               <div class="Notification__content--items">
                 <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
+                
                 <span id="sending-time">Hôm nay</span>
                 <p>
                   Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
                   LỜI BÁC”!
+                  <a href="{{route('uploadImages')}}"></a>
                 </p>
               </div>
               <div class="Notification__content--items">
@@ -223,6 +286,70 @@
           </div>
           <div class="Diagram"></div>
         </div>
+        @if( Auth::guard('admin')->user()->level == 5 )
+        <div class="Main__Content--Slidebar">
+          <div class="Slider">
+            <i class="fa-solid fa-angle-right fa-rotate-180 prev"></i>
+            <i class="fa-solid fa-angle-right next"></i>
+            <div class="Slider__direction">
+              @foreach($slideShow as $slide)
+              <button data-direction="{{$slide->number}}" @if($slide->number == '0')class="active"@endif></button>
+              @endforeach
+            </div>
+              <div class="Slider__main">
+              <div class="Slider__main--img">
+              @foreach($slideShow as $picture)
+                <a href=""
+                  ><img src="{{asset('images/'.$picture->image)}}" alt=""/></a>
+              @endforeach
+              </div>
+            </div>
+          </div>
+          <div class="UpdateSlider">
+            <div class="UpdateSlider__Imgs">
+              <div class="UpdateSlider__Imgs--Container">
+              @foreach($pictures as $data)
+                <div class="ImgItems">
+                  <a href="{{route('deleteImages', $data->name)}}"><i class="fa-solid fa-folder-minus"></i></a>
+                  <label class="ImgItems__Checkbox">
+                    <input type="checkbox" class="image-checkbox" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <img src="{{asset('/images/'.$data->name)}}" alt="" />
+                </div>
+                @endforeach
+              </div>
+            </div>
+            <form action="{{ route('uploadImages') }}" method="POST" style="display: flex; margin-top: 0.5vw" enctype="multipart/form-data">
+            @csrf
+              <div class="UploadImage">
+                <span><i class="fa-solid fa-file-arrow-up"></i> SLIDE IMAGE</span>
+                <input type="file" name="image" accept="image/png, image/jpeg" id="TemplateMedal" required />
+              </div>
+              <button type="submit" class="custom-button-s" style="background-color: rgba(29, 171, 161, 1)">
+                TẢI ẢNH LÊN
+              </button>
+            </form>
+            <form action="{{ route('slideShow') }}" method="GET" enctype="multipart/form-data">
+              @csrf
+              <p>
+                <i class="fa-solid fa-photo-film"></i> TÙY CHỈNH SLIDER
+                <i>(Tối đa 4 ảnh)</i>
+              </p>
+              <div id="selected-images"></div>
+              <div>
+                <button
+                  type="submit"
+                  class="custom-button-s"
+                  style="background-color: rgba(29, 171, 161, 1)"
+                >
+                  CẬP NHẬT SLIDER
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        @endif
         <div class="Main__Content--RecentMarkMedal">
           <div class="Title">
             <i class="fa-solid fa-medal"></i>
@@ -286,8 +413,10 @@
             <h4>DANH HIỆU ĐANG XÉT DUYỆT</h4>
           </div>
           <div class="Medal">
+            
           @foreach ($CompetitionPeriod as $value)
-          @if($value->startday <= now() && $value->endday >= now() )
+          @if($value->startdate <= now() && $value->depart_first_time >= now())
+          
           <div class="Medal__Items">
             <img src="images/lamtheoloiBac.jpg" alt="" />
             <div class="Medal__Items--Content">
@@ -295,8 +424,8 @@
               <div class="Duration">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Thời gian:</span>
-                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->startday)->format('d/m/Y') }} 
-                    - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->endday)->format('d/m/Y') }}</span>
+                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->startdate)->format('d/m/Y') }} 
+                    - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->depart_first_time)->format('d/m/Y') }}</span>
               </div>
             </div>
             
@@ -304,13 +433,12 @@
           </div>
           @endif
           @endforeach
-          <div class="pagination">
-          {{$CompetitionPeriod->links()}}
-</div>
+          
         </div>
       </div>
     </section>
     <script src="/js/Js-AdminManagementMain.js"></script>
     <script src="/js/Js-Main.js"></script>
+    <script src="/js/Js-AdminManagementIndex.js"></script>
   </body>
 </html>

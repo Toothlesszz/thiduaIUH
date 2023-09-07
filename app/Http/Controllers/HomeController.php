@@ -15,6 +15,9 @@ use App\Models\Department;
 use App\Models\CompetitionPeriod;
 use App\Models\Registration;
 use App\Models\Certification;
+use App\Models\Notifications;
+use App\Models\Pictures;
+use App\Models\SlideStorage;
 
 class HomeController extends Controller
 {
@@ -30,9 +33,12 @@ class HomeController extends Controller
       $regisCount = Registration::where('id_user', '=', Auth::user()->_id)->count();
       $regisPassCount = Registration::where('id_user', '=', Auth::user()->_id)->where('admin_status','=','4')->count();
 
-      $CompetitionPeriod = CompetitionPeriod::with('stylized')->paginate(6);
-        
-      return view('users.home')->with(compact('register', 'departmentName', 'regisCount' , 'regisPassCount' ,'CompetitionPeriod'));
+      $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
+      $notifications = Notifications::where('id_user', '=', Auth::user()->_id)->orderBy('date','desc')->get();
+      $count = count($notifications);
+      $pictures = Pictures::get();
+      $slideShow = SlideStorage::orderBy('number', 'asc')->get();
+      return view('users.home')->with(compact('register', 'departmentName','pictures','slideShow','notifications', 'count','regisCount' , 'regisPassCount' ,'CompetitionPeriod'));
     }
 
      //View user's information
@@ -42,7 +48,7 @@ class HomeController extends Controller
             
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::user()->_id)->first();
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
-       
+      
       return view('users.information.infor')->with(compact('userInfor', 'departmentName', 'departmentid'));
     }
     //Change user's information
@@ -52,7 +58,9 @@ class HomeController extends Controller
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::user()->_id)->first();
       
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
-      return view('users.information.changeInfor')->with(compact('userInfor','departmentName'));
+      $notifications = Notifications::where('id_user', '=', Auth::user()->_id)->orderBy('date','desc')->get();
+      $count = count($notifications);
+      return view('users.information.changeInfor')->with(compact('userInfor','notifications','count','departmentName'));
     }
     
     public function changeInforPost(Request $request, $id) {

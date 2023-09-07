@@ -13,6 +13,8 @@ use App\Models\Stylized;
 use App\Models\Registration;
 use App\Models\RegistrationDetails;
 use App\Models\CompetitionPeriod;
+use App\Models\Pictures;
+use App\Models\SlideStorage;
 use DB;
 
 class AdminController extends Controller
@@ -176,10 +178,11 @@ class AdminController extends Controller
       }
       
 
-      $CompetitionPeriod = CompetitionPeriod::with('stylized')->paginate(5)->withQueryString();
-
+      $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
+      $pictures = Pictures::get();
+      $slideShow = SlideStorage::orderBy('number', 'asc')->get();
       return view('admin.dasboard')
-      ->with(compact( 'stylized', 'regisCount','nameStyli','nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis','notReviewed','years','stylized','department'));
+      ->with(compact( 'stylized', 'regisCount','pictures','slideShow','nameStyli','nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis','notReviewed','years','stylized','department'));
     }
 
     public function inforAdmin() {
@@ -234,7 +237,7 @@ class AdminController extends Controller
     }
 
     public function changeImageAdmin(Request $request, $id) {
-      
+
       $data = $request;
         //Change information
         $user = User::find($id);
@@ -304,4 +307,45 @@ class AdminController extends Controller
       return redirect()->back()->with("success","Đổi mật khẩu thành công!");
     }
     
+    public function slideShow(Request $request)
+    {
+      DB::collection('slide_storage')->delete();
+      $dem = 0;
+      foreach($request->input('slide') as $image){
+      $SlideStorage = new SlideStorage();
+      $SlideStorage->number = $dem++;
+      $SlideStorage->image = $image;
+      $SlideStorage->save();
+
+      }
+      return redirect()->back()->with("success1","Chỉnh sửa Slideshow thành công !");
+    }
+    public function uploadImages(Request $request){
+    
+      $get_image = $request->image;
+
+            $path = 'images/';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_name_image = $name_image.'_'.time().'.'.$get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_name_image);
+
+            $pictures = new Pictures();
+            $pictures->name = $new_name_image;
+            $pictures->save();
+        return redirect()->back()->with("success","Thêm ảnh mới thành công !");
+    }
+    public function deleteImages(Request $request, $name){
+
+        $path = 'images/'.$name;
+        if(file_exists($path)) {
+            unlink($path);
+            $pictures = Pictures::where('name', '=', $name)->delete();
+            return redirect()->back()->with("success2","Xóa ảnh thành công !");
+        }
+        else{
+          return redirect()->back()->with("error","Đã có lỗi xảy ra, không tìm thấy ảnh cần xóa!");
+        } 
+      
+    }
 }

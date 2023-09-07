@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
+    <title>Hệ thống Thi đua khen thưởng IUH</title>
     <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
@@ -33,16 +33,16 @@
     var pusher = new Pusher('755f3dd3f1206ea250f6', {
       cluster: 'ap1'
     });
-
-    var channel = pusher.subscribe('noti-channel');
+    var channel = pusher.subscribe('private-user-' + userId);
     channel.bind('profile-reviewed', function(message) {
       alert(JSON.stringify(message));
     });
   </script>
+    
   </head>
   <body>
     <section id="instruction">
-      <img src="./images/instruction.png" alt="" />
+      <img src="/images/instruction.png" alt="" />
     </section>
     <section id="loading-overlay">
       <img src="/images/logo-main.png" alt="" />
@@ -64,6 +64,7 @@
   });
 </script>
               @endif
+              
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -114,8 +115,8 @@
               <ul>
                 <li>
                 <form action="{{route('changeInforGet') , Auth::user()->_id}}" method="POST">
-            <a href="{{route('changeInforGet') , Auth::user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i><span>TÀI KHOẢN</span></a>
-          </form>
+                <a href="{{route('changeInforGet') , Auth::user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i><span>TÀI KHOẢN</span></a>
+              </form>
                   
                 </li>
                 <li>
@@ -127,29 +128,10 @@
               </ul>
             </div>
           </div>
-          <div class="Notification">
-            <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+          <div class="Notification" id="notificationArea">
+            <a style="text-decoration:none; color:green; font-size:15px" ><i class="fa-solid fa-bell" id="openNotification"></i>
+            <i data-count="0" class="glyphicon glyphicon-bell notification-icon"></i></a>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -159,15 +141,16 @@
             <i class="fa-solid fa-angle-right fa-rotate-180 prev"></i>
             <i class="fa-solid fa-angle-right next"></i>
             <div class="Slider__direction">
-              <button data-direction="0" class="active"></button>
-              <button data-direction="1"></button>
-              <button data-direction="2"></button>
+              @foreach($slideShow as $slide)
+              <button data-direction="{{$slide->number}}" @if($slide->number == '0')class="active"@endif></button>
+              @endforeach
             </div>
             <div class="Slider__main">
-              <div class="Slider__main--img">
-                <img src="/images/slide-01.jpg" alt="" />
-                <img src="/images/slide-02.png" alt="" />
-                <img src="/images/slide-03.png" alt="" />
+            <div class="Slider__main--img">
+              @foreach($slideShow as $picture)
+                <a href=""
+                  ><img src="{{asset('images/'.$picture->image)}}" alt=""/></a>
+              @endforeach
               </div>
             </div>
           </div>
@@ -219,23 +202,26 @@
     @endphp
 
     @foreach($value->stylized->object as $item)
-        @if(in_array(Auth::user()->type, $item) && !($registerExists) && $value->startdate <= now() && $value->depart_first_time >= now())
+    
+        @if(in_array(Auth::user()->type, $item) && !($registerExists))
+         @if($value->startdate <= now() && $value->depart_first_time >= now())
             <div class="Medal">
                 <div class="Medal__Items">
-                    <img src="/images/lamtheoloiBac.jpg" alt="" />
+                    <img src="{{ asset('certificate/img_certificate/'. $value->stylized->image) }}" alt="" />
                     <div class="Medal__Items--Content">
                         <span class="Name">{{ $value->stylized->name_stylized}}</span>
                         <div class="Duration">
                             <i class="fa-solid fa-business-time"></i>
                             <span>Thời gian:</span>
-                            <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->startdate)->format('d/m/Y') }} 
-                    - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->depart_first_time)->format('d/m/Y') }}</span>
+                            <span>{{ date("d/m/Y",strtotime($value->startdate)) }} 
+                    - {{ date("d/m/Y",strtotime($value->depart_first_time)) }} </span>
                         </div>
                     </div>
                     <a href="{{ route('downloadFileUser', $value->stylized->file) }}"><i class="fa-solid fa-file-pdf"></i></a>
                     <a href="{{ route('getStylized', $value->_id) }}" class="custom-button-m">ĐĂNG KÍ</a>
                 </div>
             </div>
+            @endif
         @endif
     @endforeach
 @endforeach
@@ -245,6 +231,19 @@
         </div>
       </div>
     </section>
+    <script>
+    $(document).ready(function () {
+        $('#openNotification').click(function () {
+            $.ajax({
+                url: '{{ route('loadPart') }}', 
+                type: 'GET',
+                success: function (data) {
+                    $('#notificationArea').html(data);
+                }
+            });
+        });
+    });
+</script>
 
     <script src="/js/Js-UserMain.js"></script>
     <script src="/js/Js-Main.js"></script>

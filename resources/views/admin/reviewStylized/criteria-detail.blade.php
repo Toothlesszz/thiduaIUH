@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
+    <title>Hệ thống Thi đua khen thưởng IUH</title>
     <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
@@ -106,7 +106,7 @@
           <div class="Account">
             <img src="{{ asset('uploads/user/'.Auth::guard('admin')->user()->image) }}" alt="" />
             <div class="info">
-              @if(Auth::guard('admin')->user()->level == 4)
+            @if(Auth::guard('admin')->user()->level == 4 || Auth::guard('admin')->user()->level == 5)
               <span> Quản trị viên Trường</span>
               <span> {{ Auth::guard('admin')->user()->name }}</span>
               @endif
@@ -137,7 +137,7 @@
             <div class="Notification__content">
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
               <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
+                <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">Hôm nay</span>
                 <p>
@@ -146,7 +146,7 @@
                 </p>
               </div>
               <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
+                <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">26/04/2023</span>
                 <p>
@@ -192,8 +192,8 @@
               <div class="Info__Content--Duration">
                 <i class="fa-solid fa-business-time"></i>
                 <span>Thời gian :</span>
-                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->startdate)->format('d-m-Y') }} - 
-                  {{ \Carbon\Carbon::createFromFormat('Y-m-d', $regis->competitionperiod->depart_first_time)->format('d-m-Y') }}</span>
+                <span>{{ date("d/m/Y",strtotime($regis->competitionperiod->startdate)) }} - 
+                {{ date("d/m/Y",strtotime($regis->competitionperiod->depart_first_time)) }}</span>
               </div>
               <div class="Info__Content--UserObject">
                 <i class="fa-solid fa-user-graduate"></i>
@@ -209,6 +209,8 @@
                   Đã duyệt
                   @elseif($regis->admin_status == '2')
                   Xem xét
+                  @elseif($regis->admin_status == '3')
+                  Từ chối 
                   @elseif($regis->admin_status == '4')
                   Đã đạt
                   @elseif($regis->admin_status == '5')
@@ -220,6 +222,112 @@
             <a class="custom-button-m" href="{{route('downloadFile', $regis->competitionperiod->stylized->file)}}"
               >TẢI FILE<i class="fa-solid fa-file-pdf"></i
             ></a>
+          </div>
+          <div class="Timeline">
+            <ul>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->startdate)) }}</i>
+                @if($regis->competitionperiod->startdate < now())
+                <div
+                  class="progress one"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress one">
+                  <p>1</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Mở đăng kí danh hiệu</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_first_time)) }}</i>
+          @if($regis->competitionperiod->depart_first_time < now())
+          <div
+                  class="progress two"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress two">
+                  <p>2</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Đóng ĐK, Khoa duyệt lần 1</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->candidate_add_detail)) }}</i>
+                @if($regis->competitionperiod->candidate_add_detail < now())
+                <div
+                  class="progress three"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress three">
+                  <p>3</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Ứng viên nộp bổ sung</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_second_time)) }}</i>
+                @if($regis->competitionperiod->depart_second_time < now())
+                <div
+                  class="progress four"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress four">
+                  <p>4</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Khoa duyệt lần 2</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->depart_end_second_time)) }}</i>
+                @if($regis->competitionperiod->depart_end_second_time < now())
+                <div
+                  class="progress five"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress five">
+                  <p>5</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Khoa kết thúc duyệt lần 2</p>
+              </li>
+              <li>
+                <i class="icon">{{ date("d/m/Y",strtotime($regis->competitionperiod->enddate)) }}</i>
+                @if($regis->competitionperiod->enddate < now())
+                <div
+                  class="progress six"
+                  style="background-color: rgba(29, 171, 161, 1)">
+                  <p><i class="fa-solid fa-check"></i></p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @else
+                <div class="progress six">
+                  <p>6</p>
+                  <i class="uil uil-check"></i>
+                </div>
+                @endif
+                <p class="text">Kết thúc đợt thi đua</p>
+              </li>
+            </ul>
           </div>
           <div class="Abstracts">
             <h4>Yêu cầu chung</h4>
@@ -358,7 +466,11 @@
               </div>
 @endforeach
               <input type="hidden" name="status_input" value="" id="btnOperation" />
-              <div class="Operation"> 
+              <div class="Operation"@if( $regis->admin_status == '3' )
+              style="opacity: 0.7; pointer-events: none;"
+              @endif
+              
+              > 
               
               <div class="Note">
               <span>Nhận xét Quản trị viên Khoa</span>
@@ -394,7 +506,34 @@
             </form>
           </div>
         </div>
+        <div class="Main__Content--Audit">
+          <!-- <div class="Title">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <h4>LỊCH SỬ XÉT DUYỆT</h4>
+          </div> -->
+          <table>
+            <tr>
+              <th>STT</th>
+              <th>Tên quản trị viên</th>
+              <th>Ngày cập nhật</th>
+              <th>Ghi chú</th>
+            </tr>
+            @php
+            $dem = 1;
+            @endphp
+            @foreach($userTracing as $key)
+            <tr>
+              <td>{{$dem++}}</td>
+              <td>{{$key->name_user}}</td>
+              <td>{{$key->update_date}}</td>
+              <td>{{$key->content}}</td>
+            </tr>
+            @endforeach
+            
+          </table>
+        </div>
       </div>
+      
     </section>
 
 
