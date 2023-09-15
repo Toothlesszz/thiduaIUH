@@ -306,46 +306,4 @@ class AdminController extends Controller
       // dd($id);
       return redirect()->back()->with("success","Đổi mật khẩu thành công!");
     }
-    
-    public function slideShow(Request $request)
-    {
-      DB::collection('slide_storage')->delete();
-      $dem = 0;
-      foreach($request->input('slide') as $image){
-      $SlideStorage = new SlideStorage();
-      $SlideStorage->number = $dem++;
-      $SlideStorage->image = $image;
-      $SlideStorage->save();
-
-      }
-      return redirect()->back()->with("success1","Chỉnh sửa Slideshow thành công !");
-    }
-    public function uploadImages(Request $request){
-    
-      $get_image = $request->image;
-
-            $path = 'images/';
-            $get_name_image = $get_image->getClientOriginalName();
-            $name_image = current(explode('.', $get_name_image));
-            $new_name_image = $name_image.'_'.time().'.'.$get_image->getClientOriginalExtension();
-            $get_image->move($path, $new_name_image);
-
-            $pictures = new Pictures();
-            $pictures->name = $new_name_image;
-            $pictures->save();
-        return redirect()->back()->with("success","Thêm ảnh mới thành công !");
-    }
-    public function deleteImages(Request $request, $name){
-
-        $path = 'images/'.$name;
-        if(file_exists($path)) {
-            unlink($path);
-            $pictures = Pictures::where('name', '=', $name)->delete();
-            return redirect()->back()->with("success2","Xóa ảnh thành công !");
-        }
-        else{
-          return redirect()->back()->with("error","Đã có lỗi xảy ra, không tìm thấy ảnh cần xóa!");
-        } 
-      
-    }
 }

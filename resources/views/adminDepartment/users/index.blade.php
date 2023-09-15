@@ -75,7 +75,46 @@
           });
               </script>
               @endif
+              @if(session('success2'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
 
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Duyệt tài khoản ứng viên thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success3'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Xóa tài khoản ứng viên thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
             @if(session('error'))
               <script>
                 sessionStorage.setItem("reloadStatus", "true");
@@ -89,6 +128,26 @@
               MessageError(
                 "KHÔNG THÀNH CÔNG!",
                 "Mã ứng viên đã tồn tại !"
+              );
+              //Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+            @endif
+            @if(session('error1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              //MessageSuccess("THÀNH CÔNG!", "Tạo ứng viên mới thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Đã có lỗi xảy ra !"
               );
               //Xóa trạng thái đã được lưu trữ
               sessionStorage.removeItem("reloadStatus");
@@ -379,9 +438,45 @@
                   <i class="fa-solid fa-circle-user"></i>
                   <span>ĐÃ KHÓA</span>
                 </div>
-        </td>
-              @endif
+              </td>
+              @elseif($value->status == '0')
               <td>
+                <div
+                  class="Status"
+                  style="background-color: rgba(155, 155, 155, 1)"
+                >
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>CHỜ DUYỆT</span>
+                </div>
+              </td>
+              @endif
+              
+              <td>
+                @if($value->status == '0')
+                <div class="accountModeration">
+                  <a id="dellAccount" href="{{route('refuseUser',$value->_id)}}"
+                    ><i class="fa-solid fa-circle-xmark"></i
+                  ></a>
+                  <a id="acceptAccount" href="{{route('acceptUser',$value->_id)}}"
+                    ><i class="fa-solid fa-circle-check"></i
+                  ></a>
+                  <div class="popupConfirmSubmit">
+                    <div class="popupConfirmSubmit__content">
+                      <i class="fa-regular fa-circle-question fa-shake"></i>
+                      <p>
+                        Bạn có chắc chắn thực hiện thao tác
+                        <span id="operationPopup"></span>
+                      </p>
+                      <div>
+                        <button id="close-popupConfirmSubmit" type="button">
+                          Hủy
+                        </button>
+                        <a id="submit-ConfirmSubmit" href="">Đồng ý!</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @else
                 <a
                   id=""
                   href="{{ route('user-department.edit', [Crypt::encrypt($value->id)]) }}"
@@ -389,6 +484,7 @@
                 >
                   CHI TIẾT
                 </a>
+                @endif
               </td>
             </tr>
             @endforeach  
@@ -406,7 +502,7 @@
     
     <div class="Popup-ExcelTable">
       <div>
-        <form action="{{route('importExcel')}}" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
           @csrf
           <h4>TẠO TÀI KHOẢN ỨNG VIÊN</h4>
           <div class="btn-excelFile">

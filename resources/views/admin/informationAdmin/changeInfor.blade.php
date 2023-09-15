@@ -67,6 +67,12 @@
               ><i class="fa-solid fa-chalkboard-user"></i
             ></a>
           </li>
+          <li @if(Auth::guard('admin')->user()->level != '5') style="opacity: 0.7; pointer-events: none;" @endif>
+            <a
+              href="{{route('update-slideshow.index')}}" 
+              ><i class="fa-regular fa-copy"></i
+            ></a>
+          </li>
           <li class="li-active">
           <form action="{{route('changeInforAdminGet') , Auth::guard('admin')->user()->_id}}" method="POST">
             <a href="{{route('changeInforAdminGet') , Auth::guard('admin')->user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i></a>

@@ -58,6 +58,16 @@ body {
     margin-bottom: 2vw;
 }
 
+.login__form p a {
+    color: rgb(94, 94, 94);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login__form p a:hover {
+    color: rgb(29, 171, 161);
+}
+
 .login__form--items {
     display: flex;
     flex-direction: column;
@@ -175,6 +185,112 @@ body {
 .login__image img {
     width: 80%;
     height: auto;
+}
+
+#form-registration {
+    display: grid;
+    grid-template-columns: auto auto;
+    position: relative;
+}
+
+#form-registration .custom-Select {
+    margin-top: 1vw;
+}
+
+#form-registration #courseCandidate {
+    display: none;
+}
+
+#form-registration #department {
+    grid-row: 2;
+    grid-column: 1/span 2;
+}
+
+#form-registration #type {
+    grid-row: 3;
+    grid-column: 1/span 2;
+}
+
+#form-registration>i {
+    grid-row: 4;
+    grid-column: 1/span 2;
+    font-size: 0.8vw;
+    color: rgb(29, 171, 161);
+}
+
+#form-registration .CreateCandidate-Input {
+    position: relative;
+    display: inline-block;
+    margin-right: 0vw;
+}
+
+#form-registration .CreateCandidate-Input p {
+    font-size: 1vw;
+    font-weight: bold;
+    margin-bottom: 0.2vw;
+    color: rgb(94, 94, 94);
+}
+
+#form-registration .CreateCandidate-Input span {
+    position: absolute;
+    left: 0;
+    top: 4vw;
+    font-size: 0.6vw;
+    color: rgb(29, 171, 161);
+    font-style: italic;
+}
+
+#form-registration .CreateCandidate-Input input {
+    padding: 0.3vw 0 0.3vw 2vw;
+    height: 1.4vw;
+    width: 11vw;
+    background: #ffffff;
+    border-radius: 0.3vw;
+    transition: 0.1s;
+    border: 0.1vw solid rgb(29, 171, 161);
+}
+
+#form-registration .CreateCandidate-Input input:focus {
+    outline-color: rgb(29, 171, 161);
+}
+
+#form-registration .CreateCandidate-Input input::-moz-placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+#form-registration .CreateCandidate-Input input::placeholder {
+    font-size: 0.8vw;
+    color: rgb(218, 218, 218);
+}
+
+#form-registration .CreateCandidate-Input>i {
+    color: rgb(155, 155, 155);
+    transform: translate(0.7vw, -1.7vw);
+    font-size: 0.8vw;
+}
+
+#form-registration .CreateCandidate-Input input[type=number]::-webkit-inner-spin-button,
+#form-registration .CreateCandidate-Input input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    /* Thay đổi màu nền nếu cần */
+    background-color: transparent;
+    /* Thay đổi kích thước nếu cần */
+    height: auto;
+    width: auto;
+    /* Ẩn icon tăng/giảm số */
+    display: none;
+}
+
+#form-registration input[type=submit] {
+    margin-top: 1vw;
+    width: 8vw;
+    height: 2.5vw;
+    color: rgb(255, 255, 255);
+    background: rgb(18, 27, 42);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 0.5vw;
 }
 
 .popupHelp {

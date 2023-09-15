@@ -12,6 +12,7 @@ use App\Models\Department;
 
 class UserLoginController extends Controller
 {
+    
     public function getLogin() {
       return view('auth.loginUser');
     }
@@ -30,15 +31,17 @@ class UserLoginController extends Controller
         ]);
 
         if (Auth::attempt(['code' => $request->code, 'password' => $request->password])) {
-            $user = user::with('Department')->where('code','=',$request->code)->get();
+            $user = user::with('Department')->where('code','=',$request->code)->first();
             
-            if($user[0]->status == '1')
+            if($user->status == '1')
             {
-              
                 return redirect('/add-information');
             }
-            elseif($user[0]->status == '2'){
+            elseif($user->status == '2'){
                  return redirect('/user');
+            }
+            elseif($user->status == '0'){
+                return redirect()->back()->with('error2', 'Tài khoản của bạn đang được chờ khoa duyệt !');
             }
             else {
                 return redirect()->back()->with('error1', 'Tài khoản của bạn khóa!');

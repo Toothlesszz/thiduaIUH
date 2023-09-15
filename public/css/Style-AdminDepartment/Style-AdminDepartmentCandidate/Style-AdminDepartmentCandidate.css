@@ -160,6 +160,20 @@
     width: 6vw;
 }
 
+.Main__Content--ListRegkMedal table .accountModeration>a {
+    font-size: 2vw;
+    cursor: pointer;
+}
+
+.Main__Content--ListRegkMedal table .accountModeration>a:nth-child(1) {
+    color: rgb(240, 63, 63);
+    margin-right: 0.6vw;
+}
+
+.Main__Content--ListRegkMedal table .accountModeration>a:nth-child(2) {
+    color: rgb(18, 27, 42);
+}
+
 .Main__Content--ListRegkMedal table #MedalName {
     width: 24vw;
     /* Chiều rộng tối đa của phần tử */

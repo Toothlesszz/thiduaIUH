@@ -30,66 +30,7 @@
       <h5>ĐANG TẢI...</h5>
     </section>
     <section class="MainMessage"></section>
-    @if(session('success'))
-            <script>
-            sessionStorage.setItem("reloadStatus", "true");
-            window.addEventListener("load", function () {
-       
-            // Kiểm tra trạng thái đã được lưu trữ
-            var reloadStatus = sessionStorage.getItem("reloadStatus");
-
-            if (reloadStatus === "true") {
-              MessageSuccess("THÀNH CÔNG!", "Thêm ảnh mới thành công !");
-              // MessageError(
-              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
-              //   "Thông tin mật khẩu chưa chính xác."
-              // );
-              // Xóa trạng thái đã được lưu trữ
-              sessionStorage.removeItem("reloadStatus");
-            }
-          });
-              </script>
-              @endif
-              @if(session('success1'))
-              <script>
-                sessionStorage.setItem("reloadStatus", "true");
-            window.addEventListener("load", function () {
-       
-            // Kiểm tra trạng thái đã được lưu trữ
-            var reloadStatus = sessionStorage.getItem("reloadStatus");
-
-            if (reloadStatus === "true") {
-              MessageSuccess("THÀNH CÔNG!", "Chỉnh sửa Slideshow thành công !");
-              // MessageError(
-              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
-              //   "Thông tin mật khẩu chưa chính xác."
-              // );
-              // Xóa trạng thái đã được lưu trữ
-              sessionStorage.removeItem("reloadStatus");
-            }
-          });
-              </script>
-              @endif
-              @if(session('success2'))
-              <script>
-                sessionStorage.setItem("reloadStatus", "true");
-            window.addEventListener("load", function () {
-       
-            // Kiểm tra trạng thái đã được lưu trữ
-            var reloadStatus = sessionStorage.getItem("reloadStatus");
-
-            if (reloadStatus === "true") {
-              MessageSuccess("THÀNH CÔNG!", "Xóa ảnh thành công !");
-              // MessageError(
-              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
-              //   "Thông tin mật khẩu chưa chính xác."
-              // );
-              // Xóa trạng thái đã được lưu trữ
-              sessionStorage.removeItem("reloadStatus");
-            }
-          });
-              </script>
-              @endif
+     
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -121,16 +62,25 @@
               ><i class="fa-solid fa-chalkboard-user"></i
             ></a>
           </li>
+          <li @if(Auth::guard('admin')->user()->level != '5') style="opacity: 0.7; pointer-events: none;" @endif>
+            <a
+              href="{{route('update-slideshow.index')}}" 
+              ><i class="fa-regular fa-copy"></i
+            ></a>
+          </li>
+          
           <li>
           <form action="{{route('changeInforAdminGet') , Auth::guard('admin')->user()->_id}}" method="POST">
             <a href="{{route('changeInforAdminGet') , Auth::guard('admin')->user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i></a>
           </form>
           </li>
+          
           <li>
             <a href="{{ url('/logout-admin')}}"
               ><i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i
             ></a>
           </li>
+          
         </ul>
       </div>
       <div class="Main__TopBar">
@@ -286,70 +236,7 @@
           </div>
           <div class="Diagram"></div>
         </div>
-        @if( Auth::guard('admin')->user()->level == 5 )
-        <div class="Main__Content--Slidebar">
-          <div class="Slider">
-            <i class="fa-solid fa-angle-right fa-rotate-180 prev"></i>
-            <i class="fa-solid fa-angle-right next"></i>
-            <div class="Slider__direction">
-              @foreach($slideShow as $slide)
-              <button data-direction="{{$slide->number}}" @if($slide->number == '0')class="active"@endif></button>
-              @endforeach
-            </div>
-              <div class="Slider__main">
-              <div class="Slider__main--img">
-              @foreach($slideShow as $picture)
-                <a href=""
-                  ><img src="{{asset('images/'.$picture->image)}}" alt=""/></a>
-              @endforeach
-              </div>
-            </div>
-          </div>
-          <div class="UpdateSlider">
-            <div class="UpdateSlider__Imgs">
-              <div class="UpdateSlider__Imgs--Container">
-              @foreach($pictures as $data)
-                <div class="ImgItems">
-                  <a href="{{route('deleteImages', $data->name)}}"><i class="fa-solid fa-folder-minus"></i></a>
-                  <label class="ImgItems__Checkbox">
-                    <input type="checkbox" class="image-checkbox" />
-                    <span class="checkmark"></span>
-                  </label>
-                  <img src="{{asset('/images/'.$data->name)}}" alt="" />
-                </div>
-                @endforeach
-              </div>
-            </div>
-            <form action="{{ route('uploadImages') }}" method="POST" style="display: flex; margin-top: 0.5vw" enctype="multipart/form-data">
-            @csrf
-              <div class="UploadImage">
-                <span><i class="fa-solid fa-file-arrow-up"></i> SLIDE IMAGE</span>
-                <input type="file" name="image" accept="image/png, image/jpeg" id="TemplateMedal" required />
-              </div>
-              <button type="submit" class="custom-button-s" style="background-color: rgba(29, 171, 161, 1)">
-                TẢI ẢNH LÊN
-              </button>
-            </form>
-            <form action="{{ route('slideShow') }}" method="GET" enctype="multipart/form-data">
-              @csrf
-              <p>
-                <i class="fa-solid fa-photo-film"></i> TÙY CHỈNH SLIDER
-                <i>(Tối đa 4 ảnh)</i>
-              </p>
-              <div id="selected-images"></div>
-              <div>
-                <button
-                  type="submit"
-                  class="custom-button-s"
-                  style="background-color: rgba(29, 171, 161, 1)"
-                >
-                  CẬP NHẬT SLIDER
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        @endif
+        
         <div class="Main__Content--RecentMarkMedal">
           <div class="Title">
             <i class="fa-solid fa-medal"></i>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AddInformationAdmin;
 use App\Http\Controllers\Auth\UserLoginController;
 use App\Http\Controllers\Auth\LoginAdminController;
 use App\Http\Controllers\Auth\LoginAdminDepartmentController;
+use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DepartmentController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\StylizedController;
 use App\Http\Controllers\Admin\ReviewStylizedController;
 use App\Http\Controllers\Admin\ReviewDetailStylizedController;
+use App\Http\Controllers\Admin\SlideShowController;
 
 use App\Http\Controllers\AdminDepartment\AdminDepartmentController;
 use App\Http\Controllers\AdminDepartment\UserDepartController;
@@ -50,6 +52,9 @@ Route::post('/login-user', [UserLoginController::class, 'postLogin']);
 // Add information after first time login
 Route::resource('/add-information', AddInformationUser::class);
 Route::post('/add-information/add-infor/{id}', [AddInformationUser::class, 'addInformationUser'])->name('addInformationUser');
+//Register
+Route::resource('/register', RegisterController::class);
+Route::post('/register/regis', [RegisterController::class,'postRegister'])->name('postRegister');
 
 
 
@@ -109,7 +114,9 @@ Route::prefix('admin-department')->middleware('adminDepartMiddle')->group(functi
     Route::resource('/user-department', UserDepartController::class);
     Route::post('/user-department/{id}', [UserDepartController::class,'edit']);
     Route::get('/user-department/{id}', [UserDepartController::class,'show']);
-    Route::post('/user-department/import-excel', [UserDepartController::class, 'importExcel'])->name('importExcel');
+    Route::get('/user-department/accept/{id}', [UserDepartController::class,'acceptUser'])->name('acceptUser');
+    Route::get('/user-department/refuse/{id}', [UserDepartController::class,'refuseUser'])->name('refuseUser');
+    
     Route::post('/user-department/change-pass-user/{id}', [UserDepartController::class,'changePassUser'])->name('changePassUser');
     Route::post('/user-department/change-status-user/{id}', [UserDepartController::class,'changeStatusUserAdminDepart'])->name('changeStatusUserAdminDepart');
     
@@ -144,9 +151,7 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     Route::post('/change-information/{id}', [AdminController::class, 'changeInforAdminPost'])->name('changeInforAdminPost');
     Route::post('/change-information/change-pass/{id}', [AdminController::class, 'changePassAdmin'])->name('changePassAdmin');
     Route::post('/change-information/change-image/{id}', [AdminController::class, 'changeImageAdmin'])->name('changeImageAdmin');
-    Route::get('/change-slide', [AdminController::class, 'slideShow'])->name('slideShow');
-    Route::post('/add-images', [AdminController::class, 'uploadImages'])->name('uploadImages');
-    Route::get('/delete-images/{name}', [AdminController::class, 'deleteImages'])->name('deleteImages');
+
 
     // Manage Admin-department information 
     Route::resource('/department', DepartmentController::class);
@@ -189,6 +194,12 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     Route::resource('/review-stylized', ReviewStylizedController::class);
     Route::get('/review-detail-stylized/{id}', [ReviewDetailStylizedController::class,'showDetailCeriteriaAdmin'])->name('showDetailCeriteriaAdmin');
     Route::post('/review-detail-stylized/{id}', [ReviewDetailStylizedController::class,'updateRegistrationDetailAdmin'])->name('updateRegistrationDetailAdmin');
+    
+    // SlideShow
+    Route::resource('/update-slideshow', SlideShowController::class);
+    Route::post('/update-slideshow/change-slide', [SlideShowController::class, 'slideShow'])->name('slideShow');
+    Route::get('/update-slideshow/delete-image/{name}', [SlideShowController::class, 'deleteImages'])->name('deleteImages');
+    Route::post('/update-slideshow/add-images', [SlideShowController::class, 'uploadImages'])->name('uploadImages');
     
 
 });

@@ -36,7 +36,10 @@
       </div>
       <div class="login__form">
         <h1>ĐĂNG NHẬP</h1>
-        <p class="custom-text-green-s">Trang đăng nhập dành cho ứng viên!</p>
+        <p class="custom-text-green-s">Trang đăng nhập dành cho ứng viên! <a href="{{route('register.index')}}">Đăng ký tài khoản?</a></p>
+        
+         
+        
         @if(session('error')) 
           <script>
           sessionStorage.setItem("reloadStatus", "true");
@@ -78,6 +81,27 @@
             
           </script>
         @endif
+        @if(session('error2')) 
+          <script>
+          sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+        // Kiểm tra trạng thái đã được lưu trữ
+        var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+        if (reloadStatus === "true") {
+          //MessageSuccess("THÀNH CÔNG!", "Cập nhật dữ liệu thành công.");
+          MessageError(
+            "ĐĂNG NHẬP KHÔNG THÀNH CÔNG!",
+            "Tài khoản của bạn đang chờ duyệt, vui lòng quay lại sau."
+          );
+          // Xóa trạng thái đã được lưu trữ
+          sessionStorage.removeItem("reloadStatus");
+        }
+      });
+            
+          </script>
+        @endif
         <form id="form-login" action="login-user" method="POST">
         @csrf
           <div id="form-items" class="login__form--items">
@@ -97,7 +121,7 @@
             <span id="message" class="form__items--message"></span>
           </div>
           <div class="login__form--btn">
-            <div class="">
+          <div class="">
               <input class="custom-checkbox" type="checkbox" id="checkbox2" />
               <label for="checkbox2" tabindex="2">Ghi nhớ đăng nhập.</label>
             </div>
@@ -106,6 +130,7 @@
             </a>
             <button id="btn-login" type="submit"><b>Đăng nhập</b></button>
           </div>
+          
         </form>
       </div>
       <div class="login__image">

@@ -171,3 +171,56 @@ document
     .addEventListener("click", function() {
         document.querySelector(".Popup-ExcelTable").style.display = "block";
     });
+//
+//Xóa
+const operationPopup = document.querySelector("#operationPopup");
+const submitConfirmSubmit = document.querySelector("#submit-ConfirmSubmit");
+// Lấy tất cả các thẻ <a> có class "btnDelete"
+var btnAccept = document.querySelectorAll("#acceptAccount");
+
+// Lặp qua từng thẻ <a> và gắn sự kiện click
+btnAccept.forEach(function(element) {
+    element.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Lấy phần tử cha chung của thẻ <a> và popup
+        submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
+
+        var parent = this.parentElement;
+        var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
+
+        // Hiển thị popup
+        operationPopup.innerHTML = "'Thêm tài khoản?'";
+        popupConfirmSubmit.style.display = "block";
+    });
+});
+// Lấy tất cả các thẻ <a> có class "btnDelete"
+var btnDelete = document.querySelectorAll("#dellAccount");
+
+// Lặp qua từng thẻ <a> và gắn sự kiện click
+btnDelete.forEach(function(element) {
+    element.addEventListener("click", function(e) {
+        e.preventDefault();
+        // Lấy phần tử cha chung của thẻ <a> và popup
+        submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
+        var parent = this.parentElement;
+        var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
+
+        // Hiển thị popup
+        operationPopup.innerHTML = "'Xóa tài khoản?'";
+
+        popupConfirmSubmit.style.display = "block";
+    });
+});
+
+var closePopupBtns = document.querySelectorAll("#close-popupConfirmSubmit");
+
+// Gắn sự kiện click cho từng nút đóng popup
+closePopupBtns.forEach(function(closeBtn) {
+    closeBtn.addEventListener("click", function() {
+        // Lấy phần tử cha của nút đóng popup
+        var parent = this.parentElement.parentElement.parentElement;
+
+        // Đóng popup
+        parent.style.display = "none";
+    });
+});

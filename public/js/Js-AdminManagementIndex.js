@@ -109,7 +109,8 @@ directionElement.forEach((element) => {
 
 const imageCheckboxes = document.querySelectorAll(".image-checkbox");
 const selectedImagesDiv = document.getElementById("selected-images");
-
+const submitEditSlider = document.querySelector("#submitEditSlider");
+// const formEditSlider = document.querySelector("#formEditSlider");
 // Maximum number of checkboxes allowed to be checked
 const maxChecked = 4;
 
@@ -150,6 +151,8 @@ function updateSelectedImages() {
         const input = document.createElement("input");
         img.src = src;
         img.alt = "Image";
+        // img.name = `slide[${index}]`; // Sử dụng index trực tiếp
+        // img.setAttribute("data-index", index); // Sử dụng index trực tiếp
         selectedImagesDiv.appendChild(img);
         input.type = "hidden";
         input.value = src.split("/").pop();
@@ -158,6 +161,15 @@ function updateSelectedImages() {
         selectedImagesDiv.appendChild(input);
     });
 }
+submitEditSlider.addEventListener("click", function(event) {
+    // Kiểm tra nếu mảng selectedImages trống
+
+    if (selectedImages.length === 0) {
+        // Ngăn sự kiện submit mặc định
+        event.preventDefault();
+        MessageImgError("KHÔNG THÀNH CÔNG!", "Vui lòng chọn ít nhất một ảnh!");
+    }
+});
 
 //UpLoad Hình ảnh chứng nhận
 // Get the input element and submit button
