@@ -329,23 +329,29 @@
             @php
             $filteredSlideShow = \App\Models\SlideStorage::pluck('image')->toArray();
             @endphp
-            @foreach($pictures as $data)
+            @foreach($slideShow as $data)
                 <div class="ImgItems">
-                  <a href="{{route('deleteImages', $data->name)}}"><i class="fa-solid fa-folder-minus"></i></a>
-                  <img src="{{asset('/images/'.$data->name)}}" alt="" />
-            @if(in_array( $data->name, $filteredSlideShow ))
+                  <a href="{{route('deleteImages', $data->image)}}"><i class="fa-solid fa-folder-minus"></i></a>
+                  <img src="{{asset('/images/'.$data->image)}}" alt="" />
                   <label class="ImgItems__Checkbox">
                     <input type="checkbox" checked class="image-checkbox" />
                     <span class="checkmark"></span>
                     </label>
-            @else
-            <label class="ImgItems__Checkbox">
-                    <input type="checkbox"  class="image-checkbox" />
-                    <span class="checkmark"></span>
-                    </label>
-            @endif
                 </div>
-                @endforeach
+            @endforeach
+            @foreach($pictures as $pic)
+            @if(!in_array($pic->name, $filteredSlideShow))
+                <div class="ImgItems">
+                    <a href="{{route('deleteImages', $pic->name)}}"><i class="fa-solid fa-folder-minus"></i></a>
+                    <img src="{{asset('/images/'.$pic->name)}}" alt="" />
+                        <label class="ImgItems__Checkbox">
+                            <input type="checkbox" class="image-checkbox" />
+                            <span class="checkmark"></span>
+                        </label>
+                    
+                </div>
+            @endif
+            @endforeach
               
             </div>
           </div>

@@ -2,11 +2,9 @@
     <div class="Notification__content" >
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
               @if($count == 0)
-              <div>
-                <p style ="font-size:20px"> 
-                Hiện tại bạn không có thông báo nào.
-                </p>
-              </div>
+              <p style="font-size: 0.8vw; margin-left: 1vw">
+                <i>Tài khoản chưa có thông báo có thông báo!</i>
+              </p>
               @else
               @foreach($notifications as $noti)
                 @php
@@ -16,15 +14,33 @@
                 <img src="/images/admin.jpg" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">{{ date("d/m/Y",strtotime($noti->date)) }} </span>
-                @if($noti->status == '4')
-                <p>
-                Chúc mừng, bạn đã đạt danh hiệu “{{$name_stylized->name_stylized}}”!
-                </p>
-                @elseif($noti->status == '5')
-                <p>
-                Bạn đã không đạt danh hiệu “{{$name_stylized->name_stylized}}”!
-                </p>
-                @endif
+                @switch($noti->status)
+                  @case('1')
+                  <p>
+                  Hồ sơ đăng kí danh hiệu “{{$name_stylized->name_stylized}}” của bạn đã được khoa duyệt !
+                  </p>
+                  @break
+                  @case('2')
+                  <p>
+                  Hồ sơ đăng kí danh hiệu “{{$name_stylized->name_stylized}}” của bạn đã được chuyển lên đoàn trường !
+                  </p>
+                  @break
+                  @case('3')
+                  <p>
+                  Hồ sơ đăng kí danh hiệu “{{$name_stylized->name_stylized}}” của bạn đã bị khoa từ chối. Vui lòng quay lại mốc thời gian bổ sung hồ sơ để bổ sung lại hồ sơ !
+                  </p>
+                  @break
+                  @case('4')
+                  <p>
+                  Chúc mừng, bạn đã đạt danh hiệu “{{$name_stylized->name_stylized}}”!
+                  </p>
+                  @break
+                  @case('5')
+                  <p>
+                  Bạn đã không đạt danh hiệu “{{$name_stylized->name_stylized}}”!
+                  </p>
+                  @break
+                @endswitch
               </div>
               @endforeach
               

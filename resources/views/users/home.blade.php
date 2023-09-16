@@ -193,16 +193,15 @@
             <i class="fa-solid fa-medal"></i>
             <span>DANH HIỆU ĐANG XÉT DUYỆT</span>
           </div>
-          
-          @foreach($CompetitionPeriod as $value)
-    @php
-    $registerExists = \App\Models\Registration::where('id_user', Auth::user()->_id)
+         
+    
+          @foreach($CompetitionPeriod as $value) 
+        @php
+          $registerExists = \App\Models\Registration::where('id_user', Auth::user()->_id)
         ->where('id_competitionperiod', $value->_id)
         ->exists();
     @endphp
-
     @foreach($value->stylized->object as $item)
-    
         @if(in_array(Auth::user()->type, $item) && !($registerExists))
          @if($value->startdate <= now() && $value->depart_first_time >= now())
             <div class="Medal">

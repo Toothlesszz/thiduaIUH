@@ -10,6 +10,7 @@ use App\Models\RegistrationDetails;
 use App\Models\Ceriterias;
 use App\Models\Stylized;
 use App\Models\CeriteriasDetail;
+use App\Models\Notifications;
 use Carbon\Carbon;
 use Crypt;
 
@@ -106,7 +107,21 @@ class DetailRegistrationController extends Controller
      */
     public function updateRegistrationDetail(Request $request, $id)
     {
-       
+          // Thiết lập múi giờ là 'Asia/Ho_Chi_Minh' (Việt Nam)
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+    // Lấy ngày hiện tại của Việt Nam
+    $currentDate = Carbon::now()->toDateTimeString();
+    $Registration = Registration::find($id);
+        //Lưu lại nội dung thông báo
+    $notification = new Notifications();
+    $notification->id_user = $Registration->id_user;
+    $notification->status = $request->status_input; 
+    $notification->date = $currentDate;
+    $notification->read = 'False';
+    $notification->id_stylized = $Registration->competitionperiod->id_styli;
+    $notification->save();
+
         if($request->status_input == '3')
         {
             $Registration = Registration::find($id);

@@ -27,6 +27,7 @@ class UserDepartController extends Controller
         $keyword = $request['keyword'] ?? "";
         $custom = $request['custom'] ;
         $type = $request['type'];
+        $status = $request['status'];
         
         $query = User::with('department')
           ->where('id_depart', '=', Auth::guard('department')->user()->id_depart)
@@ -38,13 +39,19 @@ class UserDepartController extends Controller
         }
         elseif($keyword !== '' && $custom == '2'){
             $query->where('name','like', '%'.$keyword.'%');
-        }elseif($type != ''){
+        }elseif($type != '' && $status != '' ){
+            $query->where('type','like', $type)->where('status','=', $status);
+        }
+        elseif($type != '' && $status == ''){
             $query->where('type','like', $type);
+        }
+        elseif($type == '' && $status !=''){
+            $query->where('status','=', $status);
         }
 
         $user = $query->paginate(5)->withQueryString();
 
-        return view('adminDepartment.users.index')->with(compact('keyword', 'query', 'user', 'type','custom'));
+        return view('adminDepartment.users.index')->with(compact('keyword', 'query','status', 'user', 'type','custom'));
     }
 
     /**

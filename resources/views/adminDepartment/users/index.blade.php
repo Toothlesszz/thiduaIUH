@@ -335,14 +335,80 @@
           </div>
          
           <form action="{{ route('user-department.index') }}" method="GET" class="custom-Filter">
-           
+            @csrf
+          <div class="custom-Select">
+              <div class="custom-Select__Title">
+                <i class="fa-solid fa-address-book"></i>
+                <span id="">Trạng thái</span>
+              </div>
+              <select name="status" id="">
+                @switch($status)
+                @case('')
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('0')
+                <option value="0">Chờ duyệt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('1')
+                <option value="1">Kích hoạt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('2')
+                <option value="2">Hoạt động</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('3')
+                <option value="3">Đã khóa</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('4')
+                <option value="4">Hết hạn</option>
+                <option value="">Tất cả trạng thái</option> 
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                @break
+                @case('5')
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @endswitch
+              </select>
+            </div>
             <div class="custom-Select">
               <div class="custom-Select__Title">
                 <i class="fa-solid fa-user-pen"></i>
                 <span id="">Đối tượng</span>
               </div>
               <select name="type" id="">
-                @if($type !='')
+                @if($type != '')
                 <option value="{{$type}}">{{$type}}</option>
                 @endif
                 <option value="">Tất cả đối tượng</option>
@@ -351,7 +417,7 @@
                 <option value="Viên chức">Viên chức</option>
               </select>
             </div>
-            <input class="custom-button-m" type="submit" value="LỌC DỮ LIỆU" />
+            <input class="custom-button-m" type="submit" value="LỌC" />
           </form>
           <form action="{{ route('user-department.index') }}" method="GET" class="custom-Search">
             <i class="fa-solid fa-magnifying-glass"></i>

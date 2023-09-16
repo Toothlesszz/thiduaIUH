@@ -61,6 +61,7 @@ class ReviewDetailStylizedController extends Controller
     $notification->id_user = $Registration->id_user;
     $notification->status = $request->status_input; 
     $notification->date = $currentDate;
+    $notification->read = 'False';
     $notification->id_stylized = $Registration->competitionperiod->id_styli;
     $notification->save();
 
@@ -101,10 +102,7 @@ class ReviewDetailStylizedController extends Controller
                         'message' => $message
                         ];
                 $pusher->trigger('noti-channel', 'profile-reviewed', $data );
-                
-                
-                
-                
+
                 // event(new CertificatedEvent($message));
                 return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
             }
