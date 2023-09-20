@@ -144,28 +144,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -184,7 +163,7 @@
               <img src="{{ asset('uploads/user/'.$value->image) }}" alt="" />
             </div>
             <div class="InfoTitle">
-              <p>Họ và tên</p>
+              <p>Tên đơn vị</p>
               <p>ID</p>
               <p>Đơn vị</p>
               <p>Đối tượng</p>
@@ -278,32 +257,7 @@
             <h4>Thông tin cá nhân</h4>
             <form action="{{ route('department.update', [$value->_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
-              <div id="InforForm-items" class="DateOfBirth">
-                <p id="" for="">Ngày sinh</p>
-                <input type="date" placeholder="" name="birthday" value="{{ $value->birthday }}" required />
-                <i id="FormIcon" class="fa-solid fa-cake-candles"></i>
-                <i id="SelectCalendar" class="fa-solid fa-calendar-plus"></i>
-                <span id="message" class="ChangePass__items--message"></span>
-              </div>
-              <div id="InforForm-items" class="Gender">
-                <p id="" for="">Giới tính</p>
-                @if($value->gender == 1)
-                  <div class="Gender__radio">
-                  <input type="radio" id="male" name="gender" value="1" checked="checked">
-                  <label for="male">Nam</label>
-                  <input type="radio" id="female" name="gender" value="2">
-                  <label for="female">Nữ</label>
-                  </div>
-              @else
-                  <div class="Gender__radio">
-                  <input type="radio"  id="male" name="gender" value="1">
-                  <label for="male">Nam</label>
-                  <input type="radio" id="female" name="gender" value="2" checked="checked">
-                  <label for="female">Nữ</label>
-                  </div>
-              @endif
-                <span id="message" class="ChangePass__items--message"></span>
-              </div>
+              
               <div id="InforForm-items" class="Email">
                 <p id="" for="">Email</p>
                 <input

@@ -13,6 +13,7 @@ use App\Models\Registration;
 use App\Models\RegistrationDetails;
 use App\Models\Ceriterias;
 use App\Models\CeriteriasDetail;
+use App\Models\Notifications;
 use DB;
 
 use Intervention\Image\Facades\Image;
@@ -26,6 +27,9 @@ class ReviewStylizedController extends Controller
      */
     public function index(Request $request)
     {
+        if( Auth::guard('admin')->user()->status != '2'){
+            return redirect('/login-admin')->with(Auth::logout());
+        }
         $keyword = $request['keyword'] ?? "";
         $type = $request['type'];
         $status = $request['status'];
@@ -232,8 +236,10 @@ class ReviewStylizedController extends Controller
                 }
         }
         $regis = $query->paginate(5)->withQueryString();
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
       return view('admin.reviewStylized.index')
-      ->with(compact('regis', 'keyword','years','stylized','department','type','status','styli'));
+      ->with(compact('regis', 'keyword','years','stylized','department','type','status','styli','notifications','count'));
     }
 
     /**
@@ -265,10 +271,14 @@ class ReviewStylizedController extends Controller
      */
     public function show($id)
     {
+        if( Auth::guard('admin')->user()->status != '2'){
+            return redirect('/login-admin')->with(Auth::logout());
+        }
         $registration = Registration::find($id);
         $criterias = Ceriterias::where('id_styli', $registration->id_stylized)->paginate(20);
-
-        return view('admin.reviewStylized.criterias')->with(compact('criterias', 'id'));
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('admin.reviewStylized.criterias')->with(compact('criterias', 'id','notifications','count'));
     }
 
     /**

@@ -22,6 +22,9 @@ class ReviewDetailStylizedController extends Controller
 {
     public function showDetailCeriteriaAdmin($id)
     {
+        if( Auth::guard('admin')->user()->status != '2'){
+            return redirect('/login-admin')->with(Auth::logout());
+        }
         $userTracing = UserTracing::with('users')->where('id_profile', '=', $id)->orderBy('update_date','desc')->get();
         $regis = Registration::with('competitionperiod', 'users')
         ->where('_id', $id)->first();
@@ -43,7 +46,9 @@ class ReviewDetailStylizedController extends Controller
             ->get();
         // Gán tiêu chí vào tiêu chuẩn
     }
-    return view('admin.reviewStylized.criteria-detail')->with(compact('userTracing','regis_detail', 'regis', 'filtered_criterias','id_criteria_detail'));
+    $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+    $count = count($notifications);
+    return view('admin.reviewStylized.criteria-detail')->with(compact('userTracing','regis_detail', 'regis', 'filtered_criterias','id_criteria_detail','notifcations','count'));
     }
 
     public function updateRegistrationDetailAdmin(Request $request, $id)

@@ -1,5 +1,5 @@
 
-    <div class="Notification__content" >
+    <div class="Notification__content" data-url="/notifications">
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
               @if($count == 0)
               <p style="font-size: 0.8vw; margin-left: 1vw">
@@ -22,7 +22,7 @@
                   @break
                   @case('2')
                   <p>
-                  Hồ sơ đăng kí danh hiệu “{{$name_stylized->name_stylized}}” của bạn đã được chuyển lên đoàn trường !
+                  Hồ sơ đăng kí danh hiệu “{{$name_stylized->name_stylized}}” của bạn đã được chuyển lên Đoàn trường !
                   </p>
                   @break
                   @case('3')

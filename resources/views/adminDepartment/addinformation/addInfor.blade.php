@@ -92,7 +92,7 @@
             @foreach($user as $value)
           <h4>Thông tin tài khoản</h4>
           <div class="InfoTitle">
-            <p>Họ và tên</p>
+            <p>Tên đơn vị</p>
             <p>ID</p>
             <p>Đơn vị</p>
             <p>Đối tượng</p>
@@ -110,32 +110,10 @@
           <h4>Thông tin cá nhân</h4>
           <form action="{{route('addInformationAdminDepartment',[$value->_id])}}" method="post"  enctype="multipart/form-data" >
           @csrf
-            <div id="InforForm-items" class="DateOfBirth">
-              <p id="" for="">Ngày sinh</p>
-              <input type="date" placeholder="" name="birthday" value="{{$value->birthday}}" required />
-              <i id="FormIcon" class="fa-solid fa-cake-candles"></i>
-              <i id="SelectCalendar" class="fa-solid fa-calendar-plus"></i>
-              <span id="message" class="ChangePass__items--message"></span>
-            </div>
-            <div id="InforForm-items" class="Gender">
-              <p id="" for="">Giới tính</p>
-              <div class="Gender__radio">
-                <input
-                  type="radio"
-                  id="male"
-                  name="gender"
-                  value="1"
-                  checked
-                />
-                <label for="male">Nam</label><br />
-                <input type="radio" id="female" name="gender" value="2" />
-                <label for="female">Nữ</label><br />
-              </div>
-              <span id="message" class="ChangePass__items--message"></span>
-            </div>
+            
             <div id="InforForm-items" class="Email">
               <p id="" for="">Email</p>
-              <input
+              <input style="opacity: 0.7; pointer-events: none;"
                 type="text" name="email"
                 placeholder="Nhập Email"
                 value="{{$value->email}}"

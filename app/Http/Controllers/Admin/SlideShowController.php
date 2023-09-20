@@ -6,25 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Years;
-use App\Models\Department;
-use App\Models\Stylized;
-use App\Models\Registration;
-use App\Models\RegistrationDetails;
-use App\Models\CompetitionPeriod;
 use App\Models\Pictures;
 use App\Models\SlideStorage;
+use App\Models\Notifications;
 use DB;
 
 class SlideShowController extends Controller
 {
     public function index()
     {
+      if( Auth::guard('admin')->user()->status != '2'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }
         if(Auth::guard('admin')->user()->level == '5'){
             $pictures = Pictures::get();
             $slideShow = SlideStorage::orderBy('number', 'asc')->get();
-            return view('admin.slideshow.slideshow')->with(compact('pictures','slideShow'));
+            $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+            $count = count($notifications);
+            return view('admin.slideshow.slideshow')->with(compact('pictures','slideShow','notifications','count'));
         }
         else{
             return redirect()->back()->with("error","Bạn không có quyền truy cập trang này !");

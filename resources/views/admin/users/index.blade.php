@@ -127,27 +127,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -169,6 +149,26 @@
 
             if (reloadStatus === "true") {
               MessageSuccess("THÀNH CÔNG!", "Tạo ứng viên mới thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Khóa tài khoản thành công.");
               // MessageError(
               //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
               //   "Thông tin mật khẩu chưa chính xác."

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Registration;
+use App\Models\Notifications;
 use App\Models\Department;
 use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\ReaderFactory;
@@ -24,6 +25,9 @@ class UserDepartController extends Controller
     //Dữ liệu trả về trên trang index
     public function index(Request $request)
     {
+        if(Auth::guard('department')->user()->status != '2'){
+            return redirect('/login-admin-department')->with(Auth::logout());
+        }
         $keyword = $request['keyword'] ?? "";
         $custom = $request['custom'] ;
         $type = $request['type'];
@@ -50,8 +54,9 @@ class UserDepartController extends Controller
         }
 
         $user = $query->paginate(5)->withQueryString();
-
-        return view('adminDepartment.users.index')->with(compact('keyword', 'query','status', 'user', 'type','custom'));
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('adminDepartment.users.index')->with(compact('keyword', 'query','status', 'user', 'type','custom','notifications','count'));
     }
 
     /**
@@ -143,13 +148,18 @@ class UserDepartController extends Controller
      */
     //Change user's information
     public function edit($id) {
+        if(Auth::guard('department')->user()->status != '2'){
+            return redirect('/login-admin-department')->with(Auth::logout());
+        }
         $id = Crypt::decrypt($id);
         $user = User::where('_id', '=', $id)
               ->limit(1)->get();
               $regis = Registration::with('users','competitionperiod')->where('id_user' , '=' , $id)->get();
               $regisCount = Registration::where('id_user' , '=' , $id)->count();
               $regisPassCount = Registration::where('id_user' , '=' , $id)->where('admin_status','=','4')->count();
-        return view('adminDepartment.users.update')->with(compact('user','regis','regisCount','regisPassCount'));
+              $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+              $count = count($notifications);
+        return view('adminDepartment.users.update')->with(compact('user','regis','regisCount','regisPassCount','notifications','count'));
     }
     public function update(Request $request, $id)
     {

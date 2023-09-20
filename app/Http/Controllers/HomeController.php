@@ -38,6 +38,9 @@ class HomeController extends Controller
       $count = count($notifications);
       $pictures = Pictures::get();
       $slideShow = SlideStorage::orderBy('number', 'asc')->get();
+      if(Auth::user()->status != '2'){
+        return redirect('/login-user')->with(Auth::logout());
+      }
       return view('users.home')->with(compact('register', 'departmentName','pictures','slideShow','notifications', 'count','regisCount' , 'regisPassCount' ,'CompetitionPeriod'));
     }
 

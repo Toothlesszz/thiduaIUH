@@ -14,6 +14,8 @@ use App\Models\Years;
 use App\Models\Ceriterias;
 use App\Models\CeriteriasDetail;
 use App\Models\CompetitionPeriod;
+use App\Models\Notifications;
+
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,9 +44,10 @@ class StylizedController extends Controller
         $stylized = stylized::with('CompetitionPeriod','years')->get();
        //Xuất danh hiệu để quản lý, dùng biến này ở chỗ quản lý danh hiệu
         $stylizedList = stylized::with('CompetitionPeriod','years')->paginate(5)->withQueryString();
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
         
-        
-        return view('admin.stylized.index')->with(compact( 'findyear','stylized', 'years','CompetitionPeriod','stylizedList'));
+        return view('admin.stylized.index')->with(compact( 'findyear','stylized', 'years','CompetitionPeriod','stylizedList','notifications','count'));
     }
 
     /**
@@ -132,7 +135,6 @@ public function addNewStylized(Request $request)
     //Add new competition period
     public function addCompetition(Request $request)
     {
-        
         $validator = Validator::make($request->all(), 
           [
               'startdate' => 'required|after:today',
@@ -142,6 +144,7 @@ public function addNewStylized(Request $request)
               'depart_end_second_time'=>'required|after:depart_second_time',
               'enddate' => 'required|after:depart_end_second_time',
               'idstylized' => 'required',
+              'year'=>'required',
               'file' => 'required',
           ]);
 
@@ -225,10 +228,9 @@ public function addNewStylized(Request $request)
 
         $stylized = Stylized::where('_id','=', $id)->first();
         $criterias = Ceriterias::where('id_styli','=', $stylized->_id)->get();
-        
-       
-      
-        return view('admin.stylized.update')->with(compact('stylized','criterias' ));
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('admin.stylized.update')->with(compact('stylized','criterias','notifications','count' ));
     }
 
     /**

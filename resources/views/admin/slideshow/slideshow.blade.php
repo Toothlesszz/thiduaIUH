@@ -222,30 +222,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <p style="font-size: 0.8vw; margin-left: 1vw">
-                <i>Tài khoản chưa có thông báo có thông báo!</i>
-              </p>
-              <!-- <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="/Front-End/Image/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div> -->
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>

@@ -15,12 +15,15 @@ use App\Models\RegistrationDetails;
 use App\Models\CompetitionPeriod;
 use App\Models\Pictures;
 use App\Models\SlideStorage;
+use App\Models\Notifications;
 use DB;
 
 class AdminController extends Controller
 {
     public function dasboard(Request $request) {
-
+      if( Auth::guard('admin')->user()->status == '0'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }    
       $regis = Registration::with('competitionperiod','users')
       ->whereIn('admin_status', ['1','2'])->paginate(5)->withQueryString();
 //filter
@@ -181,8 +184,10 @@ class AdminController extends Controller
       $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
       $pictures = Pictures::get();
       $slideShow = SlideStorage::orderBy('number', 'asc')->get();
+      $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+      $count = count($notifications);
       return view('admin.dasboard')
-      ->with(compact( 'stylized', 'regisCount','pictures','slideShow','nameStyli','nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis','notReviewed','years','stylized','department'));
+      ->with(compact( 'stylized', 'regisCount','pictures','slideShow','nameStyli','notifications','count','nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis','notReviewed','years','stylized','department'));
     }
 
     public function inforAdmin() {
@@ -191,12 +196,15 @@ class AdminController extends Controller
       return view('admin.informationAdmin.inforAdmin')->with(compact('adminInfor'));
     }
     public function changeInforAdminGet() {
+      
       $userInfor = User::where('_id', '=', Auth::guard('admin')->user()->_id)
             ->limit(1)->get();
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::guard('admin')->user()->_id)->first();
       
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
-      return view('admin.informationAdmin.changeInfor')->with(compact('userInfor','departmentName'));
+      $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+      $count = count($notifications);
+      return view('admin.informationAdmin.changeInfor')->with(compact('userInfor','notifications','count','departmentName'));
     }
     
     public function changeInforAdminPost(Request $request, $id) {

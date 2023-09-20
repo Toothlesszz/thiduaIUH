@@ -12,6 +12,7 @@ use App\Models\Stylized;
 use App\Models\CompetitionPeriod;
 use App\Models\Registration;
 use App\Models\RegistrationDetails;
+use App\Models\Notifications;
 use Crypt;
 
 class StylizedDepartController extends Controller
@@ -23,6 +24,9 @@ class StylizedDepartController extends Controller
      */
     public function index(Request $request)
     {
+        if(Auth::guard('department')->user()->status != '2'){
+            return redirect('/login-admin-department')->with(Auth::logout());
+        }
         $years = Years::get();
         $stylized = Stylized::get();
         $keyword = $request['keyword'] ?? "";
@@ -137,7 +141,9 @@ class StylizedDepartController extends Controller
                 }
         }
         $regis = $query->paginate(5)->withQueryString();
-        return view('adminDepartment.sendStylizedDepartment.index')->with(compact('regis', 'keyword','years', 'stylized' , 'type'));
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('adminDepartment.sendStylizedDepartment.index')->with(compact('regis', 'keyword','years', 'stylized' , 'type','notifications','count'));
     }
 
     /**

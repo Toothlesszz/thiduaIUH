@@ -10,6 +10,7 @@ use Illuminate\Filesystem\Filesystem;
 use App\Models\User;
 use App\Models\Department;
 use App\Models\Registration;
+use App\Models\Notifications;
 use Crypt;
 
 class UserController extends Controller
@@ -48,9 +49,10 @@ class UserController extends Controller
             $query->where('type','like', $type);
         }
 
-        $user = $query->paginate(5)->withQueryString();
-        
-        return view('admin.users.index')->with(compact('keyword', 'query', 'user','nameDepart','department','custom','type','id_depart'));
+        $user = $query->paginate(20)->withQueryString();
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('admin.users.index')->with(compact('keyword', 'query', 'user','nameDepart','department','notifications','count','custom','type','id_depart'));
       
     }
 
@@ -146,8 +148,9 @@ class UserController extends Controller
         $regis = Registration::with('users','competitionperiod')->where('id_user' , '=' , $id)->get();
         $regisCount = Registration::where('id_user' , '=' , $id)->count();
         $regisPassCount = Registration::where('id_user' , '=' , $id)->where('admin_status','=','4')->count();
-        
-        return view('admin.users.update')->with(compact('user','regis','regisCount','regisPassCount'));
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
+        return view('admin.users.update')->with(compact('user','regis','regisCount','regisPassCount','notifications','count'));
     }
 
     /**
@@ -219,12 +222,14 @@ class UserController extends Controller
       {
         $user->status = '3';
       $user->save();
-      return redirect()->back()->with("success","Khóa tài khoản thành công !");
+      return redirect()->route('user.index')->with("success1","Khóa tài khoản thành công !");
+
       }
       else{
         $user->status = '2';
       $user->save();
-      return redirect()->back()->with("success","Khóa tài khoản thành công !");
+      return redirect()->route('user.index')->with("success1","Khóa tài khoản thành công !");
+
       }
     }
 }

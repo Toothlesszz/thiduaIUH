@@ -23,7 +23,9 @@ class DetailRegistrationController extends Controller
      */
     public function showDetailCeriteria($id)
     {
-        
+        if(Auth::guard('department')->user()->status != '2'){
+            return redirect('/login-admin-department')->with(Auth::logout());
+        }
         $regis = Registration::with('competitionperiod', 'users')
         ->where('_id', $id)
         ->where('id_depart', Auth::guard('department')->user()->id_depart)
@@ -46,9 +48,10 @@ class DetailRegistrationController extends Controller
             ->get();
         // Gán tiêu chí vào tiêu chuẩn
     }
-
+    $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+    $count = count($notifications);
     return view('adminDepartment.detailStyliDepartment.criteria-detail')
-        ->with(compact('regis_detail', 'regis', 'filtered_criterias','id_criteria_detail'));
+        ->with(compact('regis_detail', 'regis', 'filtered_criterias','id_criteria_detail','notifications','count'));
 //chúng ta sử dụng phương thức filter() để lọc những tiêu chí mà tiêu chí chi tiết tương ứng tồn tại trong câu trả lời.
  //Sau đó, chúng ta gán tiêu chí chi tiết vào tiêu chí. 
  //Kết quả cuối cùng là danh sách tiêu chí đã được lọc và chỉ chứa những tiêu chí có tiêu chí chi tiết tương ứng trong câu trả lời.

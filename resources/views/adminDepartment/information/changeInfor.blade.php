@@ -111,27 +111,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -168,7 +148,7 @@
         <div class="Main__Content--AccountInfor">
           <h4>Thông tin tài khoản</h4>
           <div class="InfoTitle">
-            <p>Họ và tên</p>
+            <p>Tên đơn vị</p>
             <p>ID</p>
             <p>Đơn vị</p>
             <p>Đối tượng</p>
@@ -281,61 +261,9 @@
           @foreach ($userInfor as $value)
           <form action="{{ route('changeInforAdminDepartmentPost', Auth::guard('department')->user()->_id) }}" method="POST">
           @csrf
-            <div id="InforForm-items" class="DateOfBirth">
-              <p id="" for="">Ngày sinh</p>
-              <input type="date" name="birthday" placeholder="" value="{{ $value->birthday }}" required />
-              <i id="FormIcon" class="fa-solid fa-cake-candles"></i>
-              <i id="SelectCalendar" class="fa-solid fa-calendar-plus"></i>
-              <span id="message" style="color:red" class="ChangePass__items--message">
-                @if($errors->has('birthday'))
-                <div class="alert alert-danger mt-2">
-                {{ $errors->first('birthday') }}
-            </div>
-            <script>
-          sessionStorage.setItem("reloadStatus", "true");
-            window.addEventListener("load", function () {
-       
-            // Kiểm tra trạng thái đã được lưu trữ
-            var reloadStatus = sessionStorage.getItem("reloadStatus");
-
-            if (reloadStatus === "true") {
-              //MessageSuccess("THÀNH CÔNG!", "Cập nhật dữ liệu thành công.");
-              MessageError(
-                "CẬP NHẬT KHÔNG THÀNH CÔNG!",
-                "Độ tuổi quản trị viên khoa phải trên 18 tuổi !"
-              );
-              // Xóa trạng thái đã được lưu trữ
-              sessionStorage.removeItem("reloadStatus");
-            }
-          });
-    </script>
-                @endif
-              </span>
-            </div>
-            
-            <div id="InforForm-items" class="Gender">
-              <p id="" for="">Giới tính</p>
-              @if($value->gender == 1)
-                  <div class="Gender__radio">
-                  <input type="radio" id="male" name="gender" value="1" checked="checked">
-                  <label for="male">Nam</label>
-                  <input type="radio" id="female" name="gender" value="2">
-                  <label for="female">Nữ</label>
-                  </div>
-              @else
-                  <div class="Gender__radio">
-                  <input type="radio"  id="male" name="gender" value="1">
-                  <label for="male">Nam</label>
-                  <input type="radio" id="female" name="gender" value="2" checked="checked">
-                  <label for="female">Nữ</label>
-                  </div>
-              @endif
-              
-              <span id="message" class="ChangePass__items--message"></span>
-            </div>
             <div id="InforForm-items" class="Email">
               <p id="" for="">Email</p>
-              <input
+              <input style="opacity: 0.7; pointer-events: none;"
                 type="text" name="email"
                 placeholder="Nhập Email"
                 value="{{ $value->email }}"
@@ -410,12 +338,7 @@
             
               </span>
             </div>
-            <div id="InforForm-items" class="Course">
-              <p id="" for="">Niên khóa</p>
-              <input type="text" placeholder="" value="{{ $value->course }}" disabled />
-              <i id="FormIcon" class="fa-solid fa-graduation-cap"></i>
-              <span id="message" class="ChangePass__items--message"></span>
-            </div>
+         
 
             <input
               id="btn-UpdatePersonalInfor"

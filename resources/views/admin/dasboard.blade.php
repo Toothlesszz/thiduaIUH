@@ -124,29 +124,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                  <a href="{{route('uploadImages')}}"></a>
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -299,10 +277,12 @@
             <i class="fa-solid fa-medal"></i>
             <h4>DANH HIỆU ĐANG XÉT DUYỆT</h4>
           </div>
-          <div class="Medal">
-            
+          <div class="Medal">  
+          @php
+        $now = \Carbon\Carbon::now()->setTimezone('Asia/Ho_Chi_Minh');
+    @endphp
           @foreach ($CompetitionPeriod as $value)
-          @if($value->startdate <= now() && $value->depart_first_time >= now())
+          @if($value->startdate <= $now && $value->depart_first_time >= $now)
           
           <div class="Medal__Items">
             <img src="images/lamtheoloiBac.jpg" alt="" />

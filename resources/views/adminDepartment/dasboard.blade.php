@@ -101,54 +101,7 @@
           </div>
           <div class="Notification">
             <i class="fa-solid fa-bell" id="openNotification"></i>
-            <div class="Notification__content">
-              <span><i class="fa-regular fa-bell"></i> Thông báo</span>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">Hôm nay</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-              <div class="Notification__content--items">
-                <img src="images/admin.jpg" alt="" />
-                <span id="sender">ADMIN</span>
-                <span id="sending-time">26/04/2023</span>
-                <p>
-                  Chúc mừng, bạn đã đạt danh hiệu “THANH NIÊN TIÊN TIẾN LÀM THEO
-                  LỜI BÁC”!
-                </p>
-              </div>
-            </div>
+            @include('notifications')
           </div>
         </div>
       </div>
@@ -196,7 +149,6 @@
                 @foreach($year as $key)
                 <option value="{{$key->_id}}">{{$key->year}}</option>
                 @endforeach
-                
               </select>
             </div>
             <input type="submit" class="custom-button-m" value="LỌC DỮ LIỆU" />
@@ -239,7 +191,6 @@
               <th>Trạng thái</th>
             </tr>
             @foreach($regis as $object)
-  
     <tr>
       <td>
         <div class="Profile">
@@ -258,14 +209,10 @@
         </div>
       </td>
     </tr>
- 
 @endforeach
-            
           </table>
-          <div class="pagination">
-            
-              {{ $regis->links() }}            
-            
+          <div class="pagination">   
+              {{ $regis->links() }}
           </div>
         </div>
         <div class="Main__Content--RecentMedal">
@@ -274,23 +221,26 @@
             <h4>DANH HIỆU ĐANG XÉT DUYỆT</h4>
           </div>
           <div class="Medal">
-          @foreach ($CompetitionPeriod as $value)
-          @if($value->startday <= now() && $value->endday >= now())
-            <div class="Medal__Items">
-              <img src="images/lamtheoloiBac.jpg" alt="" />
-              <div class="Medal__Items--Content">
-                <span class="Name">{{$value->stylized->name_stylized}}</span>
-                <div class="Duration">
-                  <i class="fa-solid fa-business-time"></i>
-                  <span>Thời gian:</span>
-                  <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->startday)->format('d/m/Y') }} 
-                    - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->endday)->format('d/m/Y') }}</span>
-                </div>
+          @php
+        $now = \Carbon\Carbon::now()->setTimezone('Asia/Ho_Chi_Minh');
+    @endphp
+    @foreach ($CompetitionPeriod as $value)
+          @if($value->startdate <= $now && $value->depart_first_time >= $now)
+          <div class="Medal__Items">
+            <img src="images/lamtheoloiBac.jpg" alt="" />
+            <div class="Medal__Items--Content">
+              <span class="Name">{{$value->stylized->name_stylized}}</span>
+              <div class="Duration">
+                <i class="fa-solid fa-business-time"></i>
+                <span>Thời gian:</span>
+                <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->startdate)->format('d/m/Y') }} 
+                    - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $value->depart_first_time)->format('d/m/Y') }}</span>
               </div>
-              <a href="{{route('downloadFileAdminDepart', $value->stylized->file)}}"><i class="fa-solid fa-file-pdf"></i></a>
             </div>
-            @endif
-            @endforeach
+            <a href="{{route('downloadFileAdminDepart', $value->stylized->file)}}"><i class="fa-solid fa-file-pdf"></i></a>
+          </div>
+          @endif
+          @endforeach
           </div>
         </div>
       </div>

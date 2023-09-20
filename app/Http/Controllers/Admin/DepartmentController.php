@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\User;
+use App\Models\Notifications;
 use Crypt;
 
 class DepartmentController extends Controller
@@ -20,6 +21,9 @@ class DepartmentController extends Controller
      */
     public function index(Request $request)
     {
+      if( Auth::guard('admin')->user()->status != '2'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }
         $keyword = $request['keyword'] ?? "";
         $custom = $request['custom'] ;
         $type = $request['type'];
@@ -45,7 +49,9 @@ class DepartmentController extends Controller
 	else{
 	$department = Department::where('_id', '!=' , Auth::guard('admin')->user()->id_depart)->get();
 	}
-        return view('admin.department.index')->with(compact('keyword', 'query', 'user','department'));
+  $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+  $count = count($notifications);
+    return view('admin.department.index')->with(compact('keyword', 'query', 'user','department','notifications','count'));
 
     }
 
@@ -69,7 +75,7 @@ class DepartmentController extends Controller
     { 
       
       $userCode = User::select('code')->where('code','=',$request['code'])->first();
-      $userEmail = User::select('emal')->where('email','=',$request['email'])->first();
+      $userEmail = User::select('email')->where('email','=',$request['email'])->first();
 
       $data = $request;
 
@@ -81,9 +87,7 @@ class DepartmentController extends Controller
             $user = new User();
 
             $user->name = $data['name'];
-            $user->gender = $data['gender'];
             $user->code = $data['code'];
-            $user->birthday = $data['birthday'];
             $user->address = $data['address'];
             $user->phone = $data['phone'];
             $user->email = $data['email'];
@@ -151,10 +155,15 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
+      if( Auth::guard('admin')->user()->status != '2'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }
         $id = Crypt::decrypt($id);
         $userDepart = User::where('_id', '=', $id)
               ->limit(1)->get();
-        return view('admin.department.update')->with(compact('userDepart'));
+              $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+              $count = count($notifications);
+        return view('admin.department.update')->with(compact('userDepart','notifications','count'));
     }
 
     /**
@@ -168,13 +177,13 @@ class DepartmentController extends Controller
     {
       $data = $request->validate(
         [
-            'birthday' => 'before:18 years ago',
+            
             'address' => 'max:255',
             'phone' => 'regex:/^[0-9]+$/',
             'email' => 'email|max:155',
         ],
         [
-            'birthday.before' => 'Ứng viên phải trên 18 tuổi!',
+            
             'address.max' => 'Địa chỉ không vượt quá 255 ký tự!',
             'phone.regex' => 'Số điện thoại chỉ bao gồm số!',
             'email.required' => 'Vui lòng nhập email!',
@@ -185,10 +194,10 @@ class DepartmentController extends Controller
     );
 
       $User = User::find($id);
-      $User->birthday = $data['birthday'];
+      
       $User->email = $data['email'];
       $User->address = $data['address'];
-      $User->gender = $request->gender;
+      
       $User->phone = $data['phone'];
 
       $User->save();

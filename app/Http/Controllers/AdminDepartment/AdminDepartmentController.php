@@ -14,6 +14,7 @@ use App\Models\Stylized;
 use App\Models\Department;
 use App\Models\Registration;
 use App\Models\CompetitionPeriod;
+use App\Models\Notifications;
 
 
 
@@ -21,7 +22,10 @@ class AdminDepartmentController extends Controller
 {
     public function homeAdminDepart(Request $request) {
       
-      
+      if(Auth::guard('department')->user()->status != '2'){
+        return redirect('/login-admin-department')->with(Auth::logout());
+    }
+    
       $user = User::where('users.id_depart', '=', Auth::guard('department')->user()->id_depart)->get();
 
       //filter
@@ -126,9 +130,11 @@ class AdminDepartmentController extends Controller
       ->where('id_depart','=', Auth::guard('department')->user()->id_depart)
       ->paginate(5)->withQueryString();
 
-        $CompetitionPeriod = CompetitionPeriod::with('stylized')->paginate(5)->withQueryString();
+        $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
+        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $count = count($notifications);
       return view('adminDepartment.dasboard')
-      ->with(compact('user','regis','nameStyli','academicYear', 'regisCount', 'regisPassCount', 'notReviewed','year', 'CompetitionPeriod','stylized'));
+      ->with(compact('user','regis','nameStyli','academicYear', 'regisCount', 'regisPassCount', 'notReviewed','year', 'CompetitionPeriod','stylized','notifications','count'));
     }
 
     //Change information admin-department
@@ -138,22 +144,21 @@ class AdminDepartmentController extends Controller
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::guard('department')->user()->_id)->first();
       
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
-      return view('adminDepartment.information.changeInfor')->with(compact('userInfor','departmentName'));
+      $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+      $count = count($notifications);
+      return view('adminDepartment.information.changeInfor')->with(compact('userInfor','departmentName','notifications','count'));
     }
     
     public function changeInforAdminDepartmentPost(Request $request, $id) {
      
       $data = $request->validate(
         [
-            'birthday' => 'required|before:18 years ago',
             'address' => 'required|max:255',
               'phone' => 'required|regex:/^[0-9]+$/',
               'email' => 'required|email|max:155',
               
         ],
         [
-            'birthday.required' => 'Vui lòng nhập ngày sinh!',
-            'birthday.before' => 'Ứng viên phải trên 18 tuổi!',
             'address.required' => 'Vui lòng nhập địa chỉ!',
               'address.max' => 'Địa chỉ không vượt quá 255 ký tự!',
               'phone.required' => 'Vui lòng nhập số điện thoại ứng viên!',
@@ -169,8 +174,7 @@ class AdminDepartmentController extends Controller
         //Change information
         $user = User::find($id);
       
-      $user->gender = $request->gender;
-      $user->birthday = $data['birthday'];
+      
       $user->address = $data['address'];
       $user->phone = $data['phone'];
       $user->email = $data['email'];

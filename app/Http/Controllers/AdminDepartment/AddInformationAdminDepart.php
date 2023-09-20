@@ -14,7 +14,9 @@ class AddInformationAdminDepart extends Controller
 {
     public function index()
         {
-
+            if(Auth::guard('department')->user()->status == '0'){
+                return redirect('/login-admin-department')->with(Auth::logout());
+            }
             if(Auth::guard('department')->user()->_id != ''){
                 $user = User::where('_id','=',Auth::guard('department')->user()->_id)->get();
             return view('adminDepartment.addinformation.addInfor')->with(compact('user'));
@@ -30,7 +32,7 @@ class AddInformationAdminDepart extends Controller
 
         $data = $request->validate(
             [
-                'birthday' => 'before:18 years ago',
+                
                 'address' => 'max:255',
                 'phone' => 'regex:/^[0-9]+$/',
                 'email' => 'email|max:155',
@@ -39,7 +41,7 @@ class AddInformationAdminDepart extends Controller
                 'confirm_pass_new' => 'required|min:6|max:32',
             ],
             [
-                'birthday.before' => 'Ứng viên phải trên 18 tuổi!',
+                
                 'address.max' => 'Địa chỉ không vượt quá 255 ký tự!',
                 'phone.regex' => 'Số điện thoại chỉ bao gồm số!',
                 'email.required' => 'Vui lòng nhập email!',
@@ -62,10 +64,10 @@ class AddInformationAdminDepart extends Controller
   }
             if(empty($userPhone)){
                 $User = User::find($id);
-            $User->birthday = $data['birthday'];
+            
             $User->email = $data['email'];
             $User->address = $data['address'];
-            $User->gender = $request->gender;
+            
             $User->phone = $data['phone'];
             $User->password = Hash::make($data['pass_new']);
             $User->status = '2';

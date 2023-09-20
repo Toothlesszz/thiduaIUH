@@ -25,6 +25,7 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js"></script>
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
     //realtime notification
     // Enable pusher logging - don't include this in production
@@ -130,7 +131,6 @@
           </div>
           <div class="Notification" id="notificationArea">
             <a style="text-decoration:none; color:green; font-size:15px" ><i class="fa-solid fa-bell" id="openNotification"></i>
-            <i data-count="0" class="glyphicon glyphicon-bell notification-icon"></i></a>
             @include('notifications')
           </div>
         </div>
@@ -200,10 +200,11 @@
           $registerExists = \App\Models\Registration::where('id_user', Auth::user()->_id)
         ->where('id_competitionperiod', $value->_id)
         ->exists();
+        $now = \Carbon\Carbon::now()->setTimezone('Asia/Ho_Chi_Minh');
     @endphp
     @foreach($value->stylized->object as $item)
         @if(in_array(Auth::user()->type, $item) && !($registerExists))
-         @if($value->startdate <= now() && $value->depart_first_time >= now())
+         @if($value->startdate <= $now && $value->depart_first_time >= $now)
             <div class="Medal">
                 <div class="Medal__Items">
                     <img src="{{ asset('certificate/img_certificate/'. $value->stylized->image) }}" alt="" />
@@ -230,20 +231,7 @@
         </div>
       </div>
     </section>
-    <script>
-    $(document).ready(function () {
-        $('#openNotification').click(function () {
-            $.ajax({
-                url: '{{ route('loadPart') }}', 
-                type: 'GET',
-                success: function (data) {
-                    $('#notificationArea').html(data);
-                }
-            });
-        });
-    });
-</script>
-
+   
     <script src="/js/Js-UserMain.js"></script>
     <script src="/js/Js-Main.js"></script>
     <script src="/js/Js-UserIndex.js"></script>
