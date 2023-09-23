@@ -102,6 +102,27 @@
             
           </script>
         @endif
+        @if(session('error3')) 
+          <script>
+          sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+        // Kiểm tra trạng thái đã được lưu trữ
+        var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+        if (reloadStatus === "true") {
+          //MessageSuccess("THÀNH CÔNG!", "Cập nhật dữ liệu thành công.");
+          MessageError(
+            "ĐĂNG NHẬP KHÔNG THÀNH CÔNG!",
+            "Tài khoản của bạn đã hết hạn do niên khóa của bạn đã kết thúc."
+          );
+          // Xóa trạng thái đã được lưu trữ
+          sessionStorage.removeItem("reloadStatus");
+        }
+      });
+            
+          </script>
+        @endif
         <form id="form-login" action="login-user" method="POST">
         @csrf
           <div id="form-items" class="login__form--items">

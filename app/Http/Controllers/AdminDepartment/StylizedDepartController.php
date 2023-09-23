@@ -27,14 +27,28 @@ class StylizedDepartController extends Controller
         if(Auth::guard('department')->user()->status != '2'){
             return redirect('/login-admin-department')->with(Auth::logout());
         }
-        $years = Years::get();
-        $stylized = Stylized::get();
+        
+       
         $keyword = $request['keyword'] ?? "";
         $type = $request['type'];
         $styli = $request['stylized'];
         $year = $request['year'];
         $status = $request['status'];
-
+        $nameStylized = Stylized::where('_id','=',$styli)->first();
+        $selectedYear = Years::where('_id','=',$year)->first();
+        if($nameStylized != '')
+        {
+            $stylized = Stylized::where('_id','!=',$styli)->get();
+        }
+        else{
+            $stylized = Stylized::get();
+        }
+        if($selectedYear != ''){
+            $years = Years::where('_id','!=',$year)->get();
+        }
+        else{
+            $years = Years::get();
+        }
         $query = Registration::with('competitionperiod','users')->where('id_depart','=', Auth::guard('department')->user()->id_depart)->orderBy('admin_status', 'asc');
                  
         
@@ -141,9 +155,10 @@ class StylizedDepartController extends Controller
                 }
         }
         $regis = $query->paginate(5)->withQueryString();
-        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
         $count = count($notifications);
-        return view('adminDepartment.sendStylizedDepartment.index')->with(compact('regis', 'keyword','years', 'stylized' , 'type','notifications','count'));
+        return view('adminDepartment.sendStylizedDepartment.index')
+        ->with(compact('nameStylized','selectedYear','regis','status','styli', 'keyword','years','year', 'stylized' , 'type','notifications','count'));
     }
 
     /**

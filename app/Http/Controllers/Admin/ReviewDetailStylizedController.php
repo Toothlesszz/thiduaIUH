@@ -48,7 +48,7 @@ class ReviewDetailStylizedController extends Controller
     }
     $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
     $count = count($notifications);
-    return view('admin.reviewStylized.criteria-detail')->with(compact('userTracing','regis_detail', 'regis', 'filtered_criterias','id_criteria_detail','notifcations','count'));
+    return view('admin.reviewStylized.criteria-detail')->with(compact('userTracing','regis_detail', 'regis', 'filtered_criterias','id_criteria_detail','notifications','count'));
     }
 
     public function updateRegistrationDetailAdmin(Request $request, $id)

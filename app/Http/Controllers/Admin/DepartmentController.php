@@ -110,10 +110,10 @@ class DepartmentController extends Controller
             $user->status = $data['status'];
       
               //Xử lý để lấy ảnh mặc định cho user
-              $sourcePath = 'images/avatar05.jpg'; // Đường dẫn đến ảnh nguồn
+              $sourcePath = 'images/QTVKhoa.png'; // Đường dẫn đến ảnh nguồn
               $fileSystem = new Filesystem();
-              $name_image = current(explode('.', 'avatar05.jpg'));
-              $new_name_image = $name_image.'_'.time().'.'.'avatar05.jpg';
+              $name_image = current(explode('.', 'QTVKhoa.png'));
+              $new_name_image = $name_image.'_'.time().'.'.'QTVKhoa.png';
               $path = 'uploads/user/'.$new_name_image; // Đường dẫn đến thư mục đích và tên của ảnh bản sao
               $fileSystem->copy($sourcePath, $path);
               $user->image = $new_name_image;

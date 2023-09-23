@@ -131,7 +131,7 @@ class AdminDepartmentController extends Controller
       ->paginate(5)->withQueryString();
 
         $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
-        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
         $count = count($notifications);
       return view('adminDepartment.dasboard')
       ->with(compact('user','regis','nameStyli','academicYear', 'regisCount', 'regisPassCount', 'notReviewed','year', 'CompetitionPeriod','stylized','notifications','count'));
@@ -144,7 +144,7 @@ class AdminDepartmentController extends Controller
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::guard('department')->user()->_id)->first();
       
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
-      $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+      $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
       $count = count($notifications);
       return view('adminDepartment.information.changeInfor')->with(compact('userInfor','departmentName','notifications','count'));
     }

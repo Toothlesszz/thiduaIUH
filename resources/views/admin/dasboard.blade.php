@@ -149,7 +149,6 @@
                 <option value="{{$nameDepart->_id}}">{{$nameDepart->name_depart}}</option>
                 <option value="">Tất cả đơn vị</option>
                 @endif
-                
                 @foreach($department as $key)
                 <option value="{{$key->_id}}">{{$key->name_depart}}</option>
                 @endforeach

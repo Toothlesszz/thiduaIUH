@@ -110,7 +110,12 @@
               </div>
 
               <select name="year" id="">
+                @if($year == '')
                 <option value="">Chọn năm học</option>
+                @elseif($year != '')
+                <option value="{{$selectedYear->_id}}">{{$selectedYear->year}}</option>
+                <option value="">Chọn năm học</option>
+                @endif
                 @foreach($years as $key)
                 <option value="{{$key->_id}}">{{$key->year}}</option>
                 @endforeach
@@ -122,7 +127,12 @@
                 <span id="">Danh hiệu</span>
               </div>
               <select name="stylized" id="">
+              @if($styli == '')
               <option value="">Chọn danh hiệu</option>
+              @elseif($styli != '' )
+              <option value="{{$nameStylized->_id}}">{{$nameStylized->name_stylized}}</option>
+              <option value="">Chọn danh hiệu</option>
+              @endif
                 @foreach($stylized as $object)
                 <option value="{{$object->_id}}">{{$object->name_stylized}}</option>
                 @endforeach
@@ -133,8 +143,10 @@
                 
                 <span id="">Trạng thái</span>
               </div>
+              @switch($status)
+              @case('')
               <select name="status" id="">
-                <option value="">Chọn trạng thái</option>
+                <option value="">Tất cả trạng thái</option>
                 <option value="0">Chờ duyệt</option>
                 <option value="1">Đã duyệt</option>
                 <option value="2">Xem xét</option>
@@ -142,6 +154,74 @@
                 <option value="4">Đã đạt</option>
                 <option value="5">Chưa đạt</option>
               </select>
+              @break
+              @case('0')
+              <select name="status" id="">
+                <option value="0">Chờ duyệt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="1">Đã duyệt</option>
+                <option value="2">Xem xét</option>
+                <option value="3">Từ chối</option>
+                <option value="4">Đã đạt</option>
+                <option value="5">Chưa đạt</option>
+              </select>
+              @break
+              @case('1')
+              <select name="status" id="">
+                <option value="1">Đã duyệt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="2">Xem xét</option>
+                <option value="3">Từ chối</option>
+                <option value="4">Đã đạt</option>
+                <option value="5">Chưa đạt</option>
+              </select>
+              @break
+              @case('2')
+              <select name="status" id="">
+                <option value="2">Xem xét</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Đã duyệt</option>
+                <option value="3">Từ chối</option>
+                <option value="4">Đã đạt</option>
+                <option value="5">Chưa đạt</option>
+              </select>
+              @break
+              @case('3')
+              <select name="status" id="">
+                <option value="3">Từ chối</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Đã duyệt</option>
+                <option value="2">Xem xét</option>
+                <option value="4">Đã đạt</option>
+                <option value="5">Chưa đạt</option>
+              </select>
+              @break
+              @case('4')
+              <select name="status" id="">
+                <option value="4">Đã đạt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Đã duyệt</option>
+                <option value="2">Xem xét</option>
+                <option value="3">Từ chối</option>
+                <option value="5">Chưa đạt</option>
+              </select>
+              @break
+              @case('5')
+              <select name="status" id="">
+                <option value="5">Chưa đạt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Đã duyệt</option>
+                <option value="2">Xem xét</option>
+                <option value="3">Từ chối</option>
+                <option value="4">Đã đạt</option>
+              </select>
+              @break
+              @endswitch
             </div>
             <input class="custom-button-m" type="submit" value="LỌC DỮ LIỆU" />
           </form>

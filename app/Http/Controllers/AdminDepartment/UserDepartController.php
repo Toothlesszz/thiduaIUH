@@ -54,7 +54,7 @@ class UserDepartController extends Controller
         }
 
         $user = $query->paginate(5)->withQueryString();
-        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+        $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
         $count = count($notifications);
         return view('adminDepartment.users.index')->with(compact('keyword', 'query','status', 'user', 'type','custom','notifications','count'));
     }
@@ -95,7 +95,7 @@ class UserDepartController extends Controller
         $user->id_depart = Auth::guard('department')->user()->id_depart;
         $user->course = $data['course'];
         $user->type = $data['type'];
-        $user->id_creator = $data['id_creator']; 
+        $user->id_creator = Auth::guard('department')->user()->_id; 
         $user->password = Hash::make('Ungvien@111');
         $user->level = '1';
         $user->status = '1';
@@ -157,7 +157,7 @@ class UserDepartController extends Controller
               $regis = Registration::with('users','competitionperiod')->where('id_user' , '=' , $id)->get();
               $regisCount = Registration::where('id_user' , '=' , $id)->count();
               $regisPassCount = Registration::where('id_user' , '=' , $id)->where('admin_status','=','4')->count();
-              $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+              $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
               $count = count($notifications);
         return view('adminDepartment.users.update')->with(compact('user','regis','regisCount','regisPassCount','notifications','count'));
     }

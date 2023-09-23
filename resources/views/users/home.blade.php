@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hệ thống Thi đua khen thưởng IUH</title>
+    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
     <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
@@ -24,26 +24,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script>
-    //realtime notification
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('755f3dd3f1206ea250f6', {
-      cluster: 'ap1'
-    });
-    var channel = pusher.subscribe('private-user-' + userId);
-    channel.bind('profile-reviewed', function(message) {
-      alert(JSON.stringify(message));
-    });
-  </script>
-    
   </head>
   <body>
     <section id="instruction">
-      <img src="/images/instruction.png" alt="" />
+      <img src="./images/instruction.png" alt="" />
     </section>
     <section id="loading-overlay">
       <img src="/images/logo-main.png" alt="" />
@@ -51,21 +35,26 @@
       <h5>ĐANG TẢI...</h5>
     </section>
     <section class="MainMessage"></section>
-    @if(session('successMessage'))
-    <script>
-  window.addEventListener("DOMContentLoaded", function () {
-    // Kiểm tra trạng thái đã được lưu trữ
-    var successMessage = sessionStorage.getItem("successMessage");
+    @if(session('success1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
 
-    if (successMessage) {
-      MessageSuccess("THÀNH CÔNG!", successMessage);
-      // Xóa trạng thái đã được lưu trữ
-      sessionStorage.removeItem("successMessage");
-    }
-  });
-</script>
-              @endif
-              
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Cập nhật thông tin thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -116,8 +105,8 @@
               <ul>
                 <li>
                 <form action="{{route('changeInforGet') , Auth::user()->_id}}" method="POST">
-                <a href="{{route('changeInforGet') , Auth::user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i><span>TÀI KHOẢN</span></a>
-              </form>
+            <a href="{{route('changeInforGet') , Auth::user()->_id}}" class="btn btn-info"><i class="fa-solid fa-user-gear"></i><span>TÀI KHOẢN</span></a>
+          </form>
                   
                 </li>
                 <li>
@@ -129,10 +118,10 @@
               </ul>
             </div>
           </div>
-          <div class="Notification" id="notificationArea">
-            <a style="text-decoration:none; color:green; font-size:15px" ><i class="fa-solid fa-bell" id="openNotification"></i>
-            @include('notifications')
-          </div>
+          <div class="Notification">
+            <i class="fa-solid fa-bell" id="openNotification"></i>
+            @include('notifications')    
+	 </div>
         </div>
       </div>
       <div class="Main__Content">
@@ -141,13 +130,13 @@
             <i class="fa-solid fa-angle-right fa-rotate-180 prev"></i>
             <i class="fa-solid fa-angle-right next"></i>
             <div class="Slider__direction">
-              @foreach($slideShow as $slide)
+               @foreach($slideShow as $slide)
               <button data-direction="{{$slide->number}}" @if($slide->number == '0')class="active"@endif></button>
               @endforeach
             </div>
             <div class="Slider__main">
-            <div class="Slider__main--img">
-              @foreach($slideShow as $picture)
+              <div class="Slider__main--img">
+                @foreach($slideShow as $picture)
                 <a href=""
                   ><img src="{{asset('images/'.$picture->image)}}" alt=""/></a>
               @endforeach
@@ -193,15 +182,15 @@
             <i class="fa-solid fa-medal"></i>
             <span>DANH HIỆU ĐANG XÉT DUYỆT</span>
           </div>
-         
-    
-          @foreach($CompetitionPeriod as $value) 
-        @php
-          $registerExists = \App\Models\Registration::where('id_user', Auth::user()->_id)
+          
+          @foreach($CompetitionPeriod as $value)
+    @php
+    $registerExists = \App\Models\Registration::where('id_user', Auth::user()->_id)
         ->where('id_competitionperiod', $value->_id)
         ->exists();
-        $now = \Carbon\Carbon::now()->setTimezone('Asia/Ho_Chi_Minh');
+	$now = \Carbon\Carbon::now()->setTimezone('Asia/Ho_Chi_Minh');
     @endphp
+
     @foreach($value->stylized->object as $item)
         @if(in_array(Auth::user()->type, $item) && !($registerExists))
          @if($value->startdate <= $now && $value->depart_first_time >= $now)
@@ -214,15 +203,15 @@
                             <i class="fa-solid fa-business-time"></i>
                             <span>Thời gian:</span>
                             <span>{{ date("d/m/Y",strtotime($value->startdate)) }} 
-                    - {{ date("d/m/Y",strtotime($value->depart_first_time)) }} </span>
+                    - {{ date("d/m/Y",strtotime($value->depart_first_time)) }}</span>
                         </div>
                     </div>
                     <a href="{{ route('downloadFileUser', $value->stylized->file) }}"><i class="fa-solid fa-file-pdf"></i></a>
                     <a href="{{ route('getStylized', $value->_id) }}" class="custom-button-m">ĐĂNG KÍ</a>
                 </div>
             </div>
-            @endif
         @endif
+	@endif
     @endforeach
 @endforeach
            
@@ -231,7 +220,7 @@
         </div>
       </div>
     </section>
-   
+
     <script src="/js/Js-UserMain.js"></script>
     <script src="/js/Js-Main.js"></script>
     <script src="/js/Js-UserIndex.js"></script>

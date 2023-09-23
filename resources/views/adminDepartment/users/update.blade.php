@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
+    <title>Hệ thống Thi đua khen thưởng IUH</title>
     <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
@@ -318,19 +318,34 @@
               <div class="Medal__Items--Content">
                 <span class="Name">{{$value->competitionperiod->stylized->name_stylized}}</span>
                 <div class="MedalInfo">
-                    @if($value->admin_status == '4')
+                @if($value->admin_status == '4')
                   <div class="MedalInfo__Status">
                     <i class="fa-solid fa-award"></i>
                     <span>Đã đạt danh hiệu</span>
+                  </div>
+                  @elseif($value->admin_status == '5')
+                  <div class="MedalInfo__Status">
+                  <i class="fa-solid fa-circle-xmark"></i>
+                    <span>Không đạt danh hiệu</span>
                   </div>
                   @elseif($value->admin_status == '0')
                   <div class="MedalInfo__Status">
                     <i class="fa-solid fa-paper-plane"></i>
                     <span>Đã gửi, chờ xét duyệt!</span>
                   </div>
-                  @elseif($value->admin_status == '3')
+                  @elseif($value->admin_status == '1')
                   <div class="MedalInfo__Status">
                     <i class="fa-solid fa-paper-plane"></i>
+                    <span>Đã duyệt ở cấp khoa!</span>
+                  </div>
+                  @elseif($value->admin_status == '2')
+                  <div class="MedalInfo__Status">
+                  <i class="fa-solid fa-circle-question"></i>
+                    <span>Hồ sơ đang được xem xét!</span>
+                  </div>
+                  @elseif($value->admin_status == '3')
+                  <div class="MedalInfo__Status">
+                  <i class="fa-solid fa-circle-xmark"></i>
                     <span>Đã bị Khoa từ chối!</span>
                   </div>
                   @endif
@@ -349,7 +364,7 @@
               </div>
               <a href="{{ route('downloadFile', $value->competitionperiod->stylized->file) }}"><i class="fa-solid fa-file-pdf"></i></a>
               
-              <a href=""
+              <a href=" {{route('showDetailCeriteria',[$value->_id])}}"
                 class="custom-button-m"
                 >CHI TIẾT</a
               >

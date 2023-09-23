@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
-    <link rel="icon" href="images/icon-award.png" />
+    <title>Hệ thống Thi đua khen thưởng IUH</title>
+    <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -295,16 +295,68 @@
             </div>
             <div class="custom-Select">
               <div class="custom-Select__Title">
-                <i class="fa-solid fa-user-pen"></i>
-                <span id="">Đối tượng</span>
+                <i class="fa-solid fa-address-book"></i>
+                <span id="">Trạng thái</span>
               </div>
-              <select name="type" id="">
-                @if($type != '' )
-                <option value="{{$type}}">{{$type}}</option>
-                @endif
-                <option value="Sinh viên">Sinh viên</option>
-                <option value="Giảng viên">Giảng viên</option>
-                <option value="Viên chức">Viên chức</option>
+              <select name="status" id="">
+                @switch($status)
+                @case('')
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('0')
+                <option value="0">Chờ duyệt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('1')
+                <option value="1">Kích hoạt</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('2')
+                <option value="2">Hoạt động</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('3')
+                <option value="3">Đã khóa</option>
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @case('4')
+                <option value="4">Hết hạn</option>
+                <option value="">Tất cả trạng thái</option> 
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                @break
+                @case('5')
+                <option value="">Tất cả trạng thái</option>
+                <option value="0">Chờ duyệt</option>
+                <option value="1">Kích hoạt</option>
+                <option value="2">Hoạt động</option>
+                <option value="3">Đã khóa</option>
+                <option value="4">Hết hạn</option>
+                @break
+                @endswitch
               </select>
             </div>
             <input class="custom-button-m" type="submit" value="LỌC" />

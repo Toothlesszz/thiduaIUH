@@ -104,7 +104,6 @@ class HomeController extends Controller
     }
 
     public function changeImage(Request $request, $id) {
-      
       $data = $request;
         //Change information
         $user = User::find($id);

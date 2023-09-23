@@ -61,7 +61,7 @@ class UpdateDataTask extends Command
             // Lấy 4 số cuối của chuỗi
         $lastFourDigits = substr($chuoi, -4);
         $userCourse = $lastFourDigits + 1 ;
-        if ($userCourse == $currentYear) {
+        if ($userCourse <= $currentYear) {
                 $user->status = '4';
                 $user->save();
             }

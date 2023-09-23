@@ -124,13 +124,12 @@
                 <option value="">Tất cả danh hiệu</option>
                 @elseif($nameStyli != '')
                 <option value="{{$nameStyli->_id}}">{{$nameStyli->name_stylized}}</option>
+                <option value="">Tất cả đơn vị</option>
                 @endif
-                
                 @foreach($stylized as $object)
                 <option value="{{$object->_id}}">{{$object->name_stylized}}</option>
-                <option value="">Tất cả danh hiệu</option>
-                @endforeach
                 
+                @endforeach
               </select>
             </div>
             <div class="Filter">

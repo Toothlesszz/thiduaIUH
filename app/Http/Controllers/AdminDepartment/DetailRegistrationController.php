@@ -48,7 +48,7 @@ class DetailRegistrationController extends Controller
             ->get();
         // Gán tiêu chí vào tiêu chuẩn
     }
-    $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
+    $notifications = Notifications::where('id_user','=', Auth::guard('department')->user()->_id)->get();
     $count = count($notifications);
     return view('adminDepartment.detailStyliDepartment.criteria-detail')
         ->with(compact('regis_detail', 'regis', 'filtered_criterias','id_criteria_detail','notifications','count'));

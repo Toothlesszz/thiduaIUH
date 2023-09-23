@@ -24,7 +24,7 @@ class UserController extends Controller
     {
       $keyword = $request['keyword'] ?? "";
         $custom = $request['custom'] ;
-        $type = $request['type'];
+        $status = $request['status'];
         $id_depart = $request['id_depart'];
         
         $nameDepart = Department::where('_id', '=', $id_depart)->first();
@@ -43,16 +43,18 @@ class UserController extends Controller
         }
         elseif($keyword !== '' && $custom == '2'){
             $query->where('name','like', '%'.$keyword.'%');
-        }elseif($type != '' && $id_depart !=''){
-            $query->where('id_depart','=', $id_depart)->where('type','=', $type);
-        }elseif($type != '' && $id_depart == ''){
-            $query->where('type','like', $type);
+        }elseif($status != '' && $id_depart !=''){
+            $query->where('id_depart','=', $id_depart)->where('status','=', $status);
+        }elseif($status != '' && $id_depart == ''){
+            $query->where('status','=', $status);
+        }elseif($status == '' && $id_depart !=''){
+            $query->where('id_depart','=', $id_depart);
         }
 
         $user = $query->paginate(20)->withQueryString();
         $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
         $count = count($notifications);
-        return view('admin.users.index')->with(compact('keyword', 'query', 'user','nameDepart','department','notifications','count','custom','type','id_depart'));
+        return view('admin.users.index')->with(compact('keyword', 'query', 'user','nameDepart','department','notifications','count','custom','status','id_depart'));
       
     }
 

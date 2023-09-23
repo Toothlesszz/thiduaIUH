@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Years;
@@ -36,11 +37,29 @@ class ReviewStylizedController extends Controller
         $styli = $request['styli'];
         $depart = $request['depart'];
         $year = $request['year'];
-
-        $years = Years::get();
-        $stylized = Stylized::get();
-        $department = Department::get();
-
+        
+        $nameDepart = Department::where('_id', '=', $depart)->first();
+        $nameStylized = Stylized::where('_id','=',$styli)->first();
+        $selectedYear = Years::where('_id','=',$year)->first();
+        if($nameStylized != '')
+        {
+            $stylized = Stylized::where('_id','!=',$styli)->get();
+        }
+        else{
+            $stylized = Stylized::get();
+        }
+        if($selectedYear != ''){
+            $years = Years::where('_id','!=',$year)->get();
+        }
+        else{
+            $years = Years::get();
+        }
+        if($nameDepart != '' ){
+            $department = Department::where('_id', '!=', $depart)->get();
+        }
+        else{
+            $department = Department::get();
+        }
         $query = Registration::with('competitionperiod','users')
         ->whereIn('admin_status',['1','2','3','4','5'])
         ->orderBy('admin_status', 'asc');
@@ -239,7 +258,7 @@ class ReviewStylizedController extends Controller
         $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
         $count = count($notifications);
       return view('admin.reviewStylized.index')
-      ->with(compact('regis', 'keyword','years','stylized','department','type','status','styli','notifications','count'));
+      ->with(compact('regis', 'keyword','years','year','nameDepart','selectedYear','nameStylized','stylized','department','type','status','styli','notifications','count'));
     }
 
     /**

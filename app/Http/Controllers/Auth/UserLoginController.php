@@ -43,8 +43,11 @@ class UserLoginController extends Controller
             elseif($user->status == '0'){
                 return redirect()->back()->with('error2', 'Tài khoản của bạn đang được chờ khoa duyệt !');
             }
-            else {
+            elseif($user->status == '3') {
                 return redirect()->back()->with('error1', 'Tài khoản của bạn khóa!');
+            }
+            else{
+                return redirect()->back()->with('error3', 'Tài khoản của bạn đã hết hạn do niên khoa của bạn đã kết thúc!');
             }
         }
         else {

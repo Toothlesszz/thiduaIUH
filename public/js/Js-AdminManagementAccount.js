@@ -1,40 +1,91 @@
-//UpLoad Hình ảnh
 // Get the input element and submit button
 const fileInput = document.querySelector("#FileInput");
 const UploadImg = document.querySelector("#btn-UploadImg");
+const preview = document.querySelector("#DefaultImg");
 
 // Add an event listener to the input element
-var checkType = false;
+let checkType = false;
 fileInput.addEventListener("input", function(e) {
     // Get the file object from the input element
     const file = e.target.files[0];
     const fileType = file.type;
-    if (fileType != "image/png" && fileType != "image/jpeg") {
+
+    if (fileType !== "image/png" && fileType !== "image/jpeg") {
         e.target.value = "";
         checkType = false;
         MessageImgError();
     } else {
-        // Create a FileReader object to read the file
-        const reader = new FileReader();
         checkType = true;
-        // Set up the FileReader object to handle the load event
-        reader.onload = function() {
-            // Add the image element to the preview div
-            const preview = document.querySelector("#DefaultImg");
-            preview.src = URL.createObjectURL(file);
-            // preview.appendChild(img);
-        };
-
-        // Read the file as a data URL
-        reader.readAsDataURL(file);
+        renderCroppedImage(file);
     }
 });
+
+function renderCroppedImage(file) {
+    // Create a FileReader object to read the file
+    const reader = new FileReader();
+
+    // Set up the FileReader object to handle the load event
+    reader.onload = function() {
+        // Create an image element
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        // Handle the image load event
+        img.onload = function() {
+            // Create a canvas element
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Define the desired aspect ratio (1:1 in this case)
+            const aspectRatio = 1;
+
+            // Calculate the dimensions for the 1:1 aspect ratio
+            let width, height;
+            if (img.width > img.height) {
+                width = img.height * aspectRatio;
+                height = img.height;
+            } else {
+                width = img.width;
+                height = img.width * aspectRatio;
+            }
+
+            // Set the canvas dimensions to the desired dimensions
+            canvas.width = width;
+            canvas.height = height;
+
+            // Calculate the cropping position to center the image
+            const x = (img.width - width) / 2;
+            const y = (img.height - height) / 2;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw the image onto the canvas with the desired dimensions and cropping
+            ctx.drawImage(img, x, y, width, height, 0, 0, width, height);
+
+            // Convert the canvas content to a data URL
+            const croppedImageDataUrl = canvas.toDataURL("image/jpeg");
+
+            // Clear any previous content in the preview div
+            preview.innerHTML = "";
+
+            // Add the image element to the preview div
+            preview.src = croppedImageDataUrl;
+            preview.appendChild(img);
+        };
+    };
+
+    // Read the file as a data URL
+    reader.readAsDataURL(file);
+}
+
 UploadImg.addEventListener("click", function(event) {
-    if (checkType == false) {
+    if (!checkType) {
         event.preventDefault();
         MessageImgError();
     }
 });
+
 // Add an event listener to the submit button
 // submitButton.addEventListener("click", function (event) {
 //   event.preventDefault(); // Prevent the form from submitting
@@ -178,32 +229,32 @@ for (var a = 0; a < eyeClose.length; a++) {
 }
 
 //Validation Form
-// var validationFormPass = false;
-// var validationFormNewPass = false;
-// var validationFormRePass = false;
+var validationFormPass = false;
+var validationFormNewPass = false;
+var validationFormRePass = false;
 
-// submitButton.addEventListener("click", (event) => {
-//   if (
-//     validationFormPass == false ||
-//     validationFormNewPass == false ||
-//     validationFormRePass == false
-//   ) {
-//     event.preventDefault();
-//     // alert("Mã ứng viên hoặc Mật khẩu không chính xác!");
-//     for (var i = 0; i < inputElement.length; i++) {
-//       if (!inputElement[i].value) {
-//         inputElement[i].parentElement.querySelector(
-//           ".ChangePass__items span"
-//         ).innerHTML =
-//           '<i class="fa-solid fa-triangle-exclamation"></i> <span>Vui lòng nhập vào trường này !</span>';
+submitButton.addEventListener("click", (event) => {
+    if (
+        validationFormPass == false ||
+        validationFormNewPass == false ||
+        validationFormRePass == false
+    ) {
+        event.preventDefault();
+        // alert("Mã ứng viên hoặc Mật khẩu không chính xác!");
+        for (var i = 0; i < inputElement.length; i++) {
+            if (!inputElement[i].value) {
+                inputElement[i].parentElement.querySelector(
+                        ".ChangePass__items span"
+                    ).innerHTML =
+                    '<i class="fa-solid fa-triangle-exclamation"></i> <span>Vui lòng nhập vào trường này !</span>';
 
-//         inputElement[i].parentElement
-//           .querySelector(".ChangePass__items input")
-//           .classList.add("input-danger");
-//       }
-//     }
-//   }
-// });
+                inputElement[i].parentElement
+                    .querySelector(".ChangePass__items input")
+                    .classList.add("input-danger");
+            }
+        }
+    }
+});
 //Message
 const mainElement = document.querySelector(".MainMessage");
 
@@ -221,7 +272,7 @@ function MessageImgError() {
           Lỗi UPLOAD hình ảnh!
         </p>
         <p class="message__content--note">
-          Định dạng File được chọn phải là 'jpeg' hoặc 'png'.
+          Định dạng File được chọn phải là 'jpeg' hoặc 'png' với tỉ lệ 1:1.
         </p>
       </div>
       <div class="message__close">
@@ -244,74 +295,3 @@ function MessageImgError() {
         }
     };
 }
-
-//Select Custom
-var selects = document.querySelectorAll("select");
-var selectsIcon = document.querySelector("#selectIcon");
-
-selects.forEach(function(select) {
-    var numberOfOptions = select.children.length;
-    select.classList.add("select-hidden");
-
-    var wrapper = document.createElement("div");
-    wrapper.classList.add("select");
-    select.parentNode.insertBefore(wrapper, select);
-    wrapper.appendChild(select);
-
-    var selectStyled = document.createElement("div");
-    selectStyled.classList.add("select-styled");
-    // selectStyled.classList.add("active");
-    selectStyled.textContent = select.children[0].textContent;
-    wrapper.appendChild(selectStyled);
-
-    var list = document.createElement("ul");
-    list.classList.add("select-options");
-    //Bổ sung
-    list.style.display = "none";
-    wrapper.appendChild(list);
-
-    for (var i = 0; i < numberOfOptions; i++) {
-        var listItem = document.createElement("li");
-        listItem.textContent = select.children[i].textContent;
-        listItem.setAttribute("rel", select.children[i].value);
-        list.appendChild(listItem);
-    }
-
-    var listItems = list.children;
-
-    selectStyled.addEventListener("click", function(e) {
-        e.stopPropagation();
-        var activeSelects = document.querySelectorAll(".select-styled .active");
-        for (var i = 0; i < activeSelects.length; i++) {
-            var activeSelect = activeSelects[i];
-            if (activeSelect !== selectStyled) {
-                activeSelect.classList.remove("active");
-                activeSelect.nextElementSibling.style.display = "none";
-            }
-        }
-        selectStyled.classList.toggle("active");
-        selectsIcon.classList.toggle("fa-rotate-90");
-        selectsIcon.classList.toggle("fa-rotate-270");
-        list.style.display = list.style.display === "none" ? "block" : "none";
-    });
-
-    for (var i = 0; i < listItems.length; i++) {
-        var listItem = listItems[i];
-        listItem.addEventListener("click", function(e) {
-            e.stopPropagation();
-            selectStyled.textContent = this.textContent;
-            selectStyled.classList.remove("active");
-            select.value = this.getAttribute("rel");
-            selectsIcon.classList.add("fa-rotate-90");
-            selectsIcon.classList.remove("fa-rotate-270");
-            list.style.display = "none";
-        });
-    }
-
-    document.addEventListener("click", function() {
-        selectStyled.classList.remove("active");
-        selectsIcon.classList.add("fa-rotate-90");
-        selectsIcon.classList.remove("fa-rotate-270");
-        list.style.display = "none";
-    });
-});

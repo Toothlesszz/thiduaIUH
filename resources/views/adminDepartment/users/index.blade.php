@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ - Hệ thống Thi đua khen thưởng IUH</title>
+    <title>Hệ thống Thi đua khen thưởng IUH</title>
     <link rel="icon" href="/images/icon-award.png" />
     <link
       rel="stylesheet"
