@@ -452,9 +452,8 @@
               @endforeach
             </div>
             
-              <div class="Operation"@if( $regis->admin_status == '4' || $regis->admin_status == '5')
+              <div class="Operation"@if($regis->competitionperiod->depart_first_time > now() &&  $regis->admin_status != '0')
               style="opacity: 0.7; pointer-events: none;"
-              
               @elseif($regis->competitionperiod->depart_first_time < now() && $regis->competitionperiod->candidate_add_detail > now())
               style="opacity: 0.7; pointer-events: none;"
               @elseif($regis->competitionperiod->candidate_add_detail < now() && $regis->admin_status != '3')

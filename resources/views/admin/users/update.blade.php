@@ -279,7 +279,7 @@
               //MessageSuccess("THÀNH CÔNG!", "Cập nhật thông tin ứng viên thành công.");
               MessageError(
                 "CẬP NHẬT KHÔNG THÀNH CÔNG!",
-                "Vui lòng nhập đúng định dạng của thông tin !"
+                "Vui lòng kiểm tra lại tính đầy đủ và chính xác của thông tin !"
               );
               Xóa trạng thái đã được lưu trữ
               sessionStorage.removeItem("reloadStatus");
@@ -287,6 +287,30 @@
           });
               </script>
               @endif
+              <div id="InforForm-items" class="Name">
+                <p id="" for="">Họ và tên</p>
+                <input
+                  type="text" name="name"
+                  placeholder="Nhập họ tên ứng viên"
+                  value="{{$value->name}}"
+                  required
+                />
+                <i id="FormIcon" class="fa-solid fa-user-pen"></i>
+                <span id="message" class="ChangePass__items--message"></span>
+              </div>
+              <div id="InforForm-items" class="custom-Select">
+                <div class="custom-Select__Title">
+                  <i class="fa-solid fa-sitemap"></i>
+                  <span id="">Đơn vị</span>
+                </div>
+
+                <select name="id_depart" id="">
+                  <option value="{{$value->department->_id}}">{{$value->department->name_depart}}</option>
+                  @foreach($department as $depart)
+                  <option value="{{$depart->_id}}">{{$depart->name_depart}}</option>
+                  @endforeach
+                </select>
+              </div>
               <div id="InforForm-items" class="DateOfBirth">
                 <p id="" for="">Ngày sinh</p>
                 <input type="date" placeholder="" name="birthday" value="{{$value->birthday}}" required />

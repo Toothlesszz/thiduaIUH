@@ -315,7 +315,7 @@
 .Main__Content--RecentMarkMedal table tr {
     height: 3vw;
     border-bottom: 0.1vw solid rgb(248, 249, 253);
-    font-size: 1vw;
+    font-size: 0.8vw;
     color: rgb(94, 94, 94);
 }
 
@@ -356,7 +356,7 @@
 .Main__Content--RecentMarkMedal table tr td .Status {
     background-color: rgb(29, 171, 161);
     color: rgb(255, 255, 255);
-    font-size: 0.8vw;
+    font-size: 0.6vw;
     font-weight: bold;
     height: 1.4vw;
     border-radius: 1.4vw;

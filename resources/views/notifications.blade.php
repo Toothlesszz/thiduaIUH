@@ -11,7 +11,7 @@
                 $name_stylized= \App\Models\Stylized::where('_id','=', $noti->id_stylized)->first();
                 @endphp
               <div class="Notification__content--items">
-                <img src="/images/admin.jpg" alt="" />
+                <img src="/images/QTVKhoa.png" alt="" />
                 <span id="sender">ADMIN</span>
                 <span id="sending-time">{{ date("d/m/Y",strtotime($noti->date)) }} </span>
                 @switch($noti->status)

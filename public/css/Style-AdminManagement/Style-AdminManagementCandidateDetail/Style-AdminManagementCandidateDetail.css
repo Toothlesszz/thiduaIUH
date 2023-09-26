@@ -277,8 +277,8 @@
 .Main__Content--CandidateProfile .PersonalInfor form #InforForm-items input[type=radio]::before {
     content: "";
     position: absolute;
-    top: 0.25vw;
-    left: 0.25vw;
+    top: 0.23svw;
+    left: 0.23vw;
     width: 1vw;
     height: 1vw;
     border-radius: 1vw;
@@ -309,10 +309,14 @@
     font-size: 1vw;
 }
 
+.Main__Content--CandidateProfile .PersonalInfor form .custom-Select {
+    margin-top: 2.4vw;
+}
+
 .Main__Content--CandidateProfile .PersonalInfor form #btn-UpdatePersonalInfor {
     width: 7.4vw;
     grid-column: 2;
-    grid-row: 4;
+    grid-row: 5;
     margin: 2vw 0 1vw 18.5vw;
 }
 

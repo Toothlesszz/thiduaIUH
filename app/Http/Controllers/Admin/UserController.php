@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Filesystem\Filesystem;
 use App\Models\User;
 use App\Models\Department;
@@ -146,13 +148,13 @@ class UserController extends Controller
 
         $user = User::where('_id', '=', $id)
         ->limit(1)->get();
-
         $regis = Registration::with('users','competitionperiod')->where('id_user' , '=' , $id)->get();
         $regisCount = Registration::where('id_user' , '=' , $id)->count();
+        $department = Department::where('_id', '!=', Auth::guard('admin')->user()->id_depart)->where('_id','!=',$user[0]->id_depart)->get();
         $regisPassCount = Registration::where('id_user' , '=' , $id)->where('admin_status','=','4')->count();
         $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
         $count = count($notifications);
-        return view('admin.users.update')->with(compact('user','regis','regisCount','regisPassCount','notifications','count'));
+        return view('admin.users.update')->with(compact('user','regis','department','regisCount','regisPassCount','notifications','count'));
     }
 
     /**
@@ -164,35 +166,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $data = $request->validate(
+      $validator = Validator::make($request->all(), 
           [
-              
-              'birthday' => 'required|before:18 years ago',
-              'address' => 'required|max:255',
-              'phone' => 'required|regex:/^[0-9]+$/',
-              'email' => 'required|email',
-              
-          ],
-          [
-            'birthday.required' => 'Vui lòng nhập ngày sinh!',
-            'birthday.before' => 'Ứng viên phải trên 18 tuổi!',
-            'address.required' => 'Vui lòng nhập địa chỉ!',
-            'address.required' => 'Vui lòng nhập địa chỉ!',
-            'address.max' => 'Địa chỉ không vượt quá 255 ký tự!',
-            'phone.required' => 'Vui lòng nhập số điện thoại ứng viên!',
-            'phone.regex' => 'Số điện thoại chỉ bao gồm số!',
-            'email.required' => 'Vui lòng nhập email!',
-            'email.email' => 'Vui lòng nhập đúng định dạng email!',
-          ]
-      );
+            'name' =>'required',
+            'id_depart' =>'required',
+            'birthday' => 'required|before:18 years ago',
+            'address' => 'required|max:255',
+            'phone' => 'required|regex:/^[0-9]+$/',
+            'email' => 'required|email',
+          ]);
+
+          if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Vui lòng kiểm tra tính chính xác của thông tin!');
+        }
 
       $user = User::find($id);
         
       $user->gender = $request->gender;
-      $user->birthday = $data['birthday'];
-      $user->address = $data['address'];
-      $user->phone = $data['phone'];
-      $user->email = $data['email'];
+      $user->name = $request->name;
+      $user->id_depart = $request->id_depart;
+      $user->birthday = $request->birthday;
+      $user->address = $request->address;
+      $user->phone = $request->phone;
+      $user->email = $request->email;
 
         $user->save();
 
