@@ -58,6 +58,46 @@
       });
           </script>
         @endif
+        @if(session('error2')) 
+          <script>
+          sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+        // Kiểm tra trạng thái đã được lưu trữ
+        var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+        if (reloadStatus === "true") {
+          //MessageSuccess("THÀNH CÔNG!", "Cập nhật dữ liệu thành công.");
+          MessageError(
+            "ĐĂNG KÍ KHÔNG THÀNH CÔNG!",
+            "Vui lòng chọn khoa."
+          );
+          // Xóa trạng thái đã được lưu trữ
+          sessionStorage.removeItem("reloadStatus");
+        }
+      });
+          </script>
+        @endif
+        @if(session('error3')) 
+          <script>
+          sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+        // Kiểm tra trạng thái đã được lưu trữ
+        var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+        if (reloadStatus === "true") {
+          //MessageSuccess("THÀNH CÔNG!", "Cập nhật dữ liệu thành công.");
+          MessageError(
+            "ĐĂNG KÍ KHÔNG THÀNH CÔNG!",
+            "Vui lòng chọn đối tượng."
+          );
+          // Xóa trạng thái đã được lưu trữ
+          sessionStorage.removeItem("reloadStatus");
+        }
+      });
+          </script>
+        @endif
     <section class="login">
       <div class="login__header">
         <img src="./images/logo-main.png" alt="Logo" />
@@ -104,6 +144,7 @@
               <span id="">Đối tượng</span>
             </div>
             <select name="type" id="candidateObject">
+              <option value="">Chọn đối tượng</option>
               <option value="Sinh viên">Sinh viên</option>
               <option value="Giảng viên">Giảng viên</option>
               <option value="Viên chức">Viên chức</option>

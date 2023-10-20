@@ -26,38 +26,44 @@ class RegisterController extends Controller
       }
       if($data['department'] != '')
       {
-        if(empty($userCode)){
+        if($data['type']){
+          if(empty($userCode)){
            
-        $user = new User();
-        $user->name = $data['name'];
-        $user->code = $data['code'];
-        $user->birthday = $data['birthday'];
-        $user->address = $data['address'];
-        $user->phone = $data['phone'];
-        $user->email = $data['email'];
-        $user->id_depart = $data['department'];
-        $user->course = $data['course'];
-        $user->type = $data['type']; 
-        $user->password = Hash::make('Ungvien@111');
-        $user->level = '1' ;
-        $user->status = '0';
-
-        //Xử lý để lấy ảnh mặc định cho user
-        $sourcePath = 'images/avatar05.jpg'; // Đường dẫn đến ảnh nguồn
-        $fileSystem = new Filesystem();
-        $name_image = current(explode('.', 'avatar05.jpg'));
-        $new_name_image = $name_image.'_'.time().'.'.'avatar05.jpg';
-        $path = 'uploads/user/'.$new_name_image; // Đường dẫn đến thư mục đích và tên của ảnh bản sao
-        $fileSystem->copy($sourcePath, $path);
-        $user->image = $new_name_image;
-        $user->save();
-
-        return redirect()->back()->with('success','Đăng kí thành công');
-    }
-      
+            $user = new User();
+            $user->name = $data['name'];
+            $user->code = $data['code'];
+            $user->birthday = $data['birthday'];
+            $user->address = $data['address'];
+            $user->phone = $data['phone'];
+            $user->email = $data['email'];
+            $user->id_depart = $data['department'];
+            $user->course = $data['course'];
+            $user->type = $data['type']; 
+            $user->password = Hash::make('Ungvien@111');
+            $user->level = '1' ;
+            $user->status = '0';
+    
+            //Xử lý để lấy ảnh mặc định cho user
+            $sourcePath = 'images/avatar05.jpg'; // Đường dẫn đến ảnh nguồn
+            $fileSystem = new Filesystem();
+            $name_image = current(explode('.', 'avatar05.jpg'));
+            $new_name_image = $name_image.'_'.time().'.'.'avatar05.jpg';
+            $path = 'uploads/user/'.$new_name_image; // Đường dẫn đến thư mục đích và tên của ảnh bản sao
+            $fileSystem->copy($sourcePath, $path);
+            $user->image = $new_name_image;
+            $user->save();
+    
+            return redirect()->back()->with('success','Đăng kí thành công');
+        }
+          
+            else{
+          return redirect()->back()->with('error1', 'Mã ứng viên đã được sử dụng để đăng kí, vui lòng kiểm tra lại !');
+        }
+        }
         else{
-      return redirect()->back()->with('error1', 'Mã ứng viên đã được sử dụng để đăng kí, vui lòng kiểm tra lại !');
-    }
+          return redirect()->back()->with('error3', 'Vui lòng chọn đối tượng !');
+        }
+        
       }
       else{
         return redirect()->back()->with('error2', 'Vui lòng chọn khoa !');

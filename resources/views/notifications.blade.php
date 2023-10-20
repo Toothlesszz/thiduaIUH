@@ -3,7 +3,7 @@
               <span><i class="fa-regular fa-bell"></i> Thông báo</span>
               @if($count == 0)
               <p style="font-size: 0.8vw; margin-left: 1vw">
-                <i>Tài khoản chưa có thông báo có thông báo!</i>
+                <i>Tài khoản chưa có thông báo !</i>
               </p>
               @else
               @foreach($notifications as $noti)

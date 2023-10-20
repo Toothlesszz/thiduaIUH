@@ -122,12 +122,17 @@ class SendStylizedController extends Controller
         $detail = RegistrationDetails::where('id_regis', '=', $id)->get();
         foreach($detail as $detailData){
             $regis_detail = RegistrationDetails::find($detailData->_id);
-            $path = 'uploads/proof_file/'.$regis_detail->proof_file;
-            if(file_exists($path)) {
-            unlink($path);
-            } 
+            if($regis_detail->proof_file != ''){
+                $path = 'uploads/proof_file/'.$regis_detail->proof_file;
+                if(file_exists($path)) {
+                unlink($path);
+                } 
+                else{
+                    return redirect()->back()->with('error1', 'Xóa hồ sơ không thành công (Lỗi: Không tìm thấy file !)');
+                }
+            }
             else{
-                return redirect()->back()->with('error1', 'Xóa hồ sơ không thành công (Lỗi: Không tìm thấy file !)');
+                $deleted_detail = RegistrationDetails::where('_id','=', $detailData->_id)->delete();  
             }
         $deleted_detail = RegistrationDetails::where('_id','=', $detailData->_id)->delete();  
         }

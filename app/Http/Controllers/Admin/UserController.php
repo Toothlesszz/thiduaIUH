@@ -183,6 +183,7 @@ class UserController extends Controller
       $user = User::find($id);
         
       $user->gender = $request->gender;
+      $user->type = $request->type;
       $user->name = $request->name;
       $user->id_depart = $request->id_depart;
       $user->birthday = $request->birthday;

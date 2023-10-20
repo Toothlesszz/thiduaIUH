@@ -338,6 +338,32 @@
               </script>
                 @endif
               </div>
+              <div id="InforForm-items" class="custom-Select">
+                <div class="custom-Select__Title">
+                  <i class="fa-solid fa-sitemap"></i>
+                  <span id="">Đối tượng</span>
+                </div>
+
+                <select name="type" id="">
+                  @switch($value->type)
+                  @case('Sinh viên')
+                <option value="Sinh viên">Sinh viên</option>
+                <option value="Giảng viên">Giảng viên</option>
+                <option value="Viên chức">Viên chức</option>
+                @break
+                @case('Giảng viên')
+                <option value="Giảng viên">Giảng viên</option>
+                <option value="Sinh viên">Sinh viên</option>
+                <option value="Viên chức">Viên chức</option>
+                @break
+                @case('Viên chức')
+                <option value="Viên chức">Viên chức</option>
+                <option value="Sinh viên">Sinh viên</option>
+                <option value="Giảng viên">Giảng viên</option>
+                @break
+                @endswitch
+                </select>
+              </div>
               <div id="InforForm-items" class="Gender">
                 <p id="" for="">Giới tính</p>
                 @if($value->gender == 1)

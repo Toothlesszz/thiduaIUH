@@ -22,21 +22,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-  <script>
-    //realtime notification
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('755f3dd3f1206ea250f6', {
-      cluster: 'ap1'
-    });
-
-    var channel = pusher.subscribe('noti-channel');
-    channel.bind('profile-reviewed', function(message) {
-      alert(JSON.stringify(message));
-    });
-  </script>
+  
   </head>
   <body>
     <section id="instruction">
@@ -48,7 +34,26 @@
       <h5>ĐANG TẢI...</h5>
     </section>
     <section class="MainMessage"></section>
+    @if(session('success'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
 
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Đăng kí danh hiệu thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>

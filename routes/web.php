@@ -115,6 +115,7 @@ Route::prefix('admin-department')->middleware('adminDepartMiddle')->group(functi
     Route::post('/user-department/{id}', [UserDepartController::class,'edit']);
     Route::get('/user-department/{id}', [UserDepartController::class,'show']);
     Route::get('/user-department/accept/{id}', [UserDepartController::class,'acceptUser'])->name('acceptUser');
+    Route::get('/user-department/accept-many/{id}', [UserDepartController::class,'acceptManyUsers'])->name('acceptManyUsers');
     Route::get('/user-department/refuse/{id}', [UserDepartController::class,'refuseUser'])->name('refuseUser');
     
     Route::post('/user-department/change-pass-user/{id}', [UserDepartController::class,'changePassUser'])->name('changePassUser');

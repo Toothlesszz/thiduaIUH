@@ -155,6 +155,26 @@
           });
               </script>
             @endif
+            @if(session('error2'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              //MessageSuccess("THÀNH CÔNG!", "Tạo ứng viên mới thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Vui lòng chọn tài khoản cần duyệt hoặc từ chối!"
+              );
+              //Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+            @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -234,6 +254,7 @@
             <i class="fa-solid fa-id-badge"></i>
             <h4>THÊM ỨNG VIÊN</h4>
           </div>
+          
           <form action="{{ route('user-department.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
             <div id="" class="CreateCandidate-Input">
@@ -286,7 +307,7 @@
             <i class="fa-solid fa-users-gear"></i>
             <h4>QUẢN LÝ ỨNG VIÊN</h4>
           </div>
-         
+          <div class="Control">
           <form action="{{ route('user-department.index') }}" method="GET" class="custom-Filter">
             @csrf
           <div class="custom-Select">
@@ -401,6 +422,36 @@
               value="TÌM KIẾM"
             />
           </form>
+          <form id="AllCheckboxForm" action="{{route('acceptManyUsers',$user[0]->_id)}}" method="GET">
+            @csrf
+              <input type="hidden" name="id_users" value="" id="AllCheckbox" />
+              <input type="hidden" name="action" value="" id="StatusCheckbox" />
+              <button class="custom-button-s" id="AccDeleteAll" type="submit">
+                XÓA ĐÃ CHỌN
+              </button>
+              <button class="custom-button-s" id="AccAccepAll" type="submit">
+                DUYỆT ĐÃ CHỌN
+              </button>
+
+              <div class="popupConfirmSubmit">
+                <div class="popupConfirmSubmit__content">
+                  <i class="fa-regular fa-circle-question fa-shake"></i>
+                  <p>
+                    Bạn có chắc chắn thực hiện thao tác
+                    <span id="operationPopup"></span>
+                  </p>
+                  <div>
+                    <button id="close-popupConfirmSubmit" type="button">
+                      Hủy
+                    </button>
+                    <button id="submit-ConfirmSubmit" href="">Đồng ý!</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+
           <table>
           
             <tr>
@@ -410,6 +461,7 @@
               <th id="MedalName">Đơn vị</th>
               <th>Trạng thái</th>
               <th id="btn-BrowserMedal"></th>
+              <th></th>
             </tr>
             @foreach($user as $value)
             <tr>
@@ -495,6 +547,13 @@
                     </div>
                   </div>
                 </div>
+                <td>
+                <label class="Checkbox">
+                  <input type="checkbox" class="accCheckbox" />
+                  <span class="checkmark"></span>
+                </label>
+                <input id="AccID" type="hidden" value="{{$value->_id}}" name="id"/>
+              </td>
                 @else
                 <a
                   id=""

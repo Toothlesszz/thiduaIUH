@@ -120,61 +120,61 @@ IDCandidate.addEventListener("input", function(event) {
 // });
 
 // Lắng nghe sự kiện khi người dùng chọn tệp Excel
-document
-    .getElementById("excel-file")
-    .addEventListener("change", handleFile, false);
+// document
+//   .getElementById("excel-file")
+//   .addEventListener("change", handleFile, false);
 
-// Hàm xử lý tệp Excel
-function handleFile(e) {
-    var file = e.target.files[0];
-    var reader = new FileReader();
+// // Hàm xử lý tệp Excel
+// function handleFile(e) {
+//   var file = e.target.files[0];
+//   var reader = new FileReader();
 
-    // Đọc nội dung của tệp Excel
-    reader.onload = function(e) {
-        var data = new Uint8Array(e.target.result);
-        var workbook = XLSX.read(data, { type: "array" });
+//   // Đọc nội dung của tệp Excel
+//   reader.onload = function (e) {
+//     var data = new Uint8Array(e.target.result);
+//     var workbook = XLSX.read(data, { type: "array" });
 
-        // Lấy dữ liệu từ trang tính đầu tiên trong tệp Excel
-        var worksheet = workbook.Sheets[workbook.SheetNames[0]];
+//     // Lấy dữ liệu từ trang tính đầu tiên trong tệp Excel
+//     var worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
-        // Chuyển đổi dữ liệu từ trang tính thành mảng các đối tượng
-        var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+//     // Chuyển đổi dữ liệu từ trang tính thành mảng các đối tượng
+//     var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 
-        // Tạo bảng HTML từ dữ liệu Excel
-        var table = document.createElement("table");
-        for (var i = 0; i < jsonData.length; i++) {
-            var row = table.insertRow();
-            for (var j = 0; j < jsonData[i].length; j++) {
-                var cell = row.insertCell();
-                cell.innerHTML = jsonData[i][j];
-            }
-        }
+//     // Tạo bảng HTML từ dữ liệu Excel
+//     var table = document.createElement("table");
+//     for (var i = 0; i < jsonData.length; i++) {
+//       var row = table.insertRow();
+//       for (var j = 0; j < jsonData[i].length; j++) {
+//         var cell = row.insertCell();
+//         cell.innerHTML = jsonData[i][j];
+//       }
+//     }
 
-        // Hiển thị bảng trong thẻ div
-        var tableContainer = document.getElementById("ExcelTable-container");
-        tableContainer.innerHTML = "";
-        tableContainer.appendChild(table);
-        // document.querySelector("#btn-excelFile").style.backgroundColor =
-        //   "rgba(29, 171, 161, 1)";
-    };
+//     // Hiển thị bảng trong thẻ div
+//     var tableContainer = document.getElementById("ExcelTable-container");
+//     tableContainer.innerHTML = "";
+//     tableContainer.appendChild(table);
+//     // document.querySelector("#btn-excelFile").style.backgroundColor =
+//     //   "rgba(29, 171, 161, 1)";
+//   };
 
-    reader.readAsArrayBuffer(file);
-}
+//   reader.readAsArrayBuffer(file);
+// }
 
-document
-    .querySelector("#closePopup-ExcelTable")
-    .addEventListener("click", function() {
-        document.querySelector(".Popup-ExcelTable").style.display = "none";
-    });
-document
-    .querySelector("#openPopup-ExcelTable")
-    .addEventListener("click", function() {
-        document.querySelector(".Popup-ExcelTable").style.display = "block";
-    });
-//
+// document
+//   .querySelector("#closePopup-ExcelTable")
+//   .addEventListener("click", function () {
+//     document.querySelector(".Popup-ExcelTable").style.display = "none";
+//   });
+// document
+//   .querySelector("#openPopup-ExcelTable")
+//   .addEventListener("click", function () {
+//     document.querySelector(".Popup-ExcelTable").style.display = "block";
+//   });
+// //
 //Xóa
 const operationPopup = document.querySelector("#operationPopup");
-const submitConfirmSubmit = document.querySelector("#submit-ConfirmSubmit");
+// const submitConfirmSubmit = document.querySelector("#submit-ConfirmSubmit");
 // Lấy tất cả các thẻ <a> có class "btnDelete"
 var btnAccept = document.querySelectorAll("#acceptAccount");
 
@@ -183,13 +183,15 @@ btnAccept.forEach(function(element) {
     element.addEventListener("click", function(e) {
         e.preventDefault();
         // Lấy phần tử cha chung của thẻ <a> và popup
-        submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
+        // submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
 
         var parent = this.parentElement;
         var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
-
+        parent
+            .querySelector("#submit-ConfirmSubmit")
+            .setAttribute("href", this.getAttribute("href"));
         // Hiển thị popup
-        operationPopup.innerHTML = "'Thêm tài khoản?'";
+        parent.querySelector("#operationPopup").innerHTML = "'Thêm tài khoản?'";
         popupConfirmSubmit.style.display = "block";
     });
 });
@@ -201,12 +203,14 @@ btnDelete.forEach(function(element) {
     element.addEventListener("click", function(e) {
         e.preventDefault();
         // Lấy phần tử cha chung của thẻ <a> và popup
-        submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
+        // submitConfirmSubmit.setAttribute("href", this.getAttribute("href"));
         var parent = this.parentElement;
         var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
-
+        parent
+            .querySelector("#submit-ConfirmSubmit")
+            .setAttribute("href", this.getAttribute("href"));
         // Hiển thị popup
-        operationPopup.innerHTML = "'Xóa tài khoản?'";
+        parent.querySelector("#operationPopup").innerHTML = "'Xóa tài khoản?'";
 
         popupConfirmSubmit.style.display = "block";
     });
@@ -222,5 +226,62 @@ closePopupBtns.forEach(function(closeBtn) {
 
         // Đóng popup
         parent.style.display = "none";
+    });
+});
+//
+const CheckboxAcc = document.querySelectorAll(".accCheckbox");
+const AccDeleteAll = document.querySelector("#AccDeleteAll");
+const AccAccepAll = document.querySelector("#AccAccepAll");
+const AllCheckbox = document.querySelector("#AllCheckbox");
+const AllCheckboxForm = document.querySelector("#AllCheckboxForm");
+const StatusCheckbox = document.querySelector("#StatusCheckbox");
+let IDAcc = []; // Sử dụng let thay cho const để có thể gán lại giá trị
+
+AccAccepAll.addEventListener("click", function(e) {
+    e.preventDefault();
+    IDAcc = [];
+    CheckAll();
+    AllCheckbox.value = IDAcc.join(" "); // Sử dụng join để nối các giá trị thành chuỗi
+    StatusCheckbox.value = 1;
+    var parent = this.parentElement;
+    var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
+
+    // Hiển thị popup
+    // console.log(parent);
+    parent.querySelector("#operationPopup").innerHTML = "'Thêm tài khoản?'";
+    popupConfirmSubmit.style.display = "block";
+    // AllCheckboxForm.submit();
+});
+AccDeleteAll.addEventListener("click", function(e) {
+    e.preventDefault();
+    IDAcc = [];
+    CheckAll();
+    AllCheckbox.value = IDAcc.join(" "); // Sử dụng join để nối các giá trị thành chuỗi
+    StatusCheckbox.value = 0;
+    var parent = this.parentElement;
+    var popupConfirmSubmit = parent.querySelector(".popupConfirmSubmit");
+
+    // Hiển thị popup
+    parent.querySelector("#operationPopup").innerHTML = "'Xóa tài khoản?'";
+    popupConfirmSubmit.style.display = "block";
+    // AllCheckboxForm.submit();
+});
+
+function CheckAll() {
+    CheckboxAcc.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            IDAcc.push(
+                checkbox.parentElement.parentElement.querySelector("#AccID").value
+            );
+        }
+    });
+}
+const submitConfirmAllSubmit = document.querySelectorAll(
+    "#submit-ConfirmSubmit"
+);
+
+submitConfirmAllSubmit.forEach(function(closeBtn) {
+    closeBtn.addEventListener("click", function() {
+        AllCheckboxForm.submit();
     });
 });

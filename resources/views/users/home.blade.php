@@ -55,6 +55,26 @@
           });
               </script>
       @endif
+      @if(session('error4'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Cập nhật thông tin thành công.");
+              MessageError(
+                "ĐĂNG KÍ KHÔNG THÀNH CÔNG!",
+                "Bạn đã đăng kí đợt thi đua này rồi."
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>

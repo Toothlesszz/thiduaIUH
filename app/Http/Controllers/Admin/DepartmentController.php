@@ -42,16 +42,30 @@ class DepartmentController extends Controller
         }
         
         $user = $query->where('_id', '!=' , Auth::guard('admin')->user()->_id)->paginate(5);
+        $nameDepart = Department::where('_id', '=',$type)->first();
+
         if(Auth::guard('admin')->user()->level == '5')
 	{
-        $department = Department::get();
+    if($nameDepart !=''){
+      $department = Department::where('_id','!=', $type)->get();
+    }
+    else{
+      $department = Department::get();
+    }
+      
 	}
 	else{
-	$department = Department::where('_id', '!=' , Auth::guard('admin')->user()->id_depart)->get();
+    if($nameDepart != '' ){
+      $department = Department::where('_id', '!=' , Auth::guard('admin')->user()->id_depart)->where('_id','!=', $type)->get();
+    }
+    else{
+      $department = Department::where('_id', '!=' , Auth::guard('admin')->user()->id_depart)->get();
+    }
+	
 	}
   $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
   $count = count($notifications);
-    return view('admin.department.index')->with(compact('keyword', 'query', 'user','department','notifications','count'));
+    return view('admin.department.index')->with(compact('keyword','nameDepart', 'query', 'user','type','department','notifications','count'));
 
     }
 

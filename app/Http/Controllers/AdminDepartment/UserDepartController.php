@@ -228,6 +228,59 @@ class UserDepartController extends Controller
 
           
     }
+   
+    public function acceptManyUsers(Request $request, $id){
+        if($request['id_users'] != ''){
+            if($request->action == '1'){
+                $idsString = $request['id_users']; // Chuỗi chứa các ID
+                $idsArray = explode(' ', $idsString); // Tách chuỗi thành mảng
+                foreach($idsArray as $id)
+                {
+                $user = User::find($id);
+                        $user->status = '1';
+                        $user->save();
+                    
+                }
+                    return  redirect()->back()->with("success2","Duyệt tài khoản thành công !");
+                }
+                elseif($request->action == '0')
+                {
+                    $idsString = $request['id_users']; // Chuỗi chứa các ID
+                    $idsArray = explode(' ', $idsString); // Tách chuỗi thành mảng
+                foreach($idsArray as $id){
+                    $user = User::find($id);
+                    if($user->status == '0'){    
+                    $get_image = $user->image;
+                    if($get_image) {
+                        $path = 'uploads/user/'.$user->image;
+                        if($user->image != '' ) {
+                        unlink($path);
+                        }
+                        else{
+                            return redirect()->back()->with("error1","Xóa tài khoản không thành công !");
+                        }
+                    }
+                    else{
+                        return redirect()->back()->with("error1","Xóa tài khoản không thành công !");
+                    }
+                    $deleteUser = User::where('_id','=', $id)->delete();  
+                    $user->save();
+                
+               
+                    }
+        
+                    else{
+                        return redirect()->back()->with("error1","Xóa tài khoản không thành công !");
+                    }
+                }
+                return  redirect()->back()->with("success3","Xóa tài khoản thành công !");   
+                }
+        }
+        else{
+            return redirect()->back()->with("error2","Vui lòng chọn tài khoản cần duyệt hoặc từ chối!");
+        }
+        
+    }
     public function acceptUser(Request $request, $id){
  
         $user = User::find($id);
@@ -240,8 +293,8 @@ class UserDepartController extends Controller
         else{
             return redirect()->back()->with("error1","Duyệt tài khoản không thành công !");
         }
-    }
-    public function refuseUser(Request $request, $id){
+    	}
+   	 public function refuseUser(Request $request, $id){
  
         $user = User::find($id);
         
@@ -268,6 +321,7 @@ class UserDepartController extends Controller
         else{
             return redirect()->back()->with("error1","Xóa tài khoản không thành công !");
         }
-    }
+    	}
+
     
 }

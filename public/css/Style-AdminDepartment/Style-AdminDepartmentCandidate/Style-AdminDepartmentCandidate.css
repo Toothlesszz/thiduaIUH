@@ -132,19 +132,40 @@
 
 .Main__Content--ListRegkMedal {
     margin-top: 1vw;
-    position: relative;
 }
 
-.Main__Content--ListRegkMedal .custom-Filter {
-    position: absolute;
-    top: 1.6vw;
-    left: 16vw;
+.Main__Content--ListRegkMedal .Control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.Main__Content--ListRegkMedal .custom-Search {
-    position: absolute;
-    top: 1.6vw;
-    right: 2vw;
+.Main__Content--ListRegkMedal .Control #AllCheckboxForm {
+    display: flex;
+}
+
+.Main__Content--ListRegkMedal .Control #AllCheckboxForm #AccAccepAll,
+.Main__Content--ListRegkMedal .Control #AllCheckboxForm #AccDeleteAll {
+    font-size: 0.6vw;
+    width: 8vw;
+    margin: 0 0.2vw 0 0.2vw;
+}
+
+.Main__Content--ListRegkMedal .Control #AllCheckboxForm #AccAccepAll {
+    background-color: rgb(18, 27, 42);
+}
+
+.Main__Content--ListRegkMedal .Control #AllCheckboxForm #AccDeleteAll {
+    background-color: rgb(240, 63, 63);
+}
+
+.Main__Content--ListRegkMedal .Control .custom-Filter {
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Main__Content--ListRegkMedal .Control .custom-Filter .custom-Select {
+    margin-top: 0.4vw;
 }
 
 .Main__Content--ListRegkMedal table {
@@ -237,6 +258,73 @@
 
 .Main__Content--ListRegkMedal table tr td .Status span {
     margin-left: 0.4vw;
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox {
+    display: block;
+    position: relative;
+    margin: 0 0 1.4vw 1vw;
+    cursor: pointer;
+    font-size: 0.8vw;
+    font-weight: bold;
+    color: rgb(94, 94, 94);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    /* Hide the browser's default checkbox */
+    /* Create a custom checkbox */
+    /* On mouse-over, add a grey background color */
+    /* When the checkbox is checked, add a blue background */
+    /* Create the checkmark/indicator (hidden when not checked) */
+    /* Show the checkmark when checked */
+    /* Style the checkmark/indicator */
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.2vw;
+    width: 1.2vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 0.4vw;
+    border: 0.2vw solid rgb(29, 171, 161);
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox:hover input~.checkmark {
+    background-color: rgb(248, 249, 253);
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox input:checked~.checkmark {
+    background-color: rgb(29, 171, 161);
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox input:checked~.checkmark:after {
+    display: block;
+}
+
+.Main__Content--ListRegkMedal table tr .Checkbox .checkmark:after {
+    left: 0.4vw;
+    top: 0.2vw;
+    width: 0.2vw;
+    height: 0.5vw;
+    border: solid white;
+    border-width: 0 0.2vw 0.2vw 0;
+    transform: rotate(45deg);
 }
 
 .Main__Content--RegkMedalDetail {
