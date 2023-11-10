@@ -186,10 +186,78 @@ class AdminController extends Controller
       $slideShow = SlideStorage::orderBy('number', 'asc')->get();
       $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
       $count = count($notifications);
-      return view('admin.dasboard')
-      ->with(compact( 'stylized', 'regisCount','pictures','slideShow','nameStyli','notifications','count','nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis','notReviewed','years','stylized','department'));
+      // Analysis profile in every department per year
+      $resultString = '';
+      
+      $requestCompete = CompetitionPeriod::where('_id','=', $request['requestCompete'])->first();
+      $requestYear = Years::where('_id','=',$request['requestYear'])->first();
+      $getYear = $request['requestYear'];
+      $getCompete = $request['requestCompete'];
+      $depart = $request['selectedDepart'];
+      if($getYear != '' && $getCompete == ''){
+        $checkPeriodPerYear = CompetitionPeriod::where('id_year','=', $getYear )->get();
+          if(!empty($checkPeriodPerYear))
+          {
+            $id_period[] = '';
+            foreach($checkPeriodPerYear as $check)
+            {
+              array_push($id_period, $check->_id);
+            }
+          }
+        $allDepart = Department::where('id_depart','=', $depart)->where('_id','!=', Auth::guard('admin')->user()->id_depart)->get();
+      foreach($allDepart as $depart){
+        $countUser = Registration::where('id_depart','=', $depart->_id)->whereIn('id_competitionperiod', $id_period)->count();
+        $countPassedUser = Registration::where('id_depart','=', $depart->_id)->where('admin_status', '=', '4')->whereIn('id_competitionperiod', $id_period)->count();
+          $resultString .= $depart->name_depart.':'.$countUser.','.$countPassedUser.';' ;
+      }
+      }
+      elseif($getYear == '' && $getCompete == ''){
+        $allDepart = Department::where('_id','!=', Auth::guard('admin')->user()->id_depart)->get();
+      foreach($allDepart as $depart){
+        $countUser = Registration::where('id_depart','=', $depart->_id)->count();
+        $countPassedUser = Registration::where('id_depart','=', $depart->_id)->where('admin_status', '=', '4')->count();
+          $resultString .= $depart->name_depart.':'.$countUser.','.$countPassedUser.';' ;
+      }
+      }
+      elseif($getYear != '' && $getCompete != ''){
+        $checkPeriodPerYear = CompetitionPeriod::where('id_year','=', $getYear )->get();
+          if(!empty($checkPeriodPerYear))
+          {
+            $id_period[] = '';
+            foreach($checkPeriodPerYear as $check)
+            {
+              array_push($id_period, $check->_id);
+            }
+          }
+        $allDepart = Department::where('id_depart','=', $depart)->where('_id','!=', Auth::guard('admin')->user()->id_depart)->get();
+      foreach($allDepart as $depart){
+        $countUser = Registration::where('id_depart','=', $depart->_id)
+        ->where('id_competitionperiod','=',$getCompete)->whereIn('id_competitionperiod', $id_period)->count();
+        $countPassedUser = Registration::where('id_depart','=', $depart->_id)
+        ->where('id_competitionperiod','=',$getCompete)->where('admin_status', '=', '4')
+        ->whereIn('id_competitionperiod', $id_period)->count();
+          $resultString .= $depart->name_depart.':'.$countUser.','.$countPassedUser.';' ;
+        
+      }
     }
-
+      elseif($getYear == '' && $getCompete != ''){
+        $allDepart = Department::where('id_depart','=', $depart)
+        ->where('_id','!=', Auth::guard('admin')->user()->id_depart)->get();
+      foreach($allDepart as $depart){
+        $countUser = Registration::where('id_depart','=', $depart->_id)
+        ->where('id_competitionperiod','=',$getCompete)->count();
+        $countPassedUser = Registration::where('id_depart','=', $depart->_id)->where('id_competitionperiod','=',$getCompete)
+        ->where('admin_status', '=', '4')->count();
+          $resultString .= $depart->name_depart.':'.$countUser.','.$countPassedUser.';' ;
+      }
+    }
+    $allCompete = Competitionperiod::get();
+      return view('admin.dasboard')
+      ->with(compact( 'stylized','resultString', 
+      'regisCount','pictures','slideShow','nameStyli','notifications','count',
+      'nameDepart','academicYear', 'regisPassCount','CompetitionPeriod','regis',
+      'notReviewed','years','stylized','department','requestYear','requestCompete','allCompete'));
+    }
     public function inforAdmin() {
       $adminInfor = User::where('_id', '=', Auth::guard('admin')->user()->_id)->limit(1)->get();
 
@@ -200,7 +268,6 @@ class AdminController extends Controller
       $userInfor = User::where('_id', '=', Auth::guard('admin')->user()->_id)
             ->limit(1)->get();
       $departmentid = User::select('id_depart')->where('_id', '=', Auth::guard('admin')->user()->_id)->first();
-      
       $departmentName = Department::where('_id', '=', trim($departmentid->id_depart))->get();
       $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
       $count = count($notifications);

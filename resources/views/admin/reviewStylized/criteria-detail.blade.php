@@ -50,6 +50,26 @@
           });
               </script>
       @endif
+      @if(session('error2'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Cập nhật trạng thái phiếu đăng kí thành công.");
+              MessageError(
+                "XÓA KHÔNG THÀNH CÔNG!",
+                "Hồ sơ trạng thái đã đạt hoặc chưa đạt sẽ không được xóa ."
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section class="Main">
       <div class="Main__Navigation">
         <ul>
@@ -150,6 +170,9 @@
             <i class="fa-solid fa-user-graduate"></i>
             <h4>THÔNG TIN ỨNG VIÊN</h4>
           </div>
+          <a class="ProfileDetail" href="{{ route('user.edit', [Crypt::encrypt($regis->id_user)]) }}"
+            >Xem chi tiết <i class="fa-solid fa-angles-right"></i
+          ></a>
           <div class="InfoAvatar">
             <img src="{{asset('uploads/user/'. $regis->users->image)}}" alt="" />
           </div>
@@ -170,6 +193,21 @@
           <div class="Title">
             <i class="fa-solid fa-medal"></i>
             <h4>PHIẾU ĐĂNG KÝ DANH HIỆU</h4>
+          </div>
+          <div class="RegReset">
+            <button id="btn-RegReset" class="custom-button-m" href="">
+              <i class="fa-solid fa-repeat"></i>Nhấn để "XÓA HỒ SƠ ĐĂNG KÝ"
+            </button>
+            <div class="popupRegReset">
+              <div class="popupRegReset__content">
+                <i class="fa-solid fa-circle-exclamation fa-shake"></i>
+                <p>Bạn có chắc chắn, thông tin đăng ký hiện tại sẽ bị xóa?</p>
+                <div>
+                  <button id="close-popupRegReset">Hủy</button>
+                  <a href="{{route('deleteProfile', $regis->_id)}}" id="submit-RegReset">Xóa hồ sơ</a>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="Info">
             <!-- <img src="/Front-End/Image/lamtheoloiBac.jpg" alt="" /> -->
@@ -430,6 +468,11 @@
                         class="checkboxQualified__status"
                         style="background-color: rgba(240, 123, 63, 1)"
                         >PHÂN VÂN <i class="fa-solid fa-clipboard-check"></i>
+                        <input
+                            type="hidden"
+                            value="{{$detail->_id}}"
+                            name="notChecked[{{$detail->_id}}]"
+                          />
                       </label>
                       <div class="checkboxQualified">
                         <label class="checkboxQualified__item"
@@ -440,6 +483,7 @@
                             value="1"
                             name="id_registration_detail[{{$detail->_id}}][checked]"
                           />
+                          
                           <span class="checkmark"></span>
                         </label>
                       </div>

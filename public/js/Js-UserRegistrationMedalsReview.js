@@ -114,8 +114,24 @@ openPopupConfirmSubmit.addEventListener("click", function(e) {
 closePopupConfirmSubmit.addEventListener("click", function() {
     popupConfirmSubmit.style.display = "none";
 });
+
+let isButtonDisabled = false;
 submitConfirmSubmit.addEventListener("click", function() {
-    checkSubmit.submit();
+    if (!isButtonDisabled) {
+        // Đánh dấu nút là đã bị vô hiệu hóa
+        isButtonDisabled = true;
+
+        // Thực hiện hành động bạn muốn thực hiện
+        // Ví dụ: Gửi dữ liệu, thực hiện công việc, vv.
+
+        // Tiếp tục xử lý dữ liệu và gửi form lên server
+        checkSubmit.submit();
+        // Sau một khoảng thời gian (ví dụ 2 giây), kích hoạt lại nút
+        setTimeout(function() {
+            isButtonDisabled = false;
+        }, 5000); // 2000 milliseconds (2 giây)
+    }
+    // checkSubmit.submit();
 });
 
 //Comment

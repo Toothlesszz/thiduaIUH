@@ -180,7 +180,7 @@
           </div>
         
           @if( $regis->admin_status == 0)
-	 @if($regis->competitionperiod->depart_first_time > now())
+	 @if($regis->competitionperiod->enddate > now())
           <div class="RegReset">
             <button id="btn-RegReset" class="custom-button-m" href="">
               <i class="fa-solid fa-repeat"></i>Nhấn để "HỦY HỒ SƠ ĐĂNG KÝ"
@@ -456,7 +456,7 @@
               style="opacity: 0.7; pointer-events: none;"
               @elseif($regis->competitionperiod->depart_first_time < now() && $regis->competitionperiod->candidate_add_detail > now())
               style="opacity: 0.7; pointer-events: none;"
-              @elseif($regis->competitionperiod->candidate_add_detail < now() && $regis->admin_status != '3')
+              @elseif($regis->competitionperiod->candidate_add_detail < now() && in_array($regis->admin_status, [1,4,5]))
               style="opacity: 0.7; pointer-events: none;"
               @elseif($regis->competitionperiod->depart_second_time < now())
               style="opacity: 0.7; pointer-events: none;"

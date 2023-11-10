@@ -233,6 +233,32 @@
         @endif
 	@endif
     @endforeach
+    @if($reRegistration != '' )
+    @if(Auth::user()->code == $reRegistration->code_user)
+    @foreach($value->stylized->object as $item)
+    @if($reRegistration->id_competitionperiod == $value->_id && $value->enddate > now())
+        @if(in_array(Auth::user()->type, $item) && !($registerExists))
+            <div class="Medal">
+                <div class="Medal__Items">
+                    <img src="{{ asset('certificate/img_certificate/'. $value->stylized->image) }}" alt="" />
+                    <div class="Medal__Items--Content">
+                        <span class="Name">{{ $value->stylized->name_stylized}}</span>
+                        <div class="Duration">
+                            <i class="fa-solid fa-business-time"></i>
+                            <span>Thời gian:</span>
+                            <span>{{ date("d/m/Y",strtotime($value->startdate)) }} 
+                    - {{ date("d/m/Y",strtotime($value->depart_first_time)) }}</span>
+                        </div>
+                    </div>
+                    <a href="{{ route('downloadFileUser', $value->stylized->file) }}"><i class="fa-solid fa-file-pdf"></i></a>
+                    <a href="{{ route('getStylized', $value->_id) }}" class="custom-button-m">ĐĂNG KÍ</a>
+                </div>
+            </div>
+	@endif
+  @endif
+    @endforeach
+    @endif
+    @endif
 @endforeach
            
 

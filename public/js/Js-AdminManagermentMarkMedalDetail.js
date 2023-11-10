@@ -247,3 +247,18 @@ function toggleCheckboxValue(checkbox) {
 //       e.target.value = commentManageValue;
 //     }
 //   });
+const openpopupRegReset = document.querySelector("#btn-RegReset");
+const closepopupRegReset = document.querySelector("#close-popupRegReset");
+const popupRegReset = document.querySelector(".popupRegReset");
+// const submitConfirmSubmit = document.querySelector("#submit-ConfirmSubmit");
+// const checkSubmit = document.querySelector("#RegistrationSubmit");
+
+openpopupRegReset.addEventListener("click", function() {
+    //   popupConfirmSubmit.style.display = "block";
+
+    popupRegReset.style.display = "block";
+});
+
+closepopupRegReset.addEventListener("click", function() {
+    popupRegReset.style.display = "none";
+});

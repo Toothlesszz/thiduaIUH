@@ -132,6 +132,9 @@
             <i class="fa-solid fa-user-graduate"></i>
             <h4>THÔNG TIN ỨNG VIÊN</h4>
           </div>
+          <a class="ProfileDetail" href="{{ route('user-department.edit', [Crypt::encrypt($regis->id_user)]) }}"
+            >Xem chi tiết <i class="fa-solid fa-angles-right"></i
+          ></a>
           <div class="InfoAvatar">
             <img src="{{asset('uploads/user/'. $regis->users->image)}}" alt="" />
           </div>
@@ -451,12 +454,9 @@
               <div class="Operation"@if( $regis->admin_status == '4' || $regis->admin_status == '5')
               style="opacity: 0.7; pointer-events: none;"
               @endif
-                @if($regis->competitionperiod->candidate_add_detail < now() && $regis->competitionperiod->depart_second_time > now())
-                style="opacity: 0.7; pointer-events: none;"
-                @endif
-                @if($regis->competitionperiod->depart_end_second_time < now() )
-                style="opacity: 0.7; pointer-events: none;"
-                @endif>
+              @if($regis->competitionperiod->depart_end_second_time < now() )
+              style="opacity: 0.7; pointer-events: none;"
+              @endif>
               <div class="Note">
               <span>Nhận xét Quản trị viên Khoa</span>
                   

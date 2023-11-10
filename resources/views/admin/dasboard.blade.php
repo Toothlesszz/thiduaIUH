@@ -19,6 +19,7 @@
       rel="stylesheet"
       href="/css/Style-AdminManagement/Style-AdminManagementIndex/Style-AdminManagementIndex.css"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <section id="instruction">
@@ -213,7 +214,63 @@
           </div>
           <div class="Diagram"></div>
         </div>
-        
+        <div class="Main__Content--Chart">
+          <div class="Title">
+            <i class="fa-solid fa-chart-line"></i>
+            <h4>BIỂU ĐỒ THỐNG KÊ</h4>
+          </div>
+          <form action="{{route('mainAdmin')}}" method="GET" class="addUser">
+            @csrf
+            <input
+              type="hidden"
+              value="{{$resultString}}"
+              id="inputString"
+            />
+
+            <div class="custom-Select">
+              <div class="custom-Select__Title">
+                <i class="fa-solid fa-medal"></i>
+                <span id="">Danh hiệu</span>
+              </div>
+              <select name="requestCompete" id="">
+              @if($requestCompete == '')
+                <option value="">Tất cả danh hiệu</option>
+                @elseif($requestCompete != '')
+                <option value="{{$requestCompete->_id}}">{{$requestCompete->stylized->name_stylized}}</option>
+                <option value="">Tất cả danh hiệu</option>
+                @endif
+                
+                @foreach($allCompete as $object)
+                <option value="{{$object->_id}}">{{$object->stylized->name_stylized}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="custom-Select">
+              <div class="custom-Select__Title">
+                <i class="fa-solid fa-medal"></i>
+                <span id="">Năm học</span>
+              </div>
+              <select name="requestYear" id="">
+              @if($requestYear == '')
+              <option value="">Tất cả năm học</option>
+              @elseif($requestYear !='')
+                <option value="{{$requestYear->_id}}">{{$requestYear->year}}</option>
+                <option value="">Tất cả năm học</option>
+                @endif
+                
+                @foreach($years as $year)
+                <option value="{{$year->_id}}">{{$year->year}}</option>
+                @endforeach
+              </select>
+            </div>
+            <input
+              class="custom-button-m custom-Search__submit"
+              type="submit"
+              value="XEM THỐNG KÊ"
+            />
+          </form>
+          <canvas id="mixedChart" width="800" height="200"></canvas>
+        </div>
         <div class="Main__Content--RecentMarkMedal">
           <div class="Title">
             <i class="fa-solid fa-medal"></i>

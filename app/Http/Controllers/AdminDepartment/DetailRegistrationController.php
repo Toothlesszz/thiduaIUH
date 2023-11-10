@@ -130,6 +130,7 @@ class DetailRegistrationController extends Controller
             $Registration = Registration::find($id);
             $Registration->note = $request->note;
             $Registration->admin_status = $request->status_input;
+            $Registration->update = 'False';
             $Registration->save();
             $checked_values = $request->input('id_registration_detail');
     foreach ($checked_values as $regis_detail_id => $regis_detail) {

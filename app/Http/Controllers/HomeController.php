@@ -18,6 +18,7 @@ use App\Models\Certification;
 use App\Models\Notifications;
 use App\Models\Pictures;
 use App\Models\SlideStorage;
+use App\Models\Reregistration;
 
 class HomeController extends Controller
 {
@@ -32,16 +33,16 @@ class HomeController extends Controller
       
       $regisCount = Registration::where('id_user', '=', Auth::user()->_id)->count();
       $regisPassCount = Registration::where('id_user', '=', Auth::user()->_id)->where('admin_status','=','4')->count();
-
       $CompetitionPeriod = CompetitionPeriod::with('stylized')->get();
       $notifications = Notifications::where('id_user', '=', Auth::user()->_id)->orderBy('date','desc')->get();
       $count = count($notifications);
       $pictures = Pictures::get();
       $slideShow = SlideStorage::orderBy('number', 'asc')->get();
+      $reRegistration = Reregistration::where('code_user', '=', Auth::user()->code)->first();
       if(Auth::user()->status != '2'){
         return redirect('/login-user')->with(Auth::logout());
       }
-      return view('users.home')->with(compact('register', 'departmentName','pictures','slideShow','notifications', 'count','regisCount' , 'regisPassCount' ,'CompetitionPeriod'));
+      return view('users.home')->with(compact('register','reRegistration','departmentName','pictures','slideShow','notifications', 'count','regisCount' , 'regisPassCount' ,'CompetitionPeriod'));
     }
 
      //View user's information

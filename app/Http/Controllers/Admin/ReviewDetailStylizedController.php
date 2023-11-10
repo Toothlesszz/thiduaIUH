@@ -53,7 +53,7 @@ class ReviewDetailStylizedController extends Controller
 
     public function updateRegistrationDetailAdmin(Request $request, $id)
     {
-
+        
     // Thiết lập múi giờ là 'Asia/Ho_Chi_Minh' (Việt Nam)
     date_default_timezone_set('Asia/Ho_Chi_Minh');
 
@@ -89,26 +89,12 @@ class ReviewDetailStylizedController extends Controller
             $checked_values = $request->input('id_registration_detail');
             if($checked_values == '')
             {
-                $message = 'Trạng thái hồ sơ đã được cập nhật !';
-                $userID = $Registration->id_user;
-
-                $option = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-                );
-                $pusher = new Pusher(
-                    
-                    env('PUSHER_APP_KEY'),
-                    env('PUSHER_APP_SECRET'),
-                    env('PUSHER_APP_ID'),
-                    $option
-                );
-                $data = ['userID' => $userID,
-                        'message' => $message
-                        ];
-                $pusher->trigger('noti-channel', 'profile-reviewed', $data );
-
-                // event(new CertificatedEvent($message));
+                $notChecked = $request['notChecked'];
+                foreach($notChecked as $value){
+                 $notCheckedDetail = RegistrationDetails::find($value);
+                 $notCheckedDetail->reason = '0';
+                 $notCheckedDetail->save();
+                }
                 return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
             }
             else{
@@ -121,7 +107,6 @@ class ReviewDetailStylizedController extends Controller
                         } else {
                             $Registration_detail->reason = 0; // Giá trị mặc định nếu không được chọn
                             }
-                        
                         $Registration_detail->save();
                             }
                         }
@@ -140,24 +125,12 @@ class ReviewDetailStylizedController extends Controller
             $checked_values = $request->input('id_registration_detail');
             if($checked_values == ''){
                
-                $message = 'Trạng thái hồ sơ đã được cập nhật !';
-                $userID = $Registration->id_user;
-
-                $option = array(
-                'cluster' => 'ap1',
-                'useTLS' => true
-                );
-                $pusher = new Pusher(
-                    
-                    env('PUSHER_APP_KEY'),
-                    env('PUSHER_APP_SECRET'),
-                    env('PUSHER_APP_ID'),
-                    $option
-                );
-                $data = ['userID' => $userID,
-                        'message' => $message
-                        ];
-                $pusher->trigger('noti-channel', 'profile-reviewed', $data );
+                $notChecked = $request['notChecked'];
+               foreach($notChecked as $value){
+                $notCheckedDetail = RegistrationDetails::find($value);
+                $notCheckedDetail->reason = '0';
+                $notCheckedDetail->save();
+               }
                 return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
             }
             else{
@@ -168,6 +141,7 @@ class ReviewDetailStylizedController extends Controller
                             if (isset($regis_detail['checked'])) {
                                 $Registration_detail->reason = $regis_detail['checked'];
                             } else {
+                                dd($Registration_detail);
                                 $Registration_detail->reason = 0; // Giá trị mặc định nếu không được chọn
                             }
                             
@@ -198,6 +172,37 @@ class ReviewDetailStylizedController extends Controller
                 $pusher->trigger('noti-channel', 'profile-reviewed', $data );
         
         return redirect()->back()->with('success', 'Cập nhật trạng thái thành công!');
+    }
+    public function deleteProfile (Request $request, $id){
+        //Xóa hồ sơ để đăng kí lại
+        $registration = Registration::find($id);
+        
+        if(in_array($registration->admin_status, [0,1,2,3])){
+            $detail = RegistrationDetails::where('id_regis', '=', $id)->get();
+        foreach($detail as $detailData){
+            $regis_detail = RegistrationDetails::find($detailData->_id);
+            if($regis_detail->proof_file != ''){
+                $path = 'uploads/proof_file/'.$regis_detail->proof_file;
+                if(file_exists($path)) {
+                unlink($path);
+                } 
+                else{
+                    return redirect()->back()->with('error1', 'Xóa hồ sơ không thành công (Lỗi: Không tìm thấy file !)');
+                }
+            }
+            else{
+                $deleted_detail = RegistrationDetails::where('_id','=', $detailData->_id)->delete();  
+            }
+        $deleted_detail = RegistrationDetails::where('_id','=', $detailData->_id)->delete();  
+        }
+        $Registration = Registration::where('_id','=', $id)->delete();
+        $deleteTracing = UserTracing::where('id_profile','=', $id)->delete();
+        return redirect('admin/review-stylized')->with('success1', 'Xóa hồ sơ ứng viên thành công');
+        }
+        else{
+            return redirect()->back()->with('error2', 'Hồ sơ đã đạt hoặc chưa đạt sẽ không được xóa');
+        }
+        
     }
 }
 

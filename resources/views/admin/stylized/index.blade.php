@@ -143,7 +143,7 @@
               //MessageSuccess("THÀNH CÔNG!", "Tạo đợt thi đua mới thành công.");
               MessageError(
                 "KHÔNG THÀNH CÔNG!",
-                "Vui lòng kiểm tra chính xác của thông tin đã nhập."
+                "Vui lòng kiểm tra chính xác và đầy đủ của thông tin đã nhập."
               );
               // Xóa trạng thái đã được lưu trữ
               sessionStorage.removeItem("reloadStatus");
@@ -211,6 +211,46 @@
           });
               </script>
               @endif
+              @if(session('success6'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Thêm ứng viên thành công.");
+              // MessageError(
+              //   "KHÔNG THÀNH CÔNG!",
+              //   "Danh hiệu đã thuộc vào đợt thi đua, không thể xóa."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success7'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Xóa ứng viên thành công.");
+              // MessageError(
+              //   "KHÔNG THÀNH CÔNG!",
+              //   "Danh hiệu đã thuộc vào đợt thi đua, không thể xóa."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
               @if(session('error5'))
               <script>
                 sessionStorage.setItem("reloadStatus", "true");
@@ -244,6 +284,126 @@
               MessageError(
                 "KHÔNG THÀNH CÔNG!",
                 "Đợt thi đua đã mở, không thể xóa."
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('error7'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Xóa danh hiệu thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Vui lòng kiểm tra lại tính chính xác của mã số sinh viên !"
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('error8'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Xóa danh hiệu thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Mã số sinh viên đã tồn tại danh sách!"
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('error9'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Xóa danh hiệu thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Vui lòng không để trống danh hiệu hoặc năm học!"
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('error10'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Xóa danh hiệu thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Đã có lỗi xảy ra. Vui lòng kiểm tra file mẫu chứng nhận!"
+              );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('success8'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Thay đổi mẫu chứng nhận thành công.");
+              // MessageError(
+              //   "KHÔNG THÀNH CÔNG!",
+              //   "Vui lòng không để trống danh hiệu hoặc năm học!"
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+              @endif
+              @if(session('error11'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              // MessageSuccess("THÀNH CÔNG!", "Xóa danh hiệu thành công.");
+              MessageError(
+                "KHÔNG THÀNH CÔNG!",
+                "Không tìm thấy đợt thi đua tương ứng với danh hiệu và năm học đã chọn !"
               );
               // Xóa trạng thái đã được lưu trữ
               sessionStorage.removeItem("reloadStatus");
@@ -370,6 +530,125 @@
             <input class="custom-button-m" type="submit" value="THÊM MỚI" />
           </form>
         </div>
+        @if(Auth::guard('admin')->user()->level == '5')
+        <div class="Main__Content--ListRegkMedal">
+          <div class="Title">
+            <i class="fa-solid fa-bookmark"></i>
+            <h4>MỞ ĐĂNG KÝ QUÁ HẠN</h4>
+          </div>
+          <form action="{{route('addErrorUsers')}}" method="POST" class="addUser">
+            @csrf
+            <div class="custom-Select">
+              <div class="custom-Select__Title">
+                <i class="fa-solid fa-medal"></i>
+                <span id="">Đợt thi đua</span>
+              </div>
+              <select name="idCompetitionperiod" id="">
+              <option value="">Chọn đợt thi đua </option>
+                @foreach($competeList as $object)
+                <option value="{{$object->_id}}">{{$object->stylized->name_stylized}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="custom-Search">
+              <i class="fa-solid fa-address-book"></i>
+              <input
+                class="custom-Search__input"
+                type="text"
+                name="codeUser"
+                placeholder="Nhập mã ứng viên..."
+              />
+            </div>
+
+            <input
+              class="custom-button-m custom-Search__submit"
+              type="submit"
+              value="THÊM ỨNG VIÊN"
+            />
+            <a
+              style="margin-left: 1vw; background-color: rgba(240, 63, 63, 1)"
+              href=""
+              class="custom-button-m"
+              >XÓA TẤT CẢ</a
+            >
+          </form>
+          <table>
+            <tr>
+              <th id="CandidateName">Ứng viên</th>
+              <th>Mã ứng viên</th>
+              <th>Đối tượng</th>
+              <th id="MedalName">Đơn vị</th>
+              <th>Trạng thái</th>
+              <th id="btn-BrowserMedal"></th>
+            </tr>
+            @foreach($re_Registration as $item)
+            <tr>
+              <td>
+                <div class="Profile">
+                  <img src="{{asset('uploads/user/'. $item->users->image)}}" alt="" />
+                  <span>{{$item->users->name}}</span>
+                </div>
+              </td>
+              <td>{{$item->users->code}}</td>
+              <td>{{$item->users->type}}</td>
+              <td>
+                <span>{{$item->users->department->name_depart}}</span>
+              </td>
+              @if($item->users->status== '2')
+              <td>
+                <div class="Status">
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>HOẠT ĐỘNG</span>
+                </div>
+              </td>
+              @elseif($item->users->status == '1')
+              <td>
+                <div class="Status" style="background-color: rgba(255, 140, 100, 1);">
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>KÍCH HOẠT</span>
+                </div>
+              </td>
+              @elseif($item->users->status == '4')
+              <td>
+                <div
+                  class="Status"
+                  style="background-color: rgba(155, 155, 155, 1)"
+                >
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>HÊT HẠN</span>
+                </div>
+              </td>
+              @elseif($item->users->status == '3')
+              <td>
+              <div
+                  class="Status"
+                  style="background-color: rgba(240, 63, 63, 1)"
+                >
+                  <i class="fa-solid fa-circle-user"></i>
+                  <span>ĐÃ KHÓA</span>
+                </div>
+        </td>
+              @endif
+              <td>
+                <a
+                  style="background-color: rgba(240, 63, 63, 1)"
+                  id=""
+                  href="{{route('deleteErrorUsers', $item->_id)}}"
+                  class="custom-button-s"
+                >
+                  XÓA
+                </a>
+              </td>
+            </tr>
+            @endforeach
+          </table>
+          <div class="pagination">
+          
+          {{$re_Registration->appends(['data1_page' => $re_Registration->currentPage()])->links()}}
+
+          </div>
+        </div>
+        @endif
         <div class="Main__Content--CreateEmulation">
           <div class="Title">
             <i class="fa-solid fa-folder-plus"></i>
@@ -482,6 +761,57 @@
             <input class="custom-button-m" type="submit" value="THÊM MỚI" />
           </form>
           
+        </div>
+        <div class="Main__Content--CreateEmulation">
+          <div class="Title">
+            <i class="fa-regular fa-file"></i>
+            <h4>CẬP NHẬT CHỨNG NHẬN</h4>
+          </div>
+          <form action="{{route('updateCertificate')}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div>
+              <div class="custom-Select">
+                <div class="custom-Select__Title">
+                  <i class="fa-solid fa-medal"></i>
+                  <span id="">Danh hiệu</span>
+                </div>
+
+                <select name="selectedStylized" id="">
+                <option value="">Chọn danh hiệu</option>
+                @foreach($stylized as $object)
+                <option value="{{$object->_id}}">{{$object->name_stylized}}</option>
+                @endforeach
+                </select>
+              </div>
+              <div class="custom-Select">
+                <div class="custom-Select__Title">
+                  <i class="fa-solid fa-business-time"></i>
+                  <span id="">Năm học</span>
+                </div>
+
+                <select name="selectedYear" id="">
+                <option value="">Chọn năm học</option>
+                @foreach($years as $key)
+                <option value="{{$key->_id}}">{{$key->year}}</option>
+                @endforeach
+                </select>
+              </div>
+              <div class="UploadTemplateMedal" id="UploadTemplateMedalReup">
+                <span
+                  ><i class="fa-solid fa-file-arrow-up"></i> CHỨNG NHẬN</span
+                >
+                <input
+                  type="file"
+                  name="newFile"
+                  accept="image/png, image/jpeg"
+                  id="TemplateMedalReup"
+                  required
+                />
+              </div>
+            </div>
+
+            <input class="custom-button-m" type="submit" value="CẬP NHẬT" />
+          </form>
         </div>
         <div class="Main__Content--ListEmulation">
           <div class="Title">
@@ -685,7 +1015,7 @@
           </table>
           <div class="pagination">
           
-          {{$CompetitionPeriod->links()}}
+          {{$CompetitionPeriod->appends(['data2_page' => $CompetitionPeriod->currentPage()])->links()}}
 
           </div>
         </div>
@@ -751,11 +1081,9 @@
             @endforeach
           </table>
           <div class="pagination">
-            
+            {{$stylizedList->appends(['data3_page' => $stylizedList->currentPage()])->links()}}
           </div>
         </div>
-        
-
         <div class="Main__Content--CreateMedal">
           <div class="Title">
             <i class="fa-solid fa-file-circle-plus"></i>
@@ -953,6 +1281,7 @@
           </form>
         </div>
       </div>
+
     </section>
     <script>
   document.addEventListener('DOMContentLoaded', function() {

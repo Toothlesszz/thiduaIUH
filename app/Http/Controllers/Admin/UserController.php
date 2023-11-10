@@ -192,7 +192,15 @@ class UserController extends Controller
       $user->email = $request->email;
 
         $user->save();
-
+      $checkRegis = Registration::where('id_user', '=', $id)->get();
+      if(!empty($checkRegis)){
+        $userDepart = User::where('_id', '=', $id)->first();
+        foreach($checkRegis as $item){
+          $registration = Registration::find($item->_id);
+          $registration->id_depart = $userDepart->id_depart;
+          $registration->save();
+        }
+      }
         return redirect()->back()->with('success', 'Cập nhật ứng viên thành công!');
     }
     public function changePassUserAdmin(Request $request, $id)

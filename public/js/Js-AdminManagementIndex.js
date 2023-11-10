@@ -1,218 +1,77 @@
-//Message
-const mainElement = document.querySelector(".MainMessage");
+// Lấy tham chiếu đến thẻ canvas
+var ctx = document.getElementById("mixedChart").getContext("2d");
+const inputString = document.querySelector("#inputString").value;
 
-function MessageImgError(Title, Mess) {
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message");
-    messageElement.style.animation =
-        " slideInLeft ease 0.4s,  fadeOut linear 1s 4s forwards";
-    messageElement.innerHTML = `
-      <div class="message__icon">
-        <i class="fa-solid fa-circle-exclamation fa-shake"></i>
-      </div>
-      <div class="message__content">
-        <p class="message__content--title">
-         ${Title}
-        </p>
-        <p class="message__content--note">
-          ${Mess}
-        </p>
-      </div>
-      <div class="message__close">
-        <i class="fas fa-times"></i>
-      </div>`;
+// Bước 1: Tách chuỗi thành các mảng con dựa trên dấu chấm phẩy (;)
+const sections = inputString.split(";");
 
-    mainElement.append(messageElement);
-    const closeElement = document.querySelectorAll(".message__close");
+// Bước 2: Tạo mảng cho tên khoa, điểm 1 và điểm 2
+const departmentNames = [];
+const points1 = [];
+const points2 = [];
 
-    const autoRemove = setTimeout(() => {
-        // mainElement.removeChild(mainElement.childNodes[0]);
-        mainElement.childNodes[0].remove();
-    }, 4000 + 1000);
+// Bước 3: Duyệt qua mảng con và tách thông tin
+sections.forEach((section) => {
+    const sectionParts = section.split(":");
+    if (sectionParts.length === 2) {
+        const [department, points] = sectionParts;
 
-    messageElement.onclick = function(e) {
-        if (e.target.closest(".message__close")) {
-            mainElement.removeChild(messageElement);
-            // mainElement.childNodes[0].remove();
-            clearTimeout(autoRemove);
-        }
-    };
-}
-//Slider Show
-const controlNext = document.querySelector(".next");
-const controlPrev = document.querySelector(".prev");
-const slideElement = document.querySelector(".Slider__main--img");
-var lengthSlide = document.querySelectorAll(".Slider__main--img img").length;
-const directionElement = document.querySelectorAll(".Slider__direction button");
-// var widthSlide = slideElement.getBoundingClientRect().width;
-var widthSlide = slideElement.offsetWidth;
-var index = 0;
+        if (department !== "Đoàn Trường") {
+            departmentNames.push(department);
 
-setInterval(() => {
-    if (slideElement.offsetWidth !== widthSlide) {
-        // Thực hiện lệnh khi width thay đổi
-        index = 1;
-        control();
-        console.log("Width đã thay đổi");
-        widthSlide = slideElement.offsetWidth;
-    }
-}, 1);
-// function updateWidth() {
-//   const { width } = slideElement.getBoundingClientRect();
-//   // sử dụng giá trị width ở đây
-//   console.log(width);
-//   widthSlide = width;
-
-//   // gọi lại hàm updateWidth
-//   requestAnimationFrame(updateWidth);
-// }
-// updateWidth();
-
-function control() {
-    directionElement.forEach((element) => {
-        element.classList.remove("active");
-    });
-    directionElement[index].classList.add("active");
-    slideElement.style.transform = `translateX(${-(index * widthSlide)}px)`;
-}
-
-function next() {
-    if (index < lengthSlide - 1) {
-        index++;
-    } else {
-        index = 0;
-    }
-    control();
-}
-
-setInterval(() => {
-    next();
-}, 8000);
-controlNext.onclick = () => {
-    next();
-};
-controlPrev.onclick = () => {
-    if (index === 0) {
-        index = lengthSlide - 1;
-    } else {
-        index--;
-    }
-    control();
-};
-
-directionElement.forEach((element) => {
-    element.onclick = () => {
-        index = element.dataset.direction;
-        control();
-    };
-});
-
-const imageCheckboxes = document.querySelectorAll(".image-checkbox");
-const selectedImagesDiv = document.getElementById("selected-images");
-const submitEditSlider = document.querySelector("#submitEditSlider");
-// const formEditSlider = document.querySelector("#formEditSlider");
-// Maximum number of checkboxes allowed to be checked
-const maxChecked = 4;
-
-// Array to store selected images
-const selectedImages = [];
-
-imageCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", function() {
-        const index = this.parentElement.parentElement
-            .querySelector("img")
-            .getAttribute("src");
-
-        if (this.checked) {
-            if (selectedImages.length < maxChecked) {
-                selectedImages.push(index);
-            } else {
-                this.checked = false; // Prevent checking more than the limit
-                return;
-            }
-        } else {
-            const selectedIndex = selectedImages.indexOf(index);
-            if (selectedIndex !== -1) {
-                selectedImages.splice(selectedIndex, 1);
+            const pointValues = points.split(",");
+            if (pointValues.length === 2) {
+                const [point1, point2] = pointValues;
+                points1.push(point1);
+                points2.push(point2);
             }
         }
-
-        updateSelectedImages();
-    });
-});
-
-// Update and display the list of selected images
-function updateSelectedImages() {
-    // Clear the selectedImagesDiv before adding new images
-    selectedImagesDiv.innerHTML = "";
-
-    selectedImages.forEach((src, index) => {
-        const img = document.createElement("img");
-        const input = document.createElement("input");
-        img.src = src;
-        img.alt = "Image";
-        // img.name = `slide[${index}]`; // Sử dụng index trực tiếp
-        // img.setAttribute("data-index", index); // Sử dụng index trực tiếp
-        selectedImagesDiv.appendChild(img);
-        input.type = "hidden";
-        input.value = src.split("/").pop();
-        input.name = `slide[${index}]`;
-        input.setAttribute("data-index", index);
-        selectedImagesDiv.appendChild(input);
-    });
-}
-submitEditSlider.addEventListener("click", function(event) {
-    // Kiểm tra nếu mảng selectedImages trống
-
-    if (selectedImages.length === 0) {
-        // Ngăn sự kiện submit mặc định
-        event.preventDefault();
-        MessageImgError("KHÔNG THÀNH CÔNG!", "Vui lòng chọn ít nhất một ảnh!");
     }
 });
 
-//UpLoad Hình ảnh chứng nhận
-// Get the input element and submit button
-const fileInputTemplateMedal = document.querySelector("#TemplateMedal");
-// const UploadImg = document.querySelector("#btn-UploadImg");
+console.log(departmentNames);
+console.log(points1);
+console.log(points2);
 
-// Add an event listener to the input element
-var checkType1 = false;
-fileInputTemplateMedal.addEventListener("input", function(e) {
-    // Get the file object from the input element
-    const filefileInputTemplateMedal = e.target.files[0];
-    const fileTypefileInputTemplateMedal = filefileInputTemplateMedal.type;
+// Dữ liệu biểu đồ
+var data = {
+    labels: departmentNames,
+    datasets: [{
+            label: "ỨNG VIÊN ĐẠT DANH HIỆU",
+            type: "bar",
+            data: points2,
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
+        },
+        {
+            label: "SỐ LƯỢNG HỒ SƠ",
+            type: "line",
+            data: points1,
+            fill: false,
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 2,
+        },
+    ],
+};
 
-    if (
-        fileTypefileInputTemplateMedal != "image/png" &&
-        fileTypefileInputTemplateMedal != "image/jpeg"
-    ) {
-        MessageImgError(
-            "UPLOAD FILE KHÔNG THÀNH CÔNG!",
-            "Vui lòng chọn file mẫu chứng nhận có định dạng là jpeg/png"
-        );
-        e.target.value = "";
-        StyleProof1(
-            "transparent",
-            "<i class='fa-solid fa-file-arrow-up'></i> CHỨNG NHẬN",
-            "rgba(155, 155, 155, 1)"
-        );
-        checkType1 = false;
-    } else {
-        // Create a FileReader object to read the file
-        checkType1 = true;
-
-        StyleProof1(
-            "rgba(29, 171, 161, 1)",
-            "<i class='fa-solid fa-file-image'></i> ĐÃ CHỌN FILE!",
-            "rgb(255, 255, 255)"
-        );
-        // Read the file as a data URL
-    }
+// Tạo biểu đồ kết hợp nhiều loại
+var mixedChart = new Chart(ctx, {
+    type: "bar",
+    data: data,
+    options: {
+        scales: {
+            x: {
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                grid: {
+                    display: false,
+                },
+            },
+        },
+        barPercentage: 0.5,
+    },
 });
-
-function StyleProof1(Color, Text, TextColor) {
-    document.querySelector(".UploadImage").style.backgroundColor = Color;
-    document.querySelector(".UploadImage span").innerHTML = Text;
-    document.querySelector(".UploadImage span").style.color = TextColor;
-}

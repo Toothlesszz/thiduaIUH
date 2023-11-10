@@ -24,6 +24,27 @@
     <section id="instruction">
       <img src="/images/instruction.png" alt="" />
     </section>
+    <section class="MainMessage"></section>
+    @if(session('success1'))
+              <script>
+                sessionStorage.setItem("reloadStatus", "true");
+            window.addEventListener("load", function () {
+       
+            // Kiểm tra trạng thái đã được lưu trữ
+            var reloadStatus = sessionStorage.getItem("reloadStatus");
+
+            if (reloadStatus === "true") {
+              MessageSuccess("THÀNH CÔNG!", "Xóa hồ sơ ứng viên thành công.");
+              // MessageError(
+              //   "CẬP NHẬT KHÔNG THÀNH CÔNG!",
+              //   "Thông tin mật khẩu chưa chính xác."
+              // );
+              // Xóa trạng thái đã được lưu trữ
+              sessionStorage.removeItem("reloadStatus");
+            }
+          });
+              </script>
+      @endif
     <section id="loading-overlay">
       <img src="/images/logo-main.png" alt="" />
       <div class="loading-spinner"></div>
@@ -309,14 +330,29 @@
               <th>Thời gian</th>
               <th id="btn-BrowserMedal"></th>
             </tr>
-            
+            @php
+            $dem=0;
+            @endphp
             @foreach($regis as $value)
             
             <tr>
               <td>
                 <div class="Profile">
+                <b
+                    style="
+                      width: 0.4vw;
+                      font-size: 0.8vw;
+                      margin-right: 1vw;
+                      color: rgba(29, 171, 161, 1);
+                    "
+                    >@php 
+                    $dem = $dem + 1;
+                    echo $dem;
+                     @endphp</b
+                  >
+
                   <img src="{{ asset('uploads/user/'. $value->users->image) }}" alt="" />
-                  <span>{{$value->users->name}}</span>
+                  <span> {{$value->users->name}}</span>
                 </div>
               </td>
               <td>{{$value->users->code}}</td>
@@ -333,6 +369,11 @@
                 >
                   <i class="fa-solid fa-circle-xmark"></i>
                   <span>CHƯA ĐẠT</span>
+                </div>
+                @elseif($value->admin_status == '0')
+                <div class="Status">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>CHỜ DUYỆT</span>
                 </div>
                 @elseif($value->admin_status == '1')
                 <div

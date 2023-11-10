@@ -12,10 +12,12 @@ use Illuminate\Http\File;
 use App\Models\Stylized;
 use App\Models\Registration;
 use App\Models\Years;
+use App\Models\User;
 use App\Models\Ceriterias;
 use App\Models\CeriteriasDetail;
 use App\Models\CompetitionPeriod;
 use App\Models\Notifications;
+use App\Models\Reregistration;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -33,22 +35,28 @@ class StylizedController extends Controller
         
         if($findyear != '')
         {
-            $CompetitionPeriod = CompetitionPeriod::with('stylized','years')->where('id_year','=', $findyear)->paginate(5);
+            $CompetitionPeriod = CompetitionPeriod::with('stylized','years')->where('id_year','=', $findyear)->paginate(5,['*'],'data2_page')->withQueryString()->appends([
+                'sort' => 'startdate',
+                'order' => 'asc',
+            ]);
             
         }
         else{
-            $CompetitionPeriod = CompetitionPeriod::with('stylized','years')->orderBy('startdate', 'desc')->paginate(5);
+            $CompetitionPeriod = CompetitionPeriod::with('stylized','years')->orderBy('startdate', 'desc')->paginate(5,['*'],'data2_page')->withQueryString()->appends([
+                'sort' => 'startdate',
+                'order' => 'desc',
+            ]);
         }
 
         $years = years::get();
-        
+        $competeList = CompetitionPeriod::get();
         $stylized = stylized::with('CompetitionPeriod','years')->get();
        //Xuất danh hiệu để quản lý, dùng biến này ở chỗ quản lý danh hiệu
-        $stylizedList = stylized::with('CompetitionPeriod','years')->paginate(5)->withQueryString();
+        $stylizedList = stylized::with('CompetitionPeriod','years')->paginate(1,['*'],'data3_page')->withQueryString();
         $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
         $count = count($notifications);
-        
-        return view('admin.stylized.index')->with(compact( 'findyear','stylized', 'years','CompetitionPeriod','stylizedList','notifications','count'));
+        $re_Registration = Reregistration::paginate(5,['*'],'data1_page')->withQueryString();
+        return view('admin.stylized.index')->with(compact( 'competeList','findyear','re_Registration','stylized', 'years','CompetitionPeriod','stylizedList','notifications','count'));
     }
 
     /**
@@ -367,6 +375,73 @@ public function addNewStylized(Request $request)
         }
         
     }
+    public function addErrorUsers(Request $request){
+        $codeUser = $request->codeUser;
+        $idCompete = $request->idCompetitionperiod;
+        if(!empty($idCompete)){
+            $checkUser = User::where('code','=', $codeUser)->first();
+        $checkErrorUser = Reregistration::where('code_user','=', $codeUser)->first();
+        if(empty($checkErrorUser)){
+            if(!empty($checkUser)){
+            $reRegistration = new Reregistration();
+            $reRegistration->id_user = $checkUser->_id;
+            $reRegistration->code_user = $codeUser;
+            $reRegistration->id_competitionperiod = $request->idCompetitionperiod;
+            $reRegistration->save();
+        }
+        else{
+            return redirect()->back()->with('error7', 'Vui lòng kiểm tra lại mã số sinh viên !');
+        }
+        }else{
+            return redirect()->back()->with('error8', 'Vui lòng kiểm tra lại mã số sinh viên !');
+        }
+        }
+        else{
+            return redirect()->back()->with('error', 'Vui lòng kiểm tra tính chính xác và đầy đủ của thông tin !');
+        }
+        
+        
+        return redirect()->back()->with('success6', 'Thêm ứng viên thành công.');
+    }
+    public function deleteErrorUsers(Request $request, $id){
+        $deleteErrorUser = Reregistration::find($id)->delete();
+        return redirect()->back()->with('success7', 'Xóa ứng viên thành công.');
+    }
+    public function deleteAllErrorUsers(){
+        $deleteAllErrorUsers = Reregistration::where('code', '!=', '')->delete();
 
-    
+        return redirect()->back()->with('success7', 'Xóa ứng viên thành công.');
+    }
+    public function updateCertificate(Request $request){
+        $selectedStylized = $request['selectedStylized'];
+        $selectedYear = $request['selectedYear'];
+        $get_image = $request->newFile;
+        if($selectedStylized != '' && $selectedYear != ''){
+            $selectedCompete = CompetitionPeriod::where('id_styli','=',$selectedStylized)->where('id_year', '=', $selectedYear)->first();
+            if(!empty($selectedCompete)){
+                $path = 'certificate/img_certificate/'.$selectedCompete->image;
+            if(file_exists($path)) {
+                unlink($path);
+                $path = 'certificate/img_certificate/';
+                $get_name_image = $get_image->getClientOriginalName();
+                $name_image = current(explode('.', $get_name_image));
+                $new_name_image = $name_image.'_'.time().'.'.$get_image->getClientOriginalExtension();
+                $get_image->move($path, $new_name_image);
+                $selectedCompete->image = $new_name_image;
+                $selectedCompete->save();
+                return redirect()->back()->with('success8','Thay đổi mẫu minh chứng thành công');
+            }
+            else{
+                return redirect()->back()->with('error10','Đã có lỗi xảy ra, vui lòng kiểm tra lại file mẫu chứng nhận.');
+            }
+            }
+            else{
+                return redirect()->back()->with('error11','Không tìm thấy đợt thi đua tương ứng với năm học đã chọn');
+            }
+        }
+        else{
+            return redirect()->back()->with('error9', 'Vui lòng chọn danh hiệu hoặc năm học');
+        }
+        
+    }
 }

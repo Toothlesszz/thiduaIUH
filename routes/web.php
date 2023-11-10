@@ -171,7 +171,7 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     //Manage years, competition period, stylized
     Route::resource('/stylized', StylizedController::class);
     // Add new scholastic (Thêm năm học mới)
-    Route::post('/stylized', [StylizedController::class, 'addNewYear'])->name('addNewYear');
+    Route::post('/stylized/add-new-year', [StylizedController::class, 'addNewYear'])->name('addNewYear');
     // Add new competition period (Tạo mới đợt thi đua)
     Route::post('/stylized/add-competition', [StylizedController::class, 'addCompetition'])->name('addCompetition');
     // Manage competition period (Cập nhật đợt thi đua)
@@ -185,8 +185,13 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     Route::get('/stylized/dowload-file/{filename}', [StylizedController::class, 'downloadFile'])->name('downloadFile');
     //Delete stylized 
     Route::get('/stylized/delete-stylized/{id}', [StylizedController::class, 'deleteStylized'])->name('deleteStylized');
-    
-    Route::post('/stylized/{id}', [StylizedController::class, 'update']);
+    //Add error users
+    Route::post('/stylized/add-users/', [StylizedController::class, 'addErrorUsers'])->name('addErrorUsers');
+    //Delete error users
+    Route::get('/stylized/delete-users/{id}', [StylizedController::class, 'deleteErrorUsers'])->name('deleteErrorUsers');
+    //Delete all error users
+    Route::get('/stylized/delete-all-users/', [StylizedController::class, 'deleteAllErrorUsers'])->name('deleteAllErrorUsers');
+    Route::post('/stylized/update-certificate', [StylizedController::class, 'updateCertificate'])->name('updateCertificate');
     Route::get('/stylized/update-status/{id}/status/{status}', [StylizedController::class, 'updateStatus'])->name('stylized.update.status');
     
    
@@ -195,6 +200,7 @@ Route::prefix('admin')->middleware('adminMiddle')->group(function () {
     Route::resource('/review-stylized', ReviewStylizedController::class);
     Route::get('/review-detail-stylized/{id}', [ReviewDetailStylizedController::class,'showDetailCeriteriaAdmin'])->name('showDetailCeriteriaAdmin');
     Route::post('/review-detail-stylized/{id}', [ReviewDetailStylizedController::class,'updateRegistrationDetailAdmin'])->name('updateRegistrationDetailAdmin');
+    Route::get('/review-detail-stylized/delete/{id}', [ReviewDetailStylizedController::class,'deleteProfile'])->name('deleteProfile');
     
     // SlideShow
     Route::resource('/update-slideshow', SlideShowController::class);

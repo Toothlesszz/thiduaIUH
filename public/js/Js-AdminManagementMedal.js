@@ -86,7 +86,7 @@ tinymce.init({
         { value: "Email", title: "Email" },
     ],
 });
-//
+//Chứng nhận
 
 const MedalDescriptionName = document.querySelector(
     ".MedalDescription__Name input"
@@ -449,8 +449,8 @@ AddStandard.addEventListener("click", function() {
       class="product-qty"
       type="number"
       name="criterias[${indexStandardNew}][criteriasnumber][]"
-      min="0"
-      max="100"
+      min="1"
+      max="10"
       value="1"
     />
     <button
@@ -891,6 +891,7 @@ var QtyInput = (function() {
         });
     });
 })();
+
 //Xóa
 
 // Lấy tất cả các thẻ <a> có class "btnDelete"
@@ -920,3 +921,52 @@ closePopupBtns.forEach(function(closeBtn) {
         parent.style.display = "none";
     });
 });
+
+//UpLoad Hình ảnh chứng nhận
+// Get the input element and submit button
+const fileInputTemplateMedalReup = document.querySelector("#TemplateMedalReup");
+// const UploadImg = document.querySelector("#btn-UploadImg");
+
+// Add an event listener to the input element
+var checkTypeReup = false;
+fileInputTemplateMedalReup.addEventListener("input", function(e) {
+    // Get the file object from the input element
+    const filefileInputTemplateMedalReup = e.target.files[0];
+    const fileTypefileInputTemplateMedalReup =
+        filefileInputTemplateMedalReup.type;
+
+    if (
+        fileTypefileInputTemplateMedalReup != "image/png" &&
+        fileTypefileInputTemplateMedalReup != "image/jpeg"
+    ) {
+        MessageImgError(
+            "UPLOAD FILE KHÔNG THÀNH CÔNG!",
+            "Vui lòng chọn file mẫu chứng nhận có định dạng là jpeg/png"
+        );
+        e.target.value = "";
+        StyleProofReup(
+            "transparent",
+            "<i class='fa-solid fa-file-arrow-up'></i> CHỨNG NHẬN",
+            "rgba(155, 155, 155, 1)"
+        );
+        checkTypeReup = false;
+    } else {
+        // Create a FileReader object to read the file
+        checkTypeReup = true;
+
+        StyleProofReup(
+            "rgba(29, 171, 161, 1)",
+            "<i class='fa-solid fa-file-image'></i> ĐÃ CHỌN FILE!",
+            "rgb(255, 255, 255)"
+        );
+        // Read the file as a data URL
+    }
+});
+
+function StyleProofReup(Color, Text, TextColor) {
+    document.querySelector("#UploadTemplateMedalReup").style.backgroundColor =
+        Color;
+    document.querySelector("#UploadTemplateMedalReup span").innerHTML = Text;
+    document.querySelector("#UploadTemplateMedalReup span").style.color =
+        TextColor;
+}

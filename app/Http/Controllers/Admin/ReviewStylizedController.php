@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Years;
 use App\Models\Department;
@@ -28,17 +28,17 @@ class ReviewStylizedController extends Controller
      */
     public function index(Request $request)
     {
-        if( Auth::guard('admin')->user()->status != '2'){
-            return redirect('/login-admin')->with(Auth::logout());
-        }
+if( Auth::guard('admin')->user()->status != '2'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }
         $keyword = $request['keyword'] ?? "";
         $type = $request['type'];
         $status = $request['status'];
         $styli = $request['styli'];
         $depart = $request['depart'];
         $year = $request['year'];
-        
-        $nameDepart = Department::where('_id', '=', $depart)->first();
+
+       $nameDepart = Department::where('_id', '=', $depart)->first();
         $nameStylized = Stylized::where('_id','=',$styli)->first();
         $selectedYear = Years::where('_id','=',$year)->first();
         if($nameStylized != '')
@@ -61,8 +61,7 @@ class ReviewStylizedController extends Controller
             $department = Department::get();
         }
         $query = Registration::with('competitionperiod','users')
-        ->whereIn('admin_status',['1','2','3','4','5'])
-        ->orderBy('admin_status', 'asc');
+        ->orderBy('date', 'asc');
 
         if($keyword !== '' && $type == '1') {
             $checkUser = User::where('code','=',$keyword)->first();
@@ -197,6 +196,10 @@ class ReviewStylizedController extends Controller
         elseif($year == '' && $styli == '' && $status != '' && $depart == ''){
             $query->where('admin_status' , '=' , $status);
         }
+	elseif($year == '' && $styli == '' && $status == '' && $depart != ''){
+            $query->where('id_depart' , '=', $depart);
+        }
+
         elseif($year == '' && $styli == '' && $status != '' && $depart !=''){
             $query->where('admin_status' , '=' , $status)->where('id_depart' , '=', $depart);
         }
@@ -254,9 +257,9 @@ class ReviewStylizedController extends Controller
                     $query->whereIn('id_competitionperiod',$id_com)->where('id_depart' , '=' , $depart);
                 }
         }
-        $regis = $query->paginate(5)->withQueryString();
-        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
-        $count = count($notifications);
+        $regis = $query->paginate(50)->withQueryString();
+    $notifications = Notifications::where('id_user', '=', Auth::guard('admin')->user()->_id)->orderBy('date','desc')->get();
+	$count = count($notifications);
       return view('admin.reviewStylized.index')
       ->with(compact('regis', 'keyword','years','year','nameDepart','selectedYear','nameStylized','stylized','department','type','status','styli','notifications','count'));
     }
@@ -290,14 +293,13 @@ class ReviewStylizedController extends Controller
      */
     public function show($id)
     {
-        if( Auth::guard('admin')->user()->status != '2'){
-            return redirect('/login-admin')->with(Auth::logout());
-        }
+if( Auth::guard('admin')->user()->status != '2'){
+        return redirect('/login-admin')->with(Auth::logout());
+    }
         $registration = Registration::find($id);
         $criterias = Ceriterias::where('id_styli', $registration->id_stylized)->paginate(20);
-        $notifications = Notifications::where('id_user','=', Auth::guard('admin')->user()->_id)->get();
-        $count = count($notifications);
-        return view('admin.reviewStylized.criterias')->with(compact('criterias', 'id','notifications','count'));
+
+        return view('admin.reviewStylized.criterias')->with(compact('criterias', 'id'));
     }
 
     /**
